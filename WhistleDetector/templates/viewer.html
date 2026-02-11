@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Whistle Viewer</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            background-color: #111;
+            color: #eee;
+            margin: 0;
+            padding: 20px;
+        }
+        iframe {
+            width: 80%;
+            height: 400px;
+            border: none;
+            margin-bottom: 20px;
+        }
+        img {
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        audio {
+            margin-top: 10px;
+        }
+        button {
+            background-color: #444;
+            color: #eee;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        .info {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🏐 Whistle Detection Review</h1>
+    <div class="info">
+        <p><strong>{{ match }}</strong> — {{ timestamp }}</p>
+        <p>Detection {{ i + 1 }} / {{ total }}</p>
+    </div>
+
+    {% if video_url %}
+        <iframe src="{{ video_url }}" allowfullscreen></iframe>
+    {% else %}
+        <p>(No YouTube video linked for this match)</p>
+    {% endif %}
+
+    <div>
+        <img src="{{ png_path }}" alt="Spectrogram">
+        <br>
+        <audio controls>
+            <source src="{{ wav_path }}" type="audio/wav">
+            Your browser does not support audio.
+        </audio>
+    </div>
+
+    <br><br>
+    <!-- 👇 This is the key line that actually cycles -->
+    <a href="{{ next_url }}"><button>Next ▶</button></a>
+
+</body>
+</html>

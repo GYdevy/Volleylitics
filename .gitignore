@@ -1,0 +1,49 @@
+# Environment variables / secrets
+.env
+.idea/
+.env.*
+*.env
+ngrok_recovery_codes.txt
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Plots / generated outputs
+plots/
+*.png
+*.jpg
+*.jpeg
+*.pdf
+
+# Logs
+*.log
+
+# Local config
+*.local
+
+# Ignore Volleybot folder
+Volleybot/
+
+# Ignore match videos
+vidoes/
+*.mp4
+*.wav
+
+
+Vision/data/
+Vision/dataset/
+Vision/runs
+
+*.pt
+*.pkl
+
+*.txt
+
+

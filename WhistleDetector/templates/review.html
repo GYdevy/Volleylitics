@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Whistle Labeling Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            color: #00e0ff;
+            margin-bottom: 0;
+        }
+        iframe {
+            width: 720px;
+            height: 405px;
+            border: none;
+            margin: 20px auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        .audio-container {
+            margin: 20px auto;
+        }
+        audio {
+            width: 500px;
+        }
+        img {
+            width: 600px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 2px solid #333;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .buttons {
+            margin-top: 30px;
+        }
+        button {
+            background-color: #1e88e5;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .noise { background-color: #e53935; }
+        .noise:hover { background-color: #c62828; }
+        .skip { background-color: #757575; }
+        .skip:hover { background-color: #616161; }
+        footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Whistle Labeling Tool</h1>
+    <h3>{{ match }} — Timestamp: {{ timestamp }}</h3>
+
+    {% if video_url %}
+        <iframe src="{{ video_url }}" allowfullscreen></iframe>
+    {% endif %}
+
+    <div class="audio-container">
+        <audio controls>
+            <source src="{{ wav_path }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <img src="{{ png_path }}" alt="Spectrogram">
+
+    <div class="buttons">
+        <form method="POST" action="{{ url_for('label') }}">
+            <input type="hidden" name="match" value="{{ match }}">
+            <input type="hidden" name="timestamp" value="{{ timestamp }}">
+            <button id="whistle" name="label" value="whistle">✅ Whistle (W)</button>
+            <button id="noise" class="noise" name="label" value="noise">❌ Noise (N)</button>
+            <button id="skip" class="skip" name="label" value="skip">⏭ Skip (S)</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>Use keyboard shortcuts — [W] Whistle, [N] Noise, [S] Skip</p>
+    </footer>
+
+    <script>
+        // Keyboard shortcuts for faster labeling
+        document.addEventListener('keydown', function(e) {
+            if (e.key.toLowerCase() === 'w') document.getElementById('whistle').click();
+            if (e.key.toLowerCase() === 'n') document.getElementById('noise').click();
+            if (e.key.toLowerCase() === 's') document.getElementById('skip').click();
+        });
+    </script>
+
+</body>
+</html>

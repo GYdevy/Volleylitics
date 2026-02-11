@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Volley Labeler</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body {
+      background: #111;
+      color: white;
+      text-align: center;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #frame-container {
+      position: relative;
+      display: inline-block;
+      margin-top: 20px;
+      border: 2px solid #fff;
+      cursor: crosshair;
+    }
+
+    #frame {
+      max-width: 90vw;
+      max-height: 85vh;
+      transform-origin: center center;
+      transition: transform 0.1s ease;
+    }
+
+    /* Zoom instructions */
+    #instructions {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ccc;
+      font-size: 0.9em;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      background: #444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #666;
+    }
+
+    /* Crosshair marker */
+    #crosshair {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid red;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Match: {{ match }}</h2>
+  <div id="frame-container">
+    <img id="frame" src="/frame/{{ match }}/{{ frame.split('/')[-1].split('\\')[-1] }}" alt="frame">
+    <div id="crosshair"></div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="noBall()">No Ball</button>
+    <button onclick="skip()">Skip</button>
+  </div>
+
+  <div id="instructions">🔍 Scroll to zoom • Drag to pan • Click to mark ball</div>
+
+  <script>
+    const img = document.getElementById("frame");
+    const match = "{{ match }}";
+    const frame = "{{ frame.split('/')[-1].split('\\\\')[-1] }}"; // no match_ prefix
+    const crosshair = document.getElementById("crosshair");
+    const container = document.getElementById("frame-container");
+
+    // --- Zoom and pan ---
+    let scale = 1, originX = 0, originY = 0, isDragging = false, startX, startY;
+
+    img.addEventListener("wheel", e => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? 0.9 : 1.1;
+      scale = Math.min(Math.max(0.5, scale * delta), 5);
+      img.style.transform = `scale(${scale}) translate(${originX}px, ${originY}px)`;
+    });
+
+    img.addEventListener("mousedown", e => {
+      if (e.button === 1 || e.shiftKey) {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        img.style.cursor = "grabbing";
+      }
+    });
+
+    window.addEventListener("mouseup", () => {
+      isDragging = false;
+      img.style.cursor = "crosshair";
+    });
+
+    window.addEventListener("mousemove", e => {
+      if (isDragging) {
+        originX += (e.clientX - startX) / scale;
+        originY += (e.clientY - startY) / scale;
+        startX = e.clientX;
+        startY = e.clientY;
+        img.style.transform = `scale(${scale}) translate(${originX}px, ${originY}px)`;
+      }
+    });
+
+    // --- Click to label (auto-normalized, zoom/pan aware) ---
+img.addEventListener("click", e => {
+  const rect = img.getBoundingClientRect();
+
+  // Read current transform from style
+  const transform = window.getComputedStyle(img).transform;
+  let scale = 1, translateX = 0, translateY = 0;
+  if (transform && transform !== "none") {
+    const values = transform.match(/matrix\(([^)]+)\)/);
+    if (values) {
+      const parts = values[1].split(',').map(parseFloat);
+      scale = parts[0];
+      translateX = parts[4];
+      translateY = parts[5];
+    }
+  }
+
+  // Mouse position relative to image *before* transform
+  const xDisplay = (e.clientX - rect.left - translateX) / scale;
+  const yDisplay = (e.clientY - rect.top - translateY) / scale;
+
+  // Normalize relative to the image’s natural resolution
+  const xNorm = xDisplay / img.naturalWidth;
+  const yNorm = yDisplay / img.naturalHeight;
+
+  // Show crosshair where clicked
+  crosshair.style.left = `${xDisplay}px`;
+  crosshair.style.top = `${yDisplay}px`;
+  crosshair.style.display = "block";
+
+  // Submit normalized coordinates
+  submit(true, xNorm, yNorm);
+});
+
+
+    function noBall() { submit(false); }
+    function skip() { nextFrame(); }
+
+    function submit(hasBall, x = null, y = null) {
+      fetch("/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ match, frame, has_ball: hasBall, x, y })
+      }).then(() => nextFrame());
+    }
+
+    function nextFrame() {
+      fetch("/next").then(r => r.json()).then(data => {
+        window.location.href = `/?match=${data.match}&frame=${data.frame.split('/').pop()}`;
+      });
+    }
+  </script>
+</body>
+</html>
