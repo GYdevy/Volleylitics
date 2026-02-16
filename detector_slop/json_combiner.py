@@ -35,11 +35,18 @@ for file in INPUT_FILES:
 
 print(f"\nTotal whistles before processing: {len(all_whistles)}")
 
+
+
+# Ensure raw timestamp field exists for downstream anchoring
+for w in all_whistles:
+    if "t_raw" not in w:
+        w["t_raw"] = w.get("time")
+
 # ===============================
 # SORT
 # ===============================
 
-all_whistles.sort(key=lambda w: (w["match_id"], w["time"]))
+all_whistles.sort(key=lambda w: (w["match_id"], w.get("t_raw", w.get("time", 0))))
 
 # ===============================
 # OPTIONAL: REASSIGN GLOBAL IDS

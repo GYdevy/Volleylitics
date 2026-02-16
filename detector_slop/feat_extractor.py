@@ -8,7 +8,7 @@ from tqdm import tqdm
 # ===============================
 # CONFIG
 # ===============================
-WHISTLES_JSON = "whistles_all.json"
+WHISTLES_JSON = "whistles_all_anchored.json"
 
 VIDEO_AUDIO_PATHS = {
     "match3": r"D:\Volleyballey\videos\match3.mp4",
@@ -74,7 +74,10 @@ for split in tqdm(SPLIT.keys(), desc="Splits"):
 
         print(f"\nLoading audio for {match_id}...")
         y = load_audio(VIDEO_AUDIO_PATHS[match_id])
-        whistle_times = sorted([w["time"] for w in matches[match_id]])
+        whistle_times = sorted([
+            w.get("t_anchor", w.get("t_raw", w.get("time")))
+            for w in matches[match_id]
+        ])
 
         # --------------------
         # POSITIVES
