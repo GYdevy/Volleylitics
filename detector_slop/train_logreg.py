@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import numpy as np
 import librosa
 from tqdm import tqdm
@@ -16,7 +17,9 @@ from sklearn.preprocessing import StandardScaler
 # ==========================
 # CONFIG
 # ==========================
-DATASET_DIR = "../dataset"
+BASE_DIR = Path(__file__).resolve().parent
+DATASET_DIR = BASE_DIR.parent / "dataset"
+MODELS_DIR = BASE_DIR / "models"
 SR = 22050
 SAVE_FALSE_POSITIVES = False
 # ==========================
@@ -61,16 +64,16 @@ def load_split(split):
     paths = []
 
     for label, folder in enumerate(["negative", "positive"]):
-        path = os.path.join(DATASET_DIR, split, folder)
+        path = DATASET_DIR / split / folder
         files = os.listdir(path)
 
         for f in tqdm(files, desc=f"{split}-{folder}"):
-            full_path = os.path.join(path, f)
-            features = extract_features(full_path)
+            full_path = path / f
+            features = extract_features(str(full_path))
 
             X.append(features)
             y.append(label)
-            paths.append(full_path)
+            paths.append(str(full_path))
 
     return np.array(X), np.array(y), paths
 
@@ -213,7 +216,7 @@ import os
 
 MODEL_NAME = "rf"
 
-os.makedirs("models", exist_ok=True)
+os.makedirs(MODELS_DIR, exist_ok=True)
 
 results = {
     "model_name": MODEL_NAME,
@@ -225,9 +228,9 @@ results = {
     "test_report": classification_report(y_test, y_pred_test, output_dict=True)
 }
 
-joblib.dump(model, f"detector_slop/models/{MODEL_NAME}.pkl")
+joblib.dump(model, MODELS_DIR / f"{MODEL_NAME}.pkl")
 
-with open(f"detector_slop/models/{MODEL_NAME}_metrics.json", "w") as f:
+with open(MODELS_DIR / f"{MODEL_NAME}_metrics.json", "w") as f:
     json.dump(results, f, indent=4)
 
 print(f"\nModel + metrics saved → models/{MODEL_NAME}")
