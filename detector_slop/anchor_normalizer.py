@@ -57,7 +57,9 @@ def peak_band_anchor(
         return t_raw
 
     peak_frame = int(np.argmax(band_energy))
-    frame_center_samples = peak_frame * hop_length + (n_fft // 2)
+    # librosa.stft uses center=True by default, so frame index already maps to
+    # center time at t * hop_length relative to this segment.
+    frame_center_samples = peak_frame * hop_length
     t_anchor = (start_s + frame_center_samples) / sr
 
     return float(max(0.0, min(t_anchor, len(y) / sr)))
