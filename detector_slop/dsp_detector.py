@@ -8,7 +8,7 @@ import tempfile
 import subprocess
 import os
 from dataclasses import dataclass
-
+import random
 import numpy as np
 import librosa
 from scipy.signal import find_peaks
@@ -260,7 +260,7 @@ def group_frames(active):
             cur = [f]
 
     groups.append(cur)
-    MAX_WHISTLE_SEC = 1.5
+    MAX_WHISTLE_SEC = 1.2
     max_frames = int(MAX_WHISTLE_SEC * cfg.sr / cfg.hop)
 
     filtered = []
@@ -431,6 +431,132 @@ def suppress_close_centers(detections, min_gap_sec=0.7):
             filtered.append(d)
 
     return filtered
+
+
+def extract_cnn_dataset_clean(match_id, y, refined_detections, gt, out_root="cnn_dataset"):
+
+    os.makedirs(out_root, exist_ok=True)
+    pos_dir = os.path.join(out_root, "pos")
+    neg_dir = os.path.join(out_root, "neg")
+    os.makedirs(pos_dir, exist_ok=True)
+    os.makedirs(neg_dir, exist_ok=True)
+
+    metadata_path = os.path.join(out_root, "metadata.csv")
+
+    WINDOW_SEC = 1.2
+    MARGIN_SEC = 1.0
+    SAFE_NEG_PER_POS = 3   # ratio of negatives to positives
+
+    total_len_sec = len(y) / cfg.sr
+
+    # =========================================================
+    # 1️⃣ BUILD EXCLUSION INTERVALS
+    # =========================================================
+
+    exclusion_intervals = []
+
+    # GT anchors
+    for g in gt:
+        center = g["t_anchor"]
+        exclusion_intervals.append((
+            center - (WINDOW_SEC/2 + MARGIN_SEC),
+            center + (WINDOW_SEC/2 + MARGIN_SEC)
+        ))
+
+    # Also exclude refined whistle detections (double whistles etc.)
+    for start, end in refined_detections:
+        center = (start + end) / 2
+        exclusion_intervals.append((
+            center - (WINDOW_SEC/2 + MARGIN_SEC),
+            center + (WINDOW_SEC/2 + MARGIN_SEC)
+        ))
+
+    # Clamp to audio bounds
+    exclusion_intervals = [
+        (max(0, s), min(total_len_sec, e))
+        for s, e in exclusion_intervals
+    ]
+
+    # Sort & merge intervals
+    exclusion_intervals.sort()
+    merged = []
+
+    for s, e in exclusion_intervals:
+        if not merged:
+            merged.append([s, e])
+        else:
+            if s <= merged[-1][1]:
+                merged[-1][1] = max(merged[-1][1], e)
+            else:
+                merged.append([s, e])
+
+    exclusion_intervals = merged
+
+    # =========================================================
+    # 2️⃣ SAVE POSITIVES (CENTERED ON GT)
+    # =========================================================
+
+    with open(metadata_path, "a") as meta:
+
+        pos_count = 0
+
+        for i, g in enumerate(gt):
+            center = g["t_anchor"]
+            start = center - WINDOW_SEC/2
+            end   = center + WINDOW_SEC/2
+
+            if start < 0 or end > total_len_sec:
+                continue
+
+            s0 = int(start * cfg.sr)
+            s1 = int(end   * cfg.sr)
+
+            clip = y[s0:s1]
+            filename = f"{match_id}_pos_{i}_{round(center,3)}.wav"
+            out_path = os.path.join(pos_dir, filename)
+
+            sf.write(out_path, clip, cfg.sr)
+            meta.write(f"{match_id},{filename},{start},{end},1\n")
+
+            pos_count += 1
+
+        # =========================================================
+        # 3️⃣ SAMPLE NEGATIVES FROM SAFE GAPS
+        # =========================================================
+
+        neg_target = pos_count * SAFE_NEG_PER_POS
+        neg_count = 0
+        attempts = 0
+        MAX_ATTEMPTS = neg_target * 20
+
+        while neg_count < neg_target and attempts < MAX_ATTEMPTS:
+            attempts += 1
+
+            center = random.uniform(WINDOW_SEC/2, total_len_sec - WINDOW_SEC/2)
+            start = center - WINDOW_SEC/2
+            end   = center + WINDOW_SEC/2
+
+            # Check overlap with exclusion zones
+            overlaps = False
+            for s, e in exclusion_intervals:
+                if start < e and end > s:
+                    overlaps = True
+                    break
+
+            if overlaps:
+                continue
+
+            s0 = int(start * cfg.sr)
+            s1 = int(end   * cfg.sr)
+
+            clip = y[s0:s1]
+            filename = f"{match_id}_neg_{neg_count}_{round(center,3)}.wav"
+            out_path = os.path.join(neg_dir, filename)
+
+            sf.write(out_path, clip, cfg.sr)
+            meta.write(f"{match_id},{filename},{start},{end},0\n")
+
+            neg_count += 1
 # ============================================================
 # MAIN
 # ============================================================
@@ -476,7 +602,7 @@ def evaluate_match(match_id, all_gt):
         peak_prom=0.25
     )
     #refined = temporal_nms(refined, iou_threshold=0.2)
-    refined = suppress_close_centers(refined, min_gap_sec=0.7)
+    refined = suppress_close_centers(refined, min_gap_sec=0.9)
     gt_filtered = [g for g in all_gt if g["match_id"] == match_id]
     if not gt_filtered:
         print("No GT found.")
@@ -485,7 +611,13 @@ def evaluate_match(match_id, all_gt):
     frame_recall = evaluate_frame_hits(active, gt_filtered)
     group_recall = evaluate_group_hits(groups, gt_filtered)
     candidate_recall, offsets, missed = evaluate_candidate_hits(refined, gt_filtered)
-
+    extract_cnn_dataset_clean(
+        match_id=match_id,
+        y=y,
+        refined_detections=refined,
+        gt=gt_filtered,
+        out_root="cnn_dataset"
+    )
     explosion = len(refined) / len(gt_filtered)
 
     print("GT whistles:", len(gt_filtered))
