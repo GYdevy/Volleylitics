@@ -1,6 +1,7 @@
 """
-Multi-Match DSP Whistle Detector Evaluation
-Evaluates recall + explosion + centering across ALL matches in GT
+Pure DSP + Rule-Based Whistle Detector
+No ML
+Multi-match evaluation
 """
 
 import json
@@ -8,12 +9,12 @@ import tempfile
 import subprocess
 import os
 from dataclasses import dataclass
-import random
 import numpy as np
 import librosa
-from scipy.signal import find_peaks
+from scipy.ndimage import uniform_filter1d
 import soundfile as sf
-import os
+
+
 # ============================================================
 # CONFIG
 # ============================================================
@@ -22,7 +23,7 @@ VIDEO_DIR = r"E:\Volleyballey\videos"
 GT_PATH = r"E:\Volleyballey\detector_slop\whistles_all_anchored.json"
 FFMPEG = r"C:\ffmpeg\bin\ffmpeg.exe"
 
-ANCHOR_TOLERANCE = 0.6  # seconds
+ANCHOR_TOLERANCE = 0.6
 
 
 @dataclass
@@ -32,8 +33,8 @@ class Config:
     hop: int = 128
     whistle_low: float = 3700
     whistle_high: float = 4300
-    min_frames: int = 30
-    max_gap_frames: int = 2
+    min_frames: int = 15
+    max_gap_frames: int = 12
 
 
 cfg = Config()
@@ -63,27 +64,17 @@ def load_audio_from_video(video_path, target_sr):
 
 
 # ============================================================
-# DSP DETECTION
+# STAGE A — ROI DETECTOR
 # ============================================================
-
-
-
-from scipy.ndimage import uniform_filter1d
 
 def detect_active_frames(y):
 
-    # -----------------------------
-    # STFT
-    # -----------------------------
     S = librosa.stft(y, n_fft=cfg.n_fft, hop_length=cfg.hop)
     mag = np.abs(S)
 
     freqs = librosa.fft_frequencies(sr=cfg.sr, n_fft=cfg.n_fft)
     band_mask = (freqs >= cfg.whistle_low) & (freqs <= cfg.whistle_high)
 
-    # -----------------------------
-    # Whistle-band features
-    # -----------------------------
     band_mag = mag[band_mask]
     band_energy = band_mag.mean(axis=0)
 
@@ -93,48 +84,24 @@ def detect_active_frames(y):
     band_mean = np.mean(band_mag, axis=0)
     sharpness = band_peak / (band_mean + 1e-8)
 
-    # -----------------------------
-    # Robust normalization
-    # -----------------------------
-    band_energy_norm = (
-        band_energy - np.median(band_energy)
-    ) / (np.std(band_energy) + 1e-8)
+    # Normalize
+    band_energy = (band_energy - np.median(band_energy)) / (np.std(band_energy) + 1e-8)
+    sharpness = (sharpness - np.median(sharpness)) / (np.std(sharpness) + 1e-8)
+    flatness = (flatness - np.median(flatness)) / (np.std(flatness) + 1e-8)
 
-    sharpness_norm = (
-        sharpness - np.median(sharpness)
-    ) / (np.std(sharpness) + 1e-8)
+    band_energy = uniform_filter1d(band_energy, size=5)
+    sharpness = uniform_filter1d(sharpness, size=5)
+    flatness = uniform_filter1d(flatness, size=5)
 
-    flatness_norm = (
-        flatness - np.median(flatness)
-    ) / (np.std(flatness) + 1e-8)
+    score = 1.0 * band_energy + 1.0 * sharpness - 1.2 * flatness
 
-    # -----------------------------
-    # Temporal smoothing
-    # -----------------------------
-    band_energy_norm = uniform_filter1d(band_energy_norm, size=5)
-    sharpness_norm   = uniform_filter1d(sharpness_norm, size=5)
-    flatness_norm    = uniform_filter1d(flatness_norm, size=5)
-
-    # -----------------------------
-    # Continuous whistle score
-    # -----------------------------
-    score = (
-        1.0 * band_energy_norm +
-        1.0 * sharpness_norm -
-        1.2 * flatness_norm
-    )
-
-    # -----------------------------
-    # Hysteresis thresholds
-    # -----------------------------
-    START_TH = 0.82      # must be strong to start whistle
-    CONTINUE_TH = 0.3   # relaxed to continue whistle
+    START_TH = 0.75
+    CONTINUE_TH = 0.25
 
     active = []
     in_whistle = False
 
     for i, s in enumerate(score):
-
         if not in_whistle:
             if s > START_TH:
                 in_whistle = True
@@ -145,106 +112,15 @@ def detect_active_frames(y):
             else:
                 in_whistle = False
 
-    return active, band_energy, score
+    return active
 
-def refine_candidates(
-    y,
-    detections,
-    sr,
-    n_fft,
-    hop,
-    whistle_low,
-    whistle_high,
-    out_window_sec=1.2,
-    peak_prom=0.25,
-    min_peak_dist_sec=0.30,
-):
-    refined = []
 
-    min_dist_frames = int(min_peak_dist_sec * sr / hop)
-    half_out = out_window_sec / 2.0
-
-    for start, end in detections:
-
-        s0 = int(start * sr)
-        s1 = int(end * sr)
-
-        if s1 - s0 < n_fft:
-            continue
-
-        seg = y[s0:s1]
-
-        S = librosa.stft(seg, n_fft=n_fft, hop_length=hop)
-        mag = np.abs(S)
-
-        freqs = librosa.fft_frequencies(sr=sr, n_fft=n_fft)
-        mask = (freqs >= whistle_low) & (freqs <= whistle_high)
-
-        if not np.any(mask):
-            continue
-
-        # -----------------------------
-        # Whistle-band energy (max bin)
-        # -----------------------------
-        band_peak = np.max(mag[mask], axis=0)
-        band_peak = uniform_filter1d(band_peak, size=5)
-
-        # Robust normalization
-        band_peak = (
-            band_peak - np.median(band_peak)
-        ) / (np.std(band_peak) + 1e-8)
-
-        # -----------------------------
-        # Peak detection
-        # -----------------------------
-        peaks, props = find_peaks(
-            band_peak,
-            prominence=peak_prom,
-            distance=min_dist_frames
-        )
-
-        # Handle fallback safely
-        if len(peaks) == 0:
-            peaks = np.array([int(np.argmax(band_peak))])
-            prominences = np.array([0.0])
-        else:
-            prominences = props.get("prominences", np.zeros(len(peaks)))
-
-        flat = librosa.feature.spectral_flatness(S=mag)[0]
-        flat = uniform_filter1d(flat, size=5)
-
-        valid_peaks = []
-
-        for i, p in enumerate(peaks):
-
-            energy_score = band_peak[p]
-            prom_score = prominences[i]
-            tonal_score = 1.0 - flat[p]
-
-            # Strong filtering
-            if (
-                    prom_score > 0.4 and
-                    energy_score > 0.3 and
-                    tonal_score > 0.3
-            ):
-                valid_peaks.append(p)
-
-        # If nothing valid, fallback to strongest peak
-        if len(valid_peaks) == 0:
-            valid_peaks = [int(np.argmax(band_peak))]
-
-        # Create window per peak
-        for p in valid_peaks:
-            t_peak = (s0 + p * hop) / sr
-
-            new_start = max(0.0, t_peak - half_out)
-            new_end = min(len(y) / sr, t_peak + half_out)
-
-            refined.append((new_start, new_end))
-
-    return refined
+# ============================================================
+# GROUPING
+# ============================================================
 
 def group_frames(active):
+
     if not active:
         return []
 
@@ -252,66 +128,31 @@ def group_frames(active):
     cur = [active[0]]
 
     for f in active[1:]:
-        # allow larger gap directly here
-        if f - cur[-1] <= 6:   # ~35ms
+        if f - cur[-1] <= cfg.max_gap_frames:
             cur.append(f)
         else:
             groups.append(cur)
             cur = [f]
 
     groups.append(cur)
-    MAX_WHISTLE_SEC = 1.2
-    max_frames = int(MAX_WHISTLE_SEC * cfg.sr / cfg.hop)
+    return groups
 
-    filtered = []
-    for g in groups:
-        if len(g) <= max_frames:
-            filtered.append(g)
-        else:
-            # split into chunks
-            for i in range(0, len(g), max_frames):
-                filtered.append(g[i:i + max_frames])
 
-    return filtered
-
-def merge_close_groups(groups, max_gap_frames=8):
-    """
-    Merge groups that are separated by small gaps.
-    """
-
-    if not groups:
-        return []
-
-    merged = [groups[0]]
-
-    for g in groups[1:]:
-        prev = merged[-1]
-
-        # If start of current group is close to end of previous group
-        if g[0] - prev[-1] <= max_gap_frames:
-            merged[-1] = prev + g
-        else:
-            merged.append(g)
-
-    return merged
-
-def extract_candidates(groups, S_w, freqs_w, band_energy):
+def extract_candidates(groups):
 
     detections = []
-
     pad_sec = 0.35
     pad_frames = int((pad_sec * cfg.sr) / cfg.hop)
 
     for g in groups:
-
         if len(g) < cfg.min_frames:
             continue
 
         start_frame = max(0, g[0] - pad_frames)
-        end_frame   = g[-1] + pad_frames
+        end_frame = g[-1] + pad_frames
 
         start_sec = start_frame * cfg.hop / cfg.sr
-        end_sec   = end_frame   * cfg.hop / cfg.sr
+        end_sec = end_frame * cfg.hop / cfg.sr
 
         detections.append((start_sec, end_sec))
 
@@ -319,42 +160,285 @@ def extract_candidates(groups, S_w, freqs_w, band_energy):
 
 
 # ============================================================
+# REFINEMENT
+# ============================================================
+
+def refine_candidates(y, detections):
+
+    refined = []
+
+    for start, end in detections:
+
+        s0 = int(start * cfg.sr)
+        s1 = int(end * cfg.sr)
+        seg = y[s0:s1]
+
+        if len(seg) < cfg.n_fft:
+            continue
+
+        S = librosa.stft(seg, n_fft=cfg.n_fft, hop_length=cfg.hop)
+        mag = np.abs(S)
+
+        freqs = librosa.fft_frequencies(sr=cfg.sr, n_fft=cfg.n_fft)
+        mask = (freqs >= cfg.whistle_low) & (freqs <= cfg.whistle_high)
+
+        if not np.any(mask):
+            continue
+
+        band_energy = mag[mask].mean(axis=0)
+        band_energy = uniform_filter1d(band_energy, size=7)
+
+        center_frame = int(np.argmax(band_energy))
+        t_peak = (s0 + center_frame * cfg.hop) / cfg.sr
+
+        pre_sec = 1.0
+        post_sec = 0.6
+
+        new_start = max(0.0, t_peak - pre_sec)
+        new_end = min(len(y) / cfg.sr, t_peak + post_sec)
+
+        refined.append((new_start, new_end))
+
+    return refined
+
+
+# ============================================================
+# FEATURE EXTRACTION (STAGE B/C)
+# ============================================================
+
+def extract_window_features(y, start, end):
+
+    s0 = int(start * cfg.sr)
+    s1 = int(end * cfg.sr)
+    seg = y[s0:s1]
+
+    if len(seg) < cfg.n_fft:
+        return None
+
+    # STFT
+    S = librosa.stft(seg, n_fft=cfg.n_fft, hop_length=cfg.hop)
+    mag = np.abs(S)
+
+    freqs = librosa.fft_frequencies(sr=cfg.sr, n_fft=cfg.n_fft)
+    band_mask = (freqs >= cfg.whistle_low) & (freqs <= cfg.whistle_high)
+
+    if not np.any(band_mask):
+        return None
+
+    S_w = mag[band_mask]
+    freqs_w = freqs[band_mask]
+
+    # ------------------------------------------------
+    # 5️⃣ Narrow-band concentration ratio
+    # ------------------------------------------------
+    mean_spectrum = S_w.mean(axis=1)
+    peak_idx = np.argmax(mean_spectrum)
+    center_freq = freqs_w[peak_idx]
+
+    narrow_mask = (freqs >= center_freq - 150) & (freqs <= center_freq + 150)
+
+    if np.any(narrow_mask):
+        narrow_energy = mag[narrow_mask].mean()
+        band_energy_full = mag[band_mask].mean() + 1e-8
+        narrow_ratio = narrow_energy / band_energy_full
+    else:
+        narrow_ratio = 0.0
+    # ------------------------------------------------
+    # 1️⃣ Band ratio (energy concentration)
+    # ------------------------------------------------
+    band_energy = S_w.mean()
+    total_energy = mag.mean() + 1e-8
+    band_ratio = band_energy / total_energy
+
+    # ------------------------------------------------
+    # 2️⃣ Frequency stability (Hz)
+    # ------------------------------------------------
+    if S_w.shape[1] < 3:
+        freq_std = np.inf
+    else:
+        peak_bins = np.argmax(S_w, axis=0)
+        peak_freqs = freqs_w[peak_bins]
+        freq_std = np.std(peak_freqs)
+
+    # ------------------------------------------------
+    # 3️⃣ Band flatness
+    # ------------------------------------------------
+    flatness_band = librosa.feature.spectral_flatness(S=S_w)[0].mean()
+
+    # ------------------------------------------------
+    # 4️⃣ Peak prominence
+    # ------------------------------------------------
+    band_peak = S_w.max(axis=0)
+    band_mean = S_w.mean(axis=0) + 1e-8
+    peak_prominence = np.mean(band_peak / band_mean)
+
+    return {
+        "band_ratio": band_ratio,
+        "freq_std": freq_std,
+        "flatness_band": flatness_band,
+        "peak_prominence": peak_prominence,
+        "band_energy": band_energy,
+        "narrow_ratio": narrow_ratio,
+    }
+
+def suppress_close_centers(detections, min_gap_sec=0.7):
+
+    detections = sorted(detections, key=lambda x: (x[0] + x[1]) / 2)
+    filtered = []
+
+    for d in detections:
+
+        center = (d[0] + d[1]) / 2
+
+        if not filtered:
+            filtered.append(d)
+            continue
+
+        prev_center = (filtered[-1][0] + filtered[-1][1]) / 2
+
+        if abs(center - prev_center) > min_gap_sec:
+            filtered.append(d)
+
+    return filtered
+
+
+# ============================================================
+# RULE-BASED SIFTER
+# ============================================================
+
+def rule_based_sifter(detections, y, stats):
+
+    accepted = []
+
+
+    for start, end in detections:
+
+        feats = extract_window_features(y, start, end)
+        if feats is None:
+            continue
+
+        # ---- Z SCORE NORMALIZATION ----
+        z_band_ratio = (feats["band_ratio"] - stats["band_ratio"]["median"]) / stats["band_ratio"]["std"]
+        z_freq_std = (feats["freq_std"] - stats["freq_std"]["median"]) / stats["freq_std"]["std"]
+        z_flat = (feats["flatness_band"] - stats["flatness_band"]["median"]) / stats["flatness_band"]["std"]
+        z_prom = (feats["peak_prominence"] - stats["peak_prominence"]["median"]) / stats["peak_prominence"]["std"]
+
+        # Hard reject only extreme noise
+        #if z_flat > 2.5:
+            #continue
+
+        z_narrow = (feats["narrow_ratio"] - stats["narrow_ratio"]["median"]) / stats["narrow_ratio"]["std"]
+
+        score = (
+                1.0 * z_band_ratio +
+                1.3 * z_prom +
+                1.0 * z_narrow -
+                0.8 * z_flat
+        )
+
+        if score > -0.2:
+            accepted.append((start, end))
+            continue
+
+        # rescue tonal events
+        if (
+                feats["band_ratio"] > stats["band_ratio"]["median"] * 0.6 and
+                feats["peak_prominence"] > stats["peak_prominence"]["median"] * 0.6
+        ):
+            accepted.append((start, end))
+
+
+    accepted = suppress_close_centers(accepted, min_gap_sec=0.6)
+
+    return accepted
+
+def compute_match_stats(detections, y):
+
+    all_feats = []
+
+    for start, end in detections:
+        feats = extract_window_features(y, start, end)
+        if feats:
+            all_feats.append(feats)
+
+    if not all_feats:
+        return None
+
+    stats = {}
+
+    keys = all_feats[0].keys()
+
+    for k in keys:
+        arr = np.array([f[k] for f in all_feats])
+        stats[k] = {
+            "median": np.median(arr),
+            "std": np.std(arr) + 1e-8
+        }
+
+    return stats
+# ============================================================
+# FEATURE DISTRIBUTION DEBUG
+# ============================================================
+
+def analyze_feature_distributions(detections, y, gt):
+
+    tp_features = []
+    fp_features = []
+
+    for start, end in detections:
+
+        feats = extract_window_features(y, start, end)
+        if feats is None:
+            continue
+
+        is_tp = False
+        for g in gt:
+            anchor = g["t_anchor"]
+            if (start - ANCHOR_TOLERANCE) <= anchor <= (end + ANCHOR_TOLERANCE):
+                is_tp = True
+                break
+
+        if is_tp:
+            tp_features.append(feats)
+        else:
+            fp_features.append(feats)
+
+    print("\n==== FEATURE STATS ====")
+
+    def summarize(name):
+        tp_vals = np.array([f[name] for f in tp_features])
+        fp_vals = np.array([f[name] for f in fp_features])
+
+        print(f"\nFeature: {name}")
+        print(" TP median:", np.median(tp_vals))
+        print(" FP median:", np.median(fp_vals))
+        print("TP 10%:", np.percentile(tp_vals, 10))
+        print("TP 50%:", np.percentile(tp_vals, 50))
+        print("TP 90%:", np.percentile(tp_vals, 90))
+
+        print("FP 10%:", np.percentile(fp_vals, 10))
+        print("FP 50%:", np.percentile(fp_vals, 50))
+        print("FP 90%:", np.percentile(fp_vals, 90))
+
+    summarize("band_ratio")
+    summarize("freq_std")
+    summarize("flatness_band")
+    summarize("peak_prominence")
+    summarize("band_energy")
+
+
+# ============================================================
 # EVALUATION
 # ============================================================
 
-def evaluate_frame_hits(active_frames, gt):
-    frame_times = np.array(active_frames) * cfg.hop / cfg.sr
-    matched = 0
-
-    for g in gt:
-        anchor = g["t_anchor"]
-        if np.any(np.abs(frame_times - anchor) < ANCHOR_TOLERANCE):
-            matched += 1
-
-    return matched / len(gt)
-
-
-def evaluate_group_hits(groups, gt):
-    matched = 0
-
-    for g in gt:
-        anchor = g["t_anchor"]
-        for group in groups:
-            start = group[0] * cfg.hop / cfg.sr
-            end   = group[-1] * cfg.hop / cfg.sr
-            if (start - ANCHOR_TOLERANCE) <= anchor <= (end + ANCHOR_TOLERANCE):
-                matched += 1
-                break
-
-    return matched / len(gt)
-
-
 def evaluate_candidate_hits(detections, gt):
+
     matched = 0
     offsets = []
     missed = []
 
     for g in gt:
+
         anchor = g["t_anchor"]
         found = False
 
@@ -372,280 +456,51 @@ def evaluate_candidate_hits(detections, gt):
     recall = matched / len(gt)
     return recall, offsets, missed
 
-def temporal_nms(detections, iou_threshold=0.2):
-    """
-    detections: list of (start, end)
-    returns: filtered detections
-    """
 
-    if len(detections) == 0:
-        return []
-
-    dets = np.array(detections)
-
-    # Sort by window length descending (or just keep original order)
-    lengths = dets[:, 1] - dets[:, 0]
-    order = np.argsort(-lengths)
-
-    keep = []
-
-    while len(order) > 0:
-        i = order[0]
-        keep.append(i)
-
-        start_i, end_i = dets[i]
-
-        rest = order[1:]
-        if len(rest) == 0:
-            break
-
-        start_rest = dets[rest, 0]
-        end_rest = dets[rest, 1]
-
-        inter_start = np.maximum(start_i, start_rest)
-        inter_end = np.minimum(end_i, end_rest)
-        inter = np.maximum(0, inter_end - inter_start)
-
-        union = (end_i - start_i) + (end_rest - start_rest) - inter
-        iou = inter / (union + 1e-8)
-
-        order = rest[iou < iou_threshold]
-
-    return [detections[i] for i in keep]
-
-def suppress_close_centers(detections, min_gap_sec=0.7):
-
-    detections = sorted(detections, key=lambda x: (x[0]+x[1])/2)
-    filtered = []
-
-    for d in detections:
-        center = (d[0]+d[1])/2
-
-        if not filtered:
-            filtered.append(d)
-            continue
-
-        prev_center = (filtered[-1][0]+filtered[-1][1])/2
-
-        if abs(center - prev_center) > min_gap_sec:
-            filtered.append(d)
-
-    return filtered
-
-
-def extract_cnn_dataset_clean(match_id, y, refined_detections, gt, out_root="cnn_dataset"):
-
-    os.makedirs(out_root, exist_ok=True)
-    pos_dir = os.path.join(out_root, "pos")
-    neg_dir = os.path.join(out_root, "neg")
-    os.makedirs(pos_dir, exist_ok=True)
-    os.makedirs(neg_dir, exist_ok=True)
-
-    metadata_path = os.path.join(out_root, "metadata.csv")
-
-    WINDOW_SEC = 1.2
-    MARGIN_SEC = 1.0
-    SAFE_NEG_PER_POS = 3   # ratio of negatives to positives
-
-    total_len_sec = len(y) / cfg.sr
-
-    # =========================================================
-    # 1️⃣ BUILD EXCLUSION INTERVALS
-    # =========================================================
-
-    exclusion_intervals = []
-
-    # GT anchors
-    for g in gt:
-        center = g["t_anchor"]
-        exclusion_intervals.append((
-            center - (WINDOW_SEC/2 + MARGIN_SEC),
-            center + (WINDOW_SEC/2 + MARGIN_SEC)
-        ))
-
-    # Also exclude refined whistle detections (double whistles etc.)
-    for start, end in refined_detections:
-        center = (start + end) / 2
-        exclusion_intervals.append((
-            center - (WINDOW_SEC/2 + MARGIN_SEC),
-            center + (WINDOW_SEC/2 + MARGIN_SEC)
-        ))
-
-    # Clamp to audio bounds
-    exclusion_intervals = [
-        (max(0, s), min(total_len_sec, e))
-        for s, e in exclusion_intervals
-    ]
-
-    # Sort & merge intervals
-    exclusion_intervals.sort()
-    merged = []
-
-    for s, e in exclusion_intervals:
-        if not merged:
-            merged.append([s, e])
-        else:
-            if s <= merged[-1][1]:
-                merged[-1][1] = max(merged[-1][1], e)
-            else:
-                merged.append([s, e])
-
-    exclusion_intervals = merged
-
-    # =========================================================
-    # 2️⃣ SAVE POSITIVES (CENTERED ON GT)
-    # =========================================================
-
-    with open(metadata_path, "a") as meta:
-
-        pos_count = 0
-
-        for i, g in enumerate(gt):
-            center = g["t_anchor"]
-            start = center - WINDOW_SEC/2
-            end   = center + WINDOW_SEC/2
-
-            if start < 0 or end > total_len_sec:
-                continue
-
-            s0 = int(start * cfg.sr)
-            s1 = int(end   * cfg.sr)
-
-            clip = y[s0:s1]
-            filename = f"{match_id}_pos_{i}_{round(center,3)}.wav"
-            out_path = os.path.join(pos_dir, filename)
-
-            sf.write(out_path, clip, cfg.sr)
-            meta.write(f"{match_id},{filename},{start},{end},1\n")
-
-            pos_count += 1
-
-        # =========================================================
-        # 3️⃣ SAMPLE NEGATIVES FROM SAFE GAPS
-        # =========================================================
-
-        neg_target = pos_count * SAFE_NEG_PER_POS
-        neg_count = 0
-        attempts = 0
-        MAX_ATTEMPTS = neg_target * 20
-
-        while neg_count < neg_target and attempts < MAX_ATTEMPTS:
-            attempts += 1
-
-            center = random.uniform(WINDOW_SEC/2, total_len_sec - WINDOW_SEC/2)
-            start = center - WINDOW_SEC/2
-            end   = center + WINDOW_SEC/2
-
-            # Check overlap with exclusion zones
-            overlaps = False
-            for s, e in exclusion_intervals:
-                if start < e and end > s:
-                    overlaps = True
-                    break
-
-            if overlaps:
-                continue
-
-            s0 = int(start * cfg.sr)
-            s1 = int(end   * cfg.sr)
-
-            clip = y[s0:s1]
-            filename = f"{match_id}_neg_{neg_count}_{round(center,3)}.wav"
-            out_path = os.path.join(neg_dir, filename)
-
-            sf.write(out_path, clip, cfg.sr)
-            meta.write(f"{match_id},{filename},{start},{end},0\n")
-
-            neg_count += 1
 # ============================================================
-# MAIN
+# MATCH EVALUATION
 # ============================================================
-
-def extract_debug_snippet(y, sr, t, window=2.0):
-    start = max(0, int((t - window/2) * sr))
-    end   = min(len(y), int((t + window/2) * sr))
-    return y[start:end]
 
 def evaluate_match(match_id, all_gt):
 
     print(f"\n==================== {match_id} ====================")
 
     video_path = os.path.join(VIDEO_DIR, f"{match_id}.mp4")
-    if not os.path.exists(video_path):
-        print("Video not found. Skipping.")
-        return None
-
     y = load_audio_from_video(video_path, cfg.sr)
 
-    active, band_energy, ratio = detect_active_frames(y)
-
+    active = detect_active_frames(y)
     groups = group_frames(active)
-    groups = merge_close_groups(groups, max_gap_frames=8)
-    S = librosa.stft(y, n_fft=cfg.n_fft, hop_length=cfg.hop)
-    mag = np.abs(S)
 
-    freqs = librosa.fft_frequencies(sr=cfg.sr, n_fft=cfg.n_fft)
-    band_mask = (freqs >= cfg.whistle_low) & (freqs <= cfg.whistle_high)
+    stage1 = extract_candidates(groups)
+    refined = refine_candidates(y, stage1)
 
-    S_w = mag[band_mask]
-    freqs_w = freqs[band_mask]
-    stage1_detections = extract_candidates(groups, S_w, freqs_w, band_energy)
-    refined= refine_candidates(
-        y=y,
-        detections=stage1_detections,
-        sr=cfg.sr,
-        n_fft=cfg.n_fft,
-        hop=cfg.hop,
-        whistle_low=cfg.whistle_low,
-        whistle_high=cfg.whistle_high,
-        out_window_sec=1.2,
-        peak_prom=0.25
+    # sort refined by band_energy
+    refined_sorted = sorted(
+        refined,
+        key=lambda d: extract_window_features(y, d[0], d[1])["band_energy"],
+        reverse=True
     )
-    #refined = temporal_nms(refined, iou_threshold=0.2)
-    refined = suppress_close_centers(refined, min_gap_sec=0.9)
+
+    top_k = int(0.3 * len(refined_sorted))
+    refined_top = refined_sorted[:top_k]
+
+    stats = compute_match_stats(refined_top, y)
+    accepted = rule_based_sifter(refined, y, stats)
+
     gt_filtered = [g for g in all_gt if g["match_id"] == match_id]
-    if not gt_filtered:
-        print("No GT found.")
-        return None
 
-    frame_recall = evaluate_frame_hits(active, gt_filtered)
-    group_recall = evaluate_group_hits(groups, gt_filtered)
-    candidate_recall, offsets, missed = evaluate_candidate_hits(refined, gt_filtered)
-    extract_cnn_dataset_clean(
-        match_id=match_id,
-        y=y,
-        refined_detections=refined,
-        gt=gt_filtered,
-        out_root="cnn_dataset"
-    )
-    explosion = len(refined) / len(gt_filtered)
+    analyze_feature_distributions(refined, y, gt_filtered)
 
-    print("GT whistles:", len(gt_filtered))
-    print("Stage1 Candidates:", len(stage1_detections))
-    print("Refined Candidates:", len(refined))
-    print("Frame recall:", round(frame_recall, 3))
-    print("Group recall:", round(group_recall, 3))
-    print("Candidate recall:", round(candidate_recall, 3))
-    print("Explosion ratio:", round(explosion, 2))
-    print("Missed count:", len(missed))
-    if len(missed) > 0:
-        debug_dir = os.path.join("debug_stage1", match_id)
-        os.makedirs(debug_dir, exist_ok=True)
+    recall, offsets, missed = evaluate_candidate_hits(accepted, gt_filtered)
 
-        print("Saving Stage-1 windows for first 10 misses...")
+    explosion = len(accepted) / len(gt_filtered)
 
-        for i, anchor in enumerate(missed[:10]):
-            s0 = int(max(0, (anchor - 2.0)) * cfg.sr)
-            s1 = int(min(len(y) / cfg.sr, (anchor + 2.0)) * cfg.sr)
-
-            snippet = y[s0:s1]
-
-            out_path = os.path.join(
-                debug_dir,
-                f"missed_anchor_{i}_{round(anchor, 2)}.wav"
-            )
-
-            sf.write(out_path, snippet, cfg.sr)
+    print("GT:", len(gt_filtered))
+    print("Stage1:", len(stage1))
+    print("Accepted:", len(accepted))
+    print("Recall:", round(recall, 3))
+    print("Explosion:", round(explosion, 2))
+    print("Missed:", len(missed))
 
     if offsets:
         offsets = np.array(offsets)
@@ -654,14 +509,17 @@ def evaluate_match(match_id, all_gt):
 
     return {
         "match": match_id,
-        "recall": candidate_recall,
+        "recall": recall,
         "explosion": explosion
     }
 
 
+# ============================================================
+# MAIN
+# ============================================================
+
 if __name__ == "__main__":
 
-    print("Loading GT...")
     with open(GT_PATH) as f:
         all_gt = json.load(f)
 
@@ -671,11 +529,8 @@ if __name__ == "__main__":
 
     for m in match_ids:
         r = evaluate_match(m, all_gt)
-        if r:
-            results.append(r)
+        results.append(r)
 
-    print("\n==================== SUMMARY ====================")
+    print("\n================ SUMMARY ================")
     for r in results:
         print(r)
-
-
