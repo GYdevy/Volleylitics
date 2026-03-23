@@ -13,15 +13,17 @@ from dataclasses import dataclass
 import numpy as np
 import librosa
 from scipy.ndimage import uniform_filter1d
-
-
+from tqdm import tqdm
 # ============================================================
 # CONFIG
 # ============================================================
 
-VIDEO_DIR = r"E:\Volleyballey\videos"
-GT_PATH = r"E:\Volleyballey\detector_slop\whistles_all_reanchored.json"
-FFMPEG = r"C:\ffmpeg\bin\ffmpeg.exe"
+FHD_VIDEO_DIR = r"D:\FHD60FPS"
+HD_VIDEO_DIR  = r"F:\Volleyballey\videos"
+FHD_GT_PATH = r"F:\Volleyballey\detector_slop\anchored_matches\whistles_all_reanchored_raw.json"
+HD_GT_PATH  = r"F:\Volleyballey\detector_slop\anchored_matches\whistles_all_reanchored.json"
+
+FFMPEG = "ffmpeg"
 
 ANCHOR_TOLERANCE = 0.6
 MIN_DURATION_SEC = 0.18
@@ -105,6 +107,26 @@ def estimate_whistle_band(y, stage1_detections):
     high = dominant + 250
 
     return low, high
+
+
+def resolve_video_path(match_id):
+    fhd_path = os.path.join(FHD_VIDEO_DIR, f"{match_id}.mp4")
+    hd_path  = os.path.join(HD_VIDEO_DIR, f"{match_id}.mp4")
+
+    if os.path.exists(fhd_path):
+        return fhd_path, "FHD"
+    elif os.path.exists(hd_path):
+        return hd_path, "HD"
+    else:
+        return None, None
+
+def group_gt_by_match(gt_list):
+    by_match = {}
+    for g in gt_list:
+        by_match.setdefault(g["match_id"], []).append(g)
+    return by_match
+
+
 
 # ============================================================
 # STAGE A — ROI DETECTOR
@@ -271,7 +293,7 @@ def compute_center_frame(band_mag, freqs_w):
 def refine_candidates(y, detections):
     refined = []
 
-    for start, end in detections:
+    for start, end in tqdm(detections, desc="Refining whistles"):
 
         s0 = int(start * cfg.sr)
         s1 = int(end * cfg.sr)
@@ -456,7 +478,7 @@ def rule_based_sifter(detections, y, stats):
 
     accepted = []
 
-    for start, end in detections:
+    for start, end in tqdm(detections, desc="Rule sift"):
         feats = extract_window_features(y, start, end)
         if feats is None:
             continue
@@ -560,7 +582,7 @@ def evaluate_candidate_hits(detections, gt):
 # ============================================================
 SNIPPET_SEC = 1.0
 HALF_SNIPPET = SNIPPET_SEC / 2
-DATASET_ROOT = r"E:\Volleyballey\cnn_dataset_by_match_best_cent"
+DATASET_ROOT = r"F:\Volleyballey\cnn_dataset_mix"
 
 def save_snippets(match_id, detections, gt_list, y):
 
@@ -607,10 +629,16 @@ def save_snippets(match_id, detections, gt_list, y):
 
 
 
-def evaluate_match(match_id, all_gt):
+def evaluate_match(match_id):
     print(f"\n==================== {match_id} ====================")
 
-    video_path = os.path.join(VIDEO_DIR, f"{match_id}.mp4")
+    video_path, source = resolve_video_path(match_id)
+
+    if video_path is None:
+        print(f"❌ No video found for {match_id}")
+        return None
+
+    print(f"Using {source} video for {match_id}")
     y = load_audio_from_video(video_path, cfg.sr)
 
     # ---------- PASS 1 (rough band) ----------
@@ -635,7 +663,10 @@ def evaluate_match(match_id, all_gt):
     stage1 = extract_candidates(groups)
     refined = refine_candidates(y, stage1)
 
-    gt_filtered = [g for g in all_gt if g["match_id"] == match_id]
+    if source == "FHD":
+        gt_filtered = gt_fhd_by_match.get(match_id, [])
+    else:
+        gt_filtered = gt_hd_by_match.get(match_id, [])
 
     stats = compute_match_stats(refined, y)
     accepted = rule_based_sifter(refined, y, stats)
@@ -673,7 +704,7 @@ def evaluate_match(match_id, all_gt):
 def compute_match_stats(detections, y):
     all_feats = []
 
-    for start, end in detections:
+    for start, end in tqdm(detections, desc="Feature stats"):
         feats = extract_window_features(y, start, end)
         if feats:
             all_feats.append(feats)
@@ -699,15 +730,27 @@ def compute_match_stats(detections, y):
 # ============================================================
 
 if __name__ == "__main__":
-    with open(GT_PATH) as f:
-        all_gt = json.load(f)
+    with open(FHD_GT_PATH) as f:
+        gt_fhd = json.load(f)
 
-    match_ids = sorted(set(g["match_id"] for g in all_gt))
+    with open(HD_GT_PATH) as f:
+        gt_hd = json.load(f)
+
+    gt_fhd_by_match = group_gt_by_match(gt_fhd)
+    gt_hd_by_match  = group_gt_by_match(gt_hd)
+
+    ALL_MATCHES = set()
+    ALL_MATCHES.update(gt_fhd_by_match.keys())
+    ALL_MATCHES.update(gt_hd_by_match.keys())
+
+    match_ids = sorted(list(ALL_MATCHES))
+
     results = []
 
     for m in match_ids:
-        r = evaluate_match(m, all_gt)
-        results.append(r)
+        r = evaluate_match(m)
+        if r is not None:
+            results.append(r)
 
     print("\n================ SUMMARY ================")
     for r in results:
