@@ -238,7 +238,7 @@ for start, end in tqdm(accepted, desc="Whistle CNN"):
     if prob > 0.08:
         cnn_candidates.append((center, prob))
 
-# 🔥 apply NMS AFTER loop
+
 cnn_centers = window_nms(cnn_candidates, window=1.5)
 
 print("Detected whistles after NMS:", len(cnn_centers))
@@ -402,7 +402,7 @@ def merge_consecutive_accepts(rallies, max_gap=2.0):
         gap = r["start"] - prev["end"]
 
         if is_accept(prev["label"]) and is_accept(r["label"]) and gap <= max_gap:
-            # 🔥 merge
+            #  merge
             prev["end"] = r["end"]
             prev["duration"] = prev["end"] - prev["start"]
 
@@ -438,7 +438,7 @@ def merge_small_gaps(rallies, max_small=5.0):
                 and is_accept(curr["label"])
                 and is_accept(nxt["label"])
             ):
-                # 🔥 merge all three
+                #  merge all three
                 merged_rally = {
                     "start": curr["start"],
                     "end": nxt["end"],
@@ -511,7 +511,7 @@ def compute_moving_yellow(cap, fps, start, end):
         frame_id += 1
 
  
-    if not scores:   # 🔥 catches empty list immediately
+    if not scores:   
         return 0.0
 
     scores = np.array(scores)
@@ -602,7 +602,7 @@ for i in range(len(cnn_centers) - 1):
         "index": i
     })
 
-# ⚫ REJECT
+# REJECT
     else:
         reason = "REJECT"
         is_rally = False 
@@ -656,13 +656,9 @@ print("Detected rallies:", len(rallies))
 
 print("\nApplying post-processing fixes...")
 
-# 🔥 1. Remove tiny garbage intervals
+#  1. Remove tiny garbage intervals
 MIN_DURATION = 2.0
 
-#rallies = [
-#    r for r in rallies
-#    if (r["end"] - r["start"]) > MIN_DURATION
-#]
 
 print("After min-duration filter:", len(rallies))
 
@@ -673,7 +669,7 @@ rallies = merge_consecutive_accepts(rallies)
 print("After Merging small gaps:",len(rallies))# fix fragmentation first
 
 
-# 🔥 3. Final cleanup (optional but good)
+
 rallies = [
     r for r in rallies
     if (r["end"] - r["start"]) > MIN_DURATION
