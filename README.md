@@ -15,16 +15,7 @@ Match Video
 Whistle Detection
      │
      ▼
-Whistle Classification
-     │
-     ▼
-Whistle Timeline
-     │
-     ▼
-Rally Classification
-     │
-     ▼
-Rally Timeline
+Rally Segmentation
      │
      ▼
 Ball Tracking
@@ -45,26 +36,15 @@ Web Dashboard
 
 ## 1. Whistle Detection
 
-Detect candidate referee whistles from match audio using DSP.
+Detect candidate referee whistles from match audio using DSP.Filter through candidates using a CNN.
 
-- [x] Extract audio from match recordings
-- [x] Detect whistle candidates using spectral analysis
-- [x] Group whistle frames into events
-
----
-
-## 2. Whistle Classification
-
-Filter whistle candidates using a CNN classifier.
-
-- [x] Generate log-mel spectrogram snippets
-- [x] Train whistle classification CNN
-- [x] Remove false positives
-- [x] Export whistle timestamps
+- [x] Detect whistle candidates
+- [X] Filter out noise
+- [X] Filter with CNN and create a list of real whistles.
 
 ---
 
-## 3. Rally Classification
+## 2. Rally Classification
 
 Determine whether adjacent whistles represent rally boundaries.
 
@@ -91,7 +71,7 @@ Example output
 
 ---
 
-## 4. Ball Tracking (Planned)
+## 3. Ball Tracking (Planned)
 
 Track the volleyball during rally segments.
 
@@ -101,7 +81,7 @@ Track the volleyball during rally segments.
 
 ---
 
-## 5. Ball Landing Detection (Planned)
+## 4. Ball Landing Detection (Planned)
 
 Detect where the ball contacts the court floor.
 
@@ -111,7 +91,7 @@ Detect where the ball contacts the court floor.
 
 ---
 
-## 6. Tactical Analytics (Planned)
+## 5. Tactical Analytics (Planned)
 
 Extract gameplay insights from rally and ball data.
 
@@ -123,7 +103,7 @@ Extract gameplay insights from rally and ball data.
 
 ---
 
-## 7. Top-Down Tactical View (Planned)
+## 6. Top-Down Tactical View (Planned)
 
 Normalize the court into a tactical view.
 
@@ -133,7 +113,7 @@ Normalize the court into a tactical view.
 
 ---
 
-## 8. Web Dashboard (Planned)
+## 7. Web Dashboard (Planned)
 
 Present match analytics through a web interface.
 
@@ -143,15 +123,6 @@ Present match analytics through a web interface.
 - [ ] Heatmaps and match analytics
 
 ---
-
-# Technologies
-
-- Python
-- PyTorch
-- OpenCV
-- Librosa
-- NumPy
-- FFmpeg
 
 ---
 
