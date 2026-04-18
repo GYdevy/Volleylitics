@@ -1,0 +1,2370 @@
+[
+  {
+    "start": 43.71732426303855,
+    "end": 90.0932879818594,
+    "duration": 46.375963718820856,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 90.0932879818594,
+    "end": 125.2195918367347,
+    "duration": 35.12630385487529,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 125.2195918367347,
+    "end": 247.88571428571427,
+    "duration": 122.66612244897958,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 247.88571428571427,
+    "end": 259.7803628117914,
+    "duration": 11.894648526077134,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 259.7803628117914,
+    "end": 316.2951927437642,
+    "duration": 56.51482993197277,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 316.2951927437642,
+    "end": 317.02539682539685,
+    "duration": 0.730204081632678,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 317.02539682539685,
+    "end": 319.54784580498864,
+    "duration": 2.522448979591786,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 319.54784580498864,
+    "end": 323.7626303854875,
+    "duration": 4.214784580498872,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 323.7626303854875,
+    "end": 332.2392290249433,
+    "duration": 8.476598639455801,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 332.2392290249433,
+    "end": 340.6156009070295,
+    "duration": 8.376371882086175,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 340.6156009070295,
+    "end": 351.1117006802721,
+    "duration": 10.496099773242634,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 351.1117006802721,
+    "end": 366.0861678004535,
+    "duration": 14.974467120181373,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 366.0861678004535,
+    "end": 376.5233560090703,
+    "duration": 10.437188208616817,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 376.5233560090703,
+    "end": 388.2094784580499,
+    "duration": 11.686122448979575,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 388.2094784580499,
+    "end": 400.60331065759635,
+    "duration": 12.393832199546466,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 400.60331065759635,
+    "end": 401.66231292517006,
+    "duration": 1.0590022675737032,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 401.66231292517006,
+    "end": 422.4969160997732,
+    "duration": 20.83460317460316,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 422.4969160997732,
+    "end": 431.2456235827664,
+    "duration": 8.748707482993211,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 431.2456235827664,
+    "end": 445.74448979591835,
+    "duration": 14.498866213151928,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 445.74448979591835,
+    "end": 456.48662131519274,
+    "duration": 10.74213151927438,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 456.48662131519274,
+    "end": 471.5006349206349,
+    "duration": 15.014013605442187,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 471.5006349206349,
+    "end": 481.41156462585036,
+    "duration": 9.910929705215437,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 481.41156462585036,
+    "end": 491.1762811791383,
+    "duration": 9.76471655328794,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 491.1762811791383,
+    "end": 518.1550113378685,
+    "duration": 26.978730158730173,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 518.1550113378685,
+    "end": 532.7465759637188,
+    "duration": 14.59156462585031,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 532.7465759637188,
+    "end": 536.381768707483,
+    "duration": 3.6351927437642644,
+    "label": 0,
+    "type0": "serve",
+    "type1": "other"
+  },
+  {
+    "start": 536.381768707483,
+    "end": 543.9697959183674,
+    "duration": 7.58802721088432,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 543.9697959183674,
+    "end": 549.1139229024943,
+    "duration": 5.144126984126956,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 549.1139229024943,
+    "end": 560.4688888888888,
+    "duration": 11.354965986394518,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 560.4688888888888,
+    "end": 577.0887528344671,
+    "duration": 16.61986394557823,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 577.0887528344671,
+    "end": 589.4748752834467,
+    "duration": 12.386122448979677,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 589.4748752834467,
+    "end": 597.6410430839002,
+    "duration": 8.166167800453422,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 597.6410430839002,
+    "end": 607.2333786848072,
+    "duration": 9.592335600907063,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 607.2333786848072,
+    "end": 616.2081632653061,
+    "duration": 8.974784580498863,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 616.2081632653061,
+    "end": 631.5124716553288,
+    "duration": 15.304308390022697,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 631.5124716553288,
+    "end": 641.5036734693878,
+    "duration": 9.991201814058968,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 641.5036734693878,
+    "end": 657.1508843537415,
+    "duration": 15.64721088435374,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 657.1508843537415,
+    "end": 685.9869387755102,
+    "duration": 28.836054421768722,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 685.9869387755102,
+    "end": 704.690566893424,
+    "duration": 18.70362811791381,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 704.690566893424,
+    "end": 713.0312018140589,
+    "duration": 8.340634920634898,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 713.0312018140589,
+    "end": 720.5130158730159,
+    "duration": 7.481814058956957,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 720.5130158730159,
+    "end": 728.7032653061225,
+    "duration": 8.190249433106601,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 728.7032653061225,
+    "end": 740.6922448979592,
+    "duration": 11.98897959183671,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 740.6922448979592,
+    "end": 754.4602721088436,
+    "duration": 13.768027210884384,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 754.4602721088436,
+    "end": 772.6311111111111,
+    "duration": 18.170839002267485,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 772.6311111111111,
+    "end": 785.3615419501134,
+    "duration": 12.730430839002338,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 785.3615419501134,
+    "end": 798.3051700680272,
+    "duration": 12.943628117913818,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 798.3051700680272,
+    "end": 811.624126984127,
+    "duration": 13.31895691609975,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 811.624126984127,
+    "end": 826.3455782312925,
+    "duration": 14.721451247165533,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 826.3455782312925,
+    "end": 841.5332426303855,
+    "duration": 15.187664399093023,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 841.5332426303855,
+    "end": 852.4057596371882,
+    "duration": 10.872517006802696,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 852.4057596371882,
+    "end": 863.4643990929706,
+    "duration": 11.058639455782327,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 863.4643990929706,
+    "end": 872.125260770975,
+    "duration": 8.660861678004494,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 872.125260770975,
+    "end": 882.4828571428571,
+    "duration": 10.357596371882096,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 882.4828571428571,
+    "end": 888.1843083900227,
+    "duration": 5.701451247165551,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 888.1843083900227,
+    "end": 899.8908843537415,
+    "duration": 11.70657596371882,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 899.8908843537415,
+    "end": 909.7625396825397,
+    "duration": 9.87165532879817,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 909.7625396825397,
+    "end": 922.9134693877551,
+    "duration": 13.15092970521539,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 922.9134693877551,
+    "end": 932.6126077097506,
+    "duration": 9.69913832199552,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 932.6126077097506,
+    "end": 943.1593650793651,
+    "duration": 10.546757369614511,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 943.1593650793651,
+    "end": 979.7931065759637,
+    "duration": 36.633741496598645,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 979.7931065759637,
+    "end": 993.3917913832199,
+    "duration": 13.598684807256177,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 993.3917913832199,
+    "end": 1007.771746031746,
+    "duration": 14.379954648526109,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1007.771746031746,
+    "end": 1018.6948752834467,
+    "duration": 10.92312925170063,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1018.6948752834467,
+    "end": 1036.2515646258503,
+    "duration": 17.556689342403615,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1036.2515646258503,
+    "end": 1048.6784580498866,
+    "duration": 12.42689342403628,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1048.6784580498866,
+    "end": 1063.5081179138322,
+    "duration": 14.829659863945608,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1063.5081179138322,
+    "end": 1075.7975056689343,
+    "duration": 12.289387755102098,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1075.7975056689343,
+    "end": 1086.8419501133787,
+    "duration": 11.04444444444448,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1086.8419501133787,
+    "end": 1104.257551020408,
+    "duration": 17.41560090702933,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1104.257551020408,
+    "end": 1149.4832653061223,
+    "duration": 45.225714285714275,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1149.4832653061223,
+    "end": 1163.1444444444444,
+    "duration": 13.66117913832204,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1163.1444444444444,
+    "end": 1168.3180498866213,
+    "duration": 5.1736054421769495,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1168.3180498866213,
+    "end": 1193.8190022675738,
+    "duration": 25.500952380952413,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1193.8190022675738,
+    "end": 1204.825260770975,
+    "duration": 11.006258503401341,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1204.825260770975,
+    "end": 1219.595238095238,
+    "duration": 14.769977324262982,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1219.595238095238,
+    "end": 1232.211201814059,
+    "duration": 12.615963718820922,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1232.211201814059,
+    "end": 1246.0444444444445,
+    "duration": 13.833242630385485,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1246.0444444444445,
+    "end": 1263.6024489795918,
+    "duration": 17.558004535147347,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1263.6024489795918,
+    "end": 1275.195283446712,
+    "duration": 11.592834467120156,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1275.195283446712,
+    "end": 1289.4380498866212,
+    "duration": 14.242766439909246,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1289.4380498866212,
+    "end": 1302.3577777777778,
+    "duration": 12.919727891156526,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1302.3577777777778,
+    "end": 1306.4373242630386,
+    "duration": 4.079546485260835,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1306.4373242630386,
+    "end": 1316.1678004535147,
+    "duration": 9.73047619047611,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1316.1678004535147,
+    "end": 1332.3401814058957,
+    "duration": 16.17238095238099,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1332.3401814058957,
+    "end": 1349.327664399093,
+    "duration": 16.987482993197318,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1349.327664399093,
+    "end": 1364.4250340136055,
+    "duration": 15.097369614512445,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1364.4250340136055,
+    "end": 1371.8674376417234,
+    "duration": 7.442403628117972,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 1371.8674376417234,
+    "end": 1408.8285714285714,
+    "duration": 36.961133786847995,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1408.8285714285714,
+    "end": 1415.7171882086168,
+    "duration": 6.888616780045368,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1415.7171882086168,
+    "end": 1424.5002721088435,
+    "duration": 8.783083900226757,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 1424.5002721088435,
+    "end": 1434.2225850340137,
+    "duration": 9.722312925170172,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1434.2225850340137,
+    "end": 1444.8489795918367,
+    "duration": 10.626394557823005,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1444.8489795918367,
+    "end": 1455.3612244897959,
+    "duration": 10.512244897959135,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1455.3612244897959,
+    "end": 1465.2009523809525,
+    "duration": 9.839727891156599,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1465.2009523809525,
+    "end": 1475.0710204081633,
+    "duration": 9.870068027210891,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1475.0710204081633,
+    "end": 1488.4063945578232,
+    "duration": 13.335374149659856,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1488.4063945578232,
+    "end": 1498.2478911564626,
+    "duration": 9.841496598639424,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1498.2478911564626,
+    "end": 1519.7022222222222,
+    "duration": 21.45433106575956,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1519.7022222222222,
+    "end": 1528.5610430839001,
+    "duration": 8.858820861677941,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1528.5610430839001,
+    "end": 1539.6775963718821,
+    "duration": 11.116553287982015,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 1539.6775963718821,
+    "end": 1544.6985487528345,
+    "duration": 5.020952380952394,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1544.6985487528345,
+    "end": 1550.868163265306,
+    "duration": 6.169614512471526,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 1550.868163265306,
+    "end": 1562.5173696145125,
+    "duration": 11.649206349206452,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1562.5173696145125,
+    "end": 1575.218231292517,
+    "duration": 12.700861678004458,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1575.218231292517,
+    "end": 1582.335238095238,
+    "duration": 7.117006802721107,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1582.335238095238,
+    "end": 1590.6883900226758,
+    "duration": 8.353151927437693,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 1590.6883900226758,
+    "end": 1601.2897959183674,
+    "duration": 10.601405895691641,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 1601.2897959183674,
+    "end": 1623.8395464852608,
+    "duration": 22.549750566893408,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1623.8395464852608,
+    "end": 1644.9075736961452,
+    "duration": 21.06802721088434,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 1644.9075736961452,
+    "end": 1657.5265306122449,
+    "duration": 12.618956916099705,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 1657.5265306122449,
+    "end": 1669.2435374149659,
+    "duration": 11.717006802721016,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1669.2435374149659,
+    "end": 1681.4751473922902,
+    "duration": 12.231609977324297,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1681.4751473922902,
+    "end": 1691.571836734694,
+    "duration": 10.096689342403806,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1691.571836734694,
+    "end": 1706.1282993197278,
+    "duration": 14.556462585033842,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 1706.1282993197278,
+    "end": 1715.7313832199548,
+    "duration": 9.60308390022692,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 1715.7313832199548,
+    "end": 1726.701723356009,
+    "duration": 10.970340136054347,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1726.701723356009,
+    "end": 1730.2381405895692,
+    "duration": 3.536417233560087,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 1730.2381405895692,
+    "end": 1732.2188662131518,
+    "duration": 1.9807256235826571,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1732.2188662131518,
+    "end": 1735.0666666666666,
+    "duration": 2.8478004535147647,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1735.0666666666666,
+    "end": 1840.8944671201814,
+    "duration": 105.82780045351478,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1840.8944671201814,
+    "end": 1858.3014512471655,
+    "duration": 17.40698412698407,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1858.3014512471655,
+    "end": 1900.4024943310658,
+    "duration": 42.10104308390032,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1900.4024943310658,
+    "end": 1901.4331519274376,
+    "duration": 1.0306575963718387,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1901.4331519274376,
+    "end": 1921.2444444444445,
+    "duration": 19.811292517006905,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 1921.2444444444445,
+    "end": 1924.5379591836734,
+    "duration": 3.29351473922884,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 1924.5379591836734,
+    "end": 1936.8783673469388,
+    "duration": 12.340408163265465,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1936.8783673469388,
+    "end": 1953.8155555555556,
+    "duration": 16.937188208616817,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 1953.8155555555556,
+    "end": 1954.5998639455781,
+    "duration": 0.7843083900224883,
+    "label": 0,
+    "type0": "serve",
+    "type1": "other"
+  },
+  {
+    "start": 1954.5998639455781,
+    "end": 1968.3150113378686,
+    "duration": 13.715147392290419,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 1968.3150113378686,
+    "end": 1995.145260770975,
+    "duration": 26.830249433106474,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 1995.145260770975,
+    "end": 2008.8554195011338,
+    "duration": 13.71015873015881,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2008.8554195011338,
+    "end": 2021.6273015873016,
+    "duration": 12.771882086167807,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2021.6273015873016,
+    "end": 2025.1403628117914,
+    "duration": 3.5130612244897748,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 2025.1403628117914,
+    "end": 2034.2368253968255,
+    "duration": 9.096462585034033,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 2034.2368253968255,
+    "end": 2038.202902494331,
+    "duration": 3.966077097505604,
+    "label": 0,
+    "type0": "serve",
+    "type1": "other"
+  },
+  {
+    "start": 2038.202902494331,
+    "end": 2043.3402721088435,
+    "duration": 5.137369614512409,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 2043.3402721088435,
+    "end": 2061.8780045351473,
+    "duration": 18.53773242630382,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2061.8780045351473,
+    "end": 2075.393469387755,
+    "duration": 13.515464852607693,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2075.393469387755,
+    "end": 2087.846575963719,
+    "duration": 12.45310657596383,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2087.846575963719,
+    "end": 2094.4097505668933,
+    "duration": 6.563174603174502,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 2094.4097505668933,
+    "end": 2097.872970521542,
+    "duration": 3.4632199546485936,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 2097.872970521542,
+    "end": 2113.281768707483,
+    "duration": 15.408798185941123,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 2113.281768707483,
+    "end": 2124.128299319728,
+    "duration": 10.846530612244806,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2124.128299319728,
+    "end": 2137.0674829931972,
+    "duration": 12.939183673469415,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2137.0674829931972,
+    "end": 2155.8244444444445,
+    "duration": 18.756961451247207,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2155.8244444444445,
+    "end": 2166.1783673469386,
+    "duration": 10.353922902494105,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2166.1783673469386,
+    "end": 2178.7538321995467,
+    "duration": 12.575464852608093,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2178.7538321995467,
+    "end": 2192.8314739229027,
+    "duration": 14.07764172335601,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2192.8314739229027,
+    "end": 2200.092244897959,
+    "duration": 7.260770975056403,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2200.092244897959,
+    "end": 2207.3232199546487,
+    "duration": 7.230975056689658,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 2207.3232199546487,
+    "end": 2215.2009977324265,
+    "duration": 7.877777777777737,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 2215.2009977324265,
+    "end": 2227.288027210884,
+    "duration": 12.08702947845768,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2227.288027210884,
+    "end": 2239.3161904761905,
+    "duration": 12.028163265306375,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2239.3161904761905,
+    "end": 2251.9621315192744,
+    "duration": 12.645941043083894,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2251.9621315192744,
+    "end": 2269.0461678004535,
+    "duration": 17.084036281179124,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2269.0461678004535,
+    "end": 2277.2098412698415,
+    "duration": 8.163673469387959,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2277.2098412698415,
+    "end": 2289.0589115646258,
+    "duration": 11.84907029478427,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2289.0589115646258,
+    "end": 2306.102585034014,
+    "duration": 17.043673469388068,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2306.102585034014,
+    "end": 2319.7981405895694,
+    "duration": 13.69555555555553,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2319.7981405895694,
+    "end": 2336.855328798186,
+    "duration": 17.05718820861648,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2336.855328798186,
+    "end": 2352.689841269841,
+    "duration": 15.834512471655216,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2352.689841269841,
+    "end": 2364.4814058956918,
+    "duration": 11.791564625850697,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2364.4814058956918,
+    "end": 2376.63410430839,
+    "duration": 12.1526984126981,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2376.63410430839,
+    "end": 2400.4833106575966,
+    "duration": 23.849206349206725,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2400.4833106575966,
+    "end": 2413.818367346939,
+    "duration": 13.33505668934231,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2413.818367346939,
+    "end": 2424.616598639456,
+    "duration": 10.798231292516903,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2424.616598639456,
+    "end": 2436.3463945578233,
+    "duration": 11.729795918367472,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2436.3463945578233,
+    "end": 2446.9148299319727,
+    "duration": 10.56843537414943,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2446.9148299319727,
+    "end": 2457.5197278911564,
+    "duration": 10.604897959183745,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2457.5197278911564,
+    "end": 2466.6458049886623,
+    "duration": 9.126077097505913,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2466.6458049886623,
+    "end": 2478.8180498866213,
+    "duration": 12.17224489795899,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2478.8180498866213,
+    "end": 2493.193469387755,
+    "duration": 14.37541950113382,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2493.193469387755,
+    "end": 2518.0284807256235,
+    "duration": 24.83501133786831,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2518.0284807256235,
+    "end": 2530.2701587301585,
+    "duration": 12.24167800453506,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2530.2701587301585,
+    "end": 2541.804036281179,
+    "duration": 11.533877551020396,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2541.804036281179,
+    "end": 2549.842902494331,
+    "duration": 8.038866213152232,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2549.842902494331,
+    "end": 2566.624716553288,
+    "duration": 16.781814058957025,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2566.624716553288,
+    "end": 2578.1111111111113,
+    "duration": 11.486394557823132,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2578.1111111111113,
+    "end": 2593.743174603175,
+    "duration": 15.63206349206348,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2593.743174603175,
+    "end": 2603.24126984127,
+    "duration": 9.498095238095175,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2603.24126984127,
+    "end": 2615.6150113378685,
+    "duration": 12.37374149659854,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 2615.6150113378685,
+    "end": 2624.4743764172335,
+    "duration": 8.859365079365034,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 2624.4743764172335,
+    "end": 2630.621632653061,
+    "duration": 6.147256235827626,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2630.621632653061,
+    "end": 2643.7019501133786,
+    "duration": 13.080317460317474,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2643.7019501133786,
+    "end": 2651.0821768707483,
+    "duration": 7.380226757369655,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2651.0821768707483,
+    "end": 2662.162494331066,
+    "duration": 11.080317460317474,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2662.162494331066,
+    "end": 2669.7267573696145,
+    "duration": 7.564263038548688,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2669.7267573696145,
+    "end": 2685.2404535147393,
+    "duration": 15.513696145124868,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2685.2404535147393,
+    "end": 2709.797732426304,
+    "duration": 24.55727891156448,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2709.797732426304,
+    "end": 2718.4249886621315,
+    "duration": 8.627256235827645,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 2718.4249886621315,
+    "end": 2729.625850340136,
+    "duration": 11.200861678004458,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 2729.625850340136,
+    "end": 2744.261088435374,
+    "duration": 14.635238095238037,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2744.261088435374,
+    "end": 2758.4915192743765,
+    "duration": 14.230430839002565,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2758.4915192743765,
+    "end": 2766.2091609977324,
+    "duration": 7.717641723355882,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2766.2091609977324,
+    "end": 2778.436598639456,
+    "duration": 12.227437641723554,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 2778.436598639456,
+    "end": 2814.097142857143,
+    "duration": 35.66054421768695,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 2814.097142857143,
+    "end": 2829.833560090703,
+    "duration": 15.736417233560132,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 2829.833560090703,
+    "end": 2835.63179138322,
+    "duration": 5.798231292516903,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2835.63179138322,
+    "end": 2846.229024943311,
+    "duration": 10.5972335600909,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2846.229024943311,
+    "end": 2860.684671201814,
+    "duration": 14.455646258503293,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2860.684671201814,
+    "end": 2873.1189569160997,
+    "duration": 12.43428571428558,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2873.1189569160997,
+    "end": 2877.138639455782,
+    "duration": 4.019682539682435,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2877.138639455782,
+    "end": 2888.0585487528347,
+    "duration": 10.919909297052527,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2888.0585487528347,
+    "end": 2907.9137414965985,
+    "duration": 19.855192743763837,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2907.9137414965985,
+    "end": 2925.351065759637,
+    "duration": 17.43732426303859,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2925.351065759637,
+    "end": 2936.425941043084,
+    "duration": 11.074875283447,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2936.425941043084,
+    "end": 2950.691882086168,
+    "duration": 14.265941043083785,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2950.691882086168,
+    "end": 2957.5305215419503,
+    "duration": 6.838639455782413,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2957.5305215419503,
+    "end": 2969.5643990929707,
+    "duration": 12.033877551020396,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 2969.5643990929707,
+    "end": 2987.86947845805,
+    "duration": 18.30507936507911,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 2987.86947845805,
+    "end": 3001.1057142857144,
+    "duration": 13.236235827664586,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3001.1057142857144,
+    "end": 3011.7645351473925,
+    "duration": 10.658820861678123,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 3011.7645351473925,
+    "end": 3021.368117913832,
+    "duration": 9.603582766439558,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3021.368117913832,
+    "end": 3035.535102040816,
+    "duration": 14.166984126984062,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3035.535102040816,
+    "end": 3042.1448979591837,
+    "duration": 6.609795918367581,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3042.1448979591837,
+    "end": 3057.238321995465,
+    "duration": 15.093424036281249,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3057.238321995465,
+    "end": 3073.2885260770977,
+    "duration": 16.050204081632728,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3073.2885260770977,
+    "end": 3087.1907936507937,
+    "duration": 13.902267573696008,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3087.1907936507937,
+    "end": 3123.922358276644,
+    "duration": 36.7315646258503,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 3123.922358276644,
+    "end": 3126.3225396825396,
+    "duration": 2.400181405895637,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 3126.3225396825396,
+    "end": 3128.029387755102,
+    "duration": 1.7068480725624795,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 3128.029387755102,
+    "end": 3133.175419501134,
+    "duration": 5.146031746031895,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 3133.175419501134,
+    "end": 3143.9755555555557,
+    "duration": 10.800136054421728,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3143.9755555555557,
+    "end": 3157.06843537415,
+    "duration": 13.092879818594156,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3157.06843537415,
+    "end": 3160.505850340136,
+    "duration": 3.437414965986136,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 3160.505850340136,
+    "end": 3166.168979591837,
+    "duration": 5.663129251700866,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 3166.168979591837,
+    "end": 3181.6472562358276,
+    "duration": 15.478276643990739,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3181.6472562358276,
+    "end": 3189.9133786848074,
+    "duration": 8.266122448979786,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3189.9133786848074,
+    "end": 3203.8627210884356,
+    "duration": 13.94934240362818,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 3203.8627210884356,
+    "end": 3216.699365079365,
+    "duration": 12.836643990929588,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3216.699365079365,
+    "end": 3232.3736961451245,
+    "duration": 15.674331065759361,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3232.3736961451245,
+    "end": 3256.4118367346937,
+    "duration": 24.03814058956914,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3256.4118367346937,
+    "end": 3273.838412698413,
+    "duration": 17.426575963719188,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3273.838412698413,
+    "end": 3280.507845804989,
+    "duration": 6.66943310657598,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3280.507845804989,
+    "end": 3292.1039002267576,
+    "duration": 11.596054421768713,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3292.1039002267576,
+    "end": 3304.2644897959185,
+    "duration": 12.160589569160948,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3304.2644897959185,
+    "end": 3307.912199546485,
+    "duration": 3.647709750566719,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3307.912199546485,
+    "end": 3310.1580045351475,
+    "duration": 2.2458049886622575,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 3310.1580045351475,
+    "end": 3425.8768253968256,
+    "duration": 115.71882086167807,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 3425.8768253968256,
+    "end": 3476.81306122449,
+    "duration": 50.936235827664404,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 3476.81306122449,
+    "end": 3478.1081179138323,
+    "duration": 1.2950566893423456,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 3478.1081179138323,
+    "end": 3485.623990929705,
+    "duration": 7.515873015872785,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 3485.623990929705,
+    "end": 3494.9245804988664,
+    "duration": 9.300589569161275,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3494.9245804988664,
+    "end": 3508.1637641723355,
+    "duration": 13.239183673469142,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3508.1637641723355,
+    "end": 3515.307210884354,
+    "duration": 7.143446712018431,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3515.307210884354,
+    "end": 3526.1019047619047,
+    "duration": 10.794693877550799,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3526.1019047619047,
+    "end": 3533.7814512471655,
+    "duration": 7.679546485260744,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3533.7814512471655,
+    "end": 3543.2056235827663,
+    "duration": 9.424172335600815,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3543.2056235827663,
+    "end": 3556.304761904762,
+    "duration": 13.099138321995724,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3556.304761904762,
+    "end": 3570.4118367346937,
+    "duration": 14.107074829931662,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3570.4118367346937,
+    "end": 3579.0178231292516,
+    "duration": 8.605986394557931,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3579.0178231292516,
+    "end": 3589.9138321995465,
+    "duration": 10.896009070294895,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3589.9138321995465,
+    "end": 3597.260770975057,
+    "duration": 7.346938775510353,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3597.260770975057,
+    "end": 3609.092426303855,
+    "duration": 11.831655328798206,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3609.092426303855,
+    "end": 3616.1672562358276,
+    "duration": 7.074829931972545,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3616.1672562358276,
+    "end": 3630.0814058956917,
+    "duration": 13.914149659864052,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3630.0814058956917,
+    "end": 3667.6115646258504,
+    "duration": 37.530158730158746,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 3667.6115646258504,
+    "end": 3680.2821315192746,
+    "duration": 12.670566893424166,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3680.2821315192746,
+    "end": 3682.0119727891156,
+    "duration": 1.7298412698410175,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3682.0119727891156,
+    "end": 3696.309614512472,
+    "duration": 14.297641723356264,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 3696.309614512472,
+    "end": 3704.1043083900227,
+    "duration": 7.794693877550799,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3704.1043083900227,
+    "end": 3722.9550113378687,
+    "duration": 18.850702947846003,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3722.9550113378687,
+    "end": 3735.3375963718822,
+    "duration": 12.382585034013573,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3735.3375963718822,
+    "end": 3746.7661678004533,
+    "duration": 11.428571428571104,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3746.7661678004533,
+    "end": 3756.1968253968253,
+    "duration": 9.43065759637193,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3756.1968253968253,
+    "end": 3769.1273015873016,
+    "duration": 12.930476190476384,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3769.1273015873016,
+    "end": 3780.836371882086,
+    "duration": 11.709070294784397,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3780.836371882086,
+    "end": 3795.6932879818596,
+    "duration": 14.85691609977357,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3795.6932879818596,
+    "end": 3823.7390476190476,
+    "duration": 28.045759637187984,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3823.7390476190476,
+    "end": 3838.876054421769,
+    "duration": 15.137006802721316,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3838.876054421769,
+    "end": 3851.505850340136,
+    "duration": 12.629795918367108,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 3851.505850340136,
+    "end": 3859.3643990929704,
+    "duration": 7.858548752834395,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3859.3643990929704,
+    "end": 3868.8292970521543,
+    "duration": 9.464897959183872,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3868.8292970521543,
+    "end": 3883.1939682539683,
+    "duration": 14.364671201813962,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3883.1939682539683,
+    "end": 3896.7072562358276,
+    "duration": 13.513287981859321,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3896.7072562358276,
+    "end": 3907.236326530612,
+    "duration": 10.52907029478456,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3907.236326530612,
+    "end": 3926.7226303854877,
+    "duration": 19.486303854875587,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3926.7226303854877,
+    "end": 3934.849569160998,
+    "duration": 8.126938775510098,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3934.849569160998,
+    "end": 3948.779818594104,
+    "duration": 13.930249433106383,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 3948.779818594104,
+    "end": 3958.6932426303856,
+    "duration": 9.913424036281413,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 3958.6932426303856,
+    "end": 3971.351700680272,
+    "duration": 12.658458049886576,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 3971.351700680272,
+    "end": 4014.970702947846,
+    "duration": 43.619002267573705,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 4014.970702947846,
+    "end": 4018.269070294785,
+    "duration": 3.298367346938903,
+    "label": 0,
+    "type0": "other",
+    "type1": "other"
+  },
+  {
+    "start": 4018.269070294785,
+    "end": 4024.0697052154196,
+    "duration": 5.8006349206348204,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 4024.0697052154196,
+    "end": 4037.912925170068,
+    "duration": 13.843219954648248,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 4037.912925170068,
+    "end": 4055.5050793650794,
+    "duration": 17.592154195011517,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "other"
+  },
+  {
+    "start": 4055.5050793650794,
+    "end": 4065.8913832199546,
+    "duration": 10.386303854875223,
+    "label": 0,
+    "type0": "other",
+    "type1": "serve"
+  },
+  {
+    "start": 4065.8913832199546,
+    "end": 4071.848253968254,
+    "duration": 5.95687074829948,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 4071.848253968254,
+    "end": 4081.9144217687076,
+    "duration": 10.066167800453513,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 4081.9144217687076,
+    "end": 4089.244671201814,
+    "duration": 7.330249433106474,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 4089.244671201814,
+    "end": 4100.099365079365,
+    "duration": 10.854693877551199,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 4100.099365079365,
+    "end": 4110.311111111111,
+    "duration": 10.21174603174586,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 4110.311111111111,
+    "end": 4128.284943310658,
+    "duration": 17.97383219954645,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  },
+  {
+    "start": 4128.284943310658,
+    "end": 4136.546757369614,
+    "duration": 8.261814058956588,
+    "label": 1,
+    "type0": "serve",
+    "type1": "rally_end"
+  },
+  {
+    "start": 4136.546757369614,
+    "end": 4146.503900226758,
+    "duration": 9.95714285714348,
+    "label": 0,
+    "type0": "rally_end",
+    "type1": "serve"
+  }
+]

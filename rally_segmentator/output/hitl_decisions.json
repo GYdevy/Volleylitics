@@ -1,0 +1,122 @@
+[
+  {
+    "index": 0,
+    "decision": "not_rally",
+    "start": 388.2144217687075,
+    "end": 401.7168253968254
+  },
+  {
+    "index": 1,
+    "decision": "not_rally",
+    "start": 518.2171428571429,
+    "end": 532.7353741496598
+  },
+  {
+    "index": 2,
+    "decision": "rally",
+    "start": 704.7197732426304,
+    "end": 713.0615873015873
+  },
+  {
+    "index": 3,
+    "decision": "not_rally",
+    "start": 932.4321088435374,
+    "end": 943.2119727891156
+  },
+  {
+    "index": 4,
+    "decision": "not_rally",
+    "start": 1364.4683900226757,
+    "end": 1372.0380952380951
+  },
+  {
+    "index": 5,
+    "decision": "not_rally",
+    "start": 1434.2965986394559,
+    "end": 1444.9603628117914
+  },
+  {
+    "index": 6,
+    "decision": "not_rally",
+    "start": 1582.3586394557824,
+    "end": 1590.9732426303856
+  },
+  {
+    "index": 7,
+    "decision": "rally",
+    "start": 1681.345306122449,
+    "end": 1691.4808163265307
+  },
+  {
+    "index": 8,
+    "decision": "not_rally",
+    "start": 1706.1790476190477,
+    "end": 1715.7688888888888
+  },
+  {
+    "index": 9,
+    "decision": "rally",
+    "start": 2624.5456689342404,
+    "end": 2630.6409070294785
+  },
+  {
+    "index": 10,
+    "decision": "not_rally",
+    "start": 2766.204761904762,
+    "end": 2778.2385487528345
+  },
+  {
+    "index": 11,
+    "decision": "not_rally",
+    "start": 3143.976054421769,
+    "end": 3157.1185487528346
+  },
+  {
+    "index": 12,
+    "decision": "not_rally",
+    "start": 3280.468752834467,
+    "end": 3292.1077551020408
+  },
+  {
+    "index": 13,
+    "decision": "not_rally",
+    "start": 3304.379501133787,
+    "end": 3307.79283446712
+  },
+  {
+    "index": 14,
+    "decision": "not_rally",
+    "start": 3307.79283446712,
+    "end": 3310.2019047619046
+  },
+  {
+    "index": 15,
+    "decision": "not_rally",
+    "start": 3616.21768707483,
+    "end": 3630.0509750566894
+  },
+  {
+    "index": 16,
+    "decision": "not_rally",
+    "start": 3680.322176870748,
+    "end": 3681.854693877551
+  },
+  {
+    "index": 17,
+    "decision": "not_rally",
+    "start": 3756.129523809524,
+    "end": 3769.115283446712
+  },
+  {
+    "index": 18,
+    "decision": "rally",
+    "start": 3948.7796825396827,
+    "end": 3958.688798185941
+  },
+  {
+    "index": 19,
+    "decision": "rally",
+    "start": 4065.994013605442,
+    "end": 4071.6887074829933
+  }
+]
