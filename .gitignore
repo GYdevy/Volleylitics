@@ -9,11 +9,13 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
+__init__.py
 # Virtual environments
 .venv/
 venv/
 env/
+
+matches/
 
 # Plots / generated outputs
 plots/
@@ -35,6 +37,16 @@ Volleybot/
 vidoes/
 *.mp4
 *.wav
+
+#Ignore rally segmentator stuff
+rally_segmentator/runs/
+rally_segmentator/output/
+rally_segmentator/models_dir/
+rally_segmentator/anchored_matches/
+
+#Ignore archive
+archive/
+
 
 
 Vision/data/

@@ -10,12 +10,16 @@ VIDEO_DIR = "/mnt/hdd/videos"
 
 MODEL_DIR = BASE_DIR / "rally_segmentator" / "models_dir"
 
-MATCH_ID = "match17"
+MATCH_ID = "match18"
 
 RALLY_BASE = BASE_DIR / "rally_segmentator"
 
 RALLIES_DIR = RALLY_BASE / "output" / MATCH_ID 
-
+SEGMENTS = [
+    (4*60 + 40, 24*60 + 2),
+    (26*60 + 25, 50*60 + 32),
+    (53*60 + 18, 1*3600 + 13*60 + 19)
+]
 
 
 # =========================

@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+.venv/
+venv/
+
+# Models
+*.pth
+*.pt
+*.pkl
+
+# Data
+*.mp4
+*.avi
+*.mkv
+videos/
+data/
+datasets/
+
+# Logs / outputs
+*.log
+outputs/
+
+# OS junk
+.DS_Store

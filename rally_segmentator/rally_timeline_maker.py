@@ -7,7 +7,7 @@ from PIL import Image
 import torch.nn.functional as F
 from torchvision import transforms
 from pathlib import Path
-
+import os
 from config import (
     WHISTLE_MODEL,
     RALLY_MODEL,
@@ -16,6 +16,7 @@ from config import (
     OUTPUT_DIR,
     MATCH_ID,
     RALLY_BASE,
+    SEGMENTS,
 )
 
 from rally_segmentator.dsp_detector import (
@@ -53,11 +54,7 @@ FP_RATIO = 0.1
 
 TIMELINE_STEP = 0.2
 
-SEGMENTS = [
-    (5*60 + 10, 29*60 + 8),
-    (30*60 + 20, 55*60 + 40),
-    (57*60 + 30, 1*3600 + 9*60 + 4)
-]
+
 MAX_RALLY_DURATION = 35
 
 # =============================
@@ -481,6 +478,8 @@ def maybe_run_hitl():
 # =============================
 
 def main():
+    print("Running in:", os.getcwd())
+    print(f"Analyzing {MATCH_ID}")
     whistle_model, rally_model = load_models()
 
     print("Loading audio...")
