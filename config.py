@@ -8,16 +8,14 @@ RALLY_MODEL = "rally_model_best.pth"
 
 VIDEO_DIR = "/mnt/hdd/videos"
 
-
-MODEL_DIR = Path("rally_segmentator/models_dir")  # or correct relative path
-
-
-
-
-
-
+MODEL_DIR = BASE_DIR / "rally_segmentator" / "models_dir"
 
 MATCH_ID = "match17"
+
+RALLY_BASE = BASE_DIR / "rally_segmentator"
+
+RALLIES_DIR = RALLY_BASE / "output" / MATCH_ID 
+
 
 
 # =========================

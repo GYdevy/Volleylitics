@@ -15,9 +15,10 @@ from config import (
     MODEL_DIR,
     OUTPUT_DIR,
     MATCH_ID,
+    RALLY_BASE,
 )
 
-from dsp_detector import (
+from rally_segmentator.dsp_detector import (
     load_audio_from_video,
     detect_active_frames,
     group_frames,
@@ -29,8 +30,8 @@ from dsp_detector import (
     cfg
 )
 
-from models_dir.resnet_whistle import ResNetWhistle, wav_to_logmel_from_audio
-from models_dir.rse import build_model
+from rally_segmentator.models_dir.resnet_whistle import ResNetWhistle, wav_to_logmel_from_audio
+from rally_segmentator.models_dir.rse import build_model
 
 
 # =============================
@@ -447,15 +448,21 @@ def analyze_intervals(cnn_centers, timeline_t, timeline_p,cap,fps):
 # =============================
 # SAVE
 # =============================
-
 def save_results(rallies, hitl):
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    match_output_dir = RALLY_BASE / "output" / MATCH_ID
+    match_output_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(OUTPUT_DIR / f"{MATCH_ID}_rallies.json", "w") as f:
+    rallies_path = match_output_dir / "rallies.json"
+    hitl_path = match_output_dir / "hitl.json"
+
+    with open(rallies_path, "w") as f:
         json.dump(rallies, f, indent=2)
-    print(f"Rallies saved to: {OUTPUT_DIR}/{MATCH_ID}_rallies.json")
-    with open(OUTPUT_DIR / f"{MATCH_ID}_hitl.json", "w") as f:
+
+    with open(hitl_path, "w") as f:
         json.dump(hitl, f, indent=2)
+
+    print(f"Rallies saved to: {rallies_path}")
+    print(f"HITL saved to: {hitl_path}")
 
 # =============================
 # HITL DIALOG
