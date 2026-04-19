@@ -461,17 +461,6 @@ def save_results(rallies, hitl):
     print(f"Rallies saved to: {rallies_path}")
     print(f"HITL saved to: {hitl_path}")
 
-# =============================
-# HITL DIALOG
-# =============================
-def maybe_run_hitl():
-    ans = input("\nReview HITLs now? [y/n]: ").strip().lower()
-
-    if ans == "y":
-       # from hitl_reviewer import review
-        #decisions = review()
-        print()
-       # print(f"Reviewed {len(decisions)} HITLs")
 
 # =============================
 # MAIN
@@ -504,7 +493,7 @@ def main():
     save_results(rallies, hitl)
     print("Rallies Count: ", len(rallies))
     print("HITL Count:",len(hitl))
-    maybe_run_hitl()
+   
     
 
 if __name__ == "__main__":

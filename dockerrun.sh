@@ -2,9 +2,9 @@
 
 set -e  # stop on error
 
-echo " Running pipeline in Docker..."
+echo "Running pipeline in Docker..."
 
-docker run \
+docker run -it \
     --device=/dev/kfd \
     --device=/dev/dri \
     --group-add video \
@@ -16,13 +16,14 @@ docker run \
     volleylitics \
     python -m rally_segmentator.rally_timeline_maker
 
-echo " Docker pipeline finished"
+echo "Docker pipeline finished"
 
 read -p "Review HITLs now? [y/n]: " answer
 
 if [[ "$answer" =~ ^[Yy]$ ]]; then
-    echo " Launching HITL reviewer locally..."
-    python -m rally_segmentator.output.hitl_reviewer
+    echo "Launching HITL reviewer locally..."
+    .venv/bin/python -m rally_segmentator.output.hitl_reviewer
 else
-    echo " Skipping HITL review"
+    echo "Skipping HITL review"
 fi
+

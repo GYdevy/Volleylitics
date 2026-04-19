@@ -40,7 +40,6 @@ vidoes/
 
 #Ignore rally segmentator stuff
 rally_segmentator/runs/
-rally_segmentator/output/
 rally_segmentator/models_dir/
 rally_segmentator/anchored_matches/
 
