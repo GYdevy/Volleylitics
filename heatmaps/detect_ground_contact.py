@@ -135,11 +135,13 @@ def process_clip(video_path):
     mapped = cv2.perspectiveTransform(pt, H)
 
     court_x, court_y = mapped[0][0]
-
+    if  court_y > 9 or court_y < 0:
+        return None
     # clamp
-    court_x = max(0, min(9, court_x))
-    court_y = max(0, min(9, court_y))
+    EXT = 3  # meters outside court
 
+    court_x = max(-EXT, min(9 + EXT, court_x))
+    court_y = max(0, min(9, court_y))
     return float(court_x), float(court_y)
 
 
