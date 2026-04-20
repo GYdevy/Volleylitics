@@ -76,8 +76,8 @@ Example output
 Track the volleyball during rally segments.
 
 - [x] Detect volleyball using object detection
-- [ ] Track ball trajectory
-- [ ] Store ball coordinates over time
+- [x] Track ball trajectory
+- [x] Store ball coordinates over time
 
 ---
 
@@ -85,9 +85,9 @@ Track the volleyball during rally segments.
 
 Detect where the ball contacts the court floor.
 
-- [ ] Detect ball-floor contact
-- [ ] Estimate court coordinates
-- [ ] Store landing locations
+- [x] Detect ball-floor contact
+- [x] Estimate court coordinates
+- [x] Store landing locations
 
 ---
 
@@ -95,7 +95,7 @@ Detect where the ball contacts the court floor.
 
 Extract gameplay insights from rally and ball data.
 
-- [ ] Ball landing heatmaps
+- [x] Ball landing heatmaps
 - [ ] Setting distribution
 - [ ] Serve direction
 - [ ] Approximate serve speed (maybe)
