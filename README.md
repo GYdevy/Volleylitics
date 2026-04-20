@@ -104,7 +104,7 @@ Extract gameplay insights from rally and ball data.
 ---
 
 ## 6. Top-Down Tactical View (Planned)
-
+- Requires player detection,jersey number OCR, would increase compute time substantialy.
 Normalize the court into a tactical view.
 
 - [ ] Estimate court geometry

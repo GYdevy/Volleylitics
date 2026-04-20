@@ -12,14 +12,14 @@ def click(event, x, y, flags, param):
 
 cap = cv2.VideoCapture(VIDEO)
 
-# ⏩ skip 10 minutes
+#skip 10 minutes
 cap.set(cv2.CAP_PROP_POS_MSEC, 10 * 60 * 1000)
 
 ret, frame = cap.read()
 cap.release()
 
 if not ret:
-    print("❌ Failed to read frame at 10 minutes")
+    print("Failed to read frame at 10 minutes")
     exit()
 
 cv2.imshow("Click court corners", frame)
