@@ -21,9 +21,17 @@
  	</div>
     </header>
 	<main class="layout">
+<div class="top-actions">
   <button id="browseToggle" class="browse-toggle" type="button" aria-expanded="false" aria-controls="browseSidebar">
     Browse Matches
   </button>
+
+  <a href="./how-works.html" class="browse-toggle how-link">
+    How This Works
+  </a>
+</div> 
+
+  
 
   <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 
@@ -65,55 +73,55 @@
           </div>
         </div>
       </div>
+	<div class="media-slot heatmap-panel">
+    <h3>Landing Heatmap</h3>
 
-      <div class="media-slot heatmap-panel">
-        <div>
-          <h3>Landing Heatmap</h3>
-          <p class="panel-help">
-            Click a point to jump to that exact event time in the match video.
-          </p>
-        </div>
-	<div class="heatmap-controls">
-  <label for="setFilter">Set:</label>
-  <select id="setFilter">
-    <option value="all">All sets</option>
-    <option value="1">Set 1</option>
-    <option value="2">Set 2</option>
-    <option value="3">Set 3</option>
-    <option value="4">Set 4</option>
-    <option value="5">Set 5</option>
-  </select>
+  <div class="court-wrap">
+    <svg id="heatmap" role="img" aria-label="Heatmap court">
+      <g id="heatmapCourt"></g>
+      <g id="heatmapPoints"></g>
+    </svg>
+  </div>
 
-  <label class="traj-toggle">
-    <input type="checkbox" id="trajectoryToggle" />
-    Show all trajectories
-  </label>
+   <br>
+  <div class="heatmap-controls">
+    <label for="setFilter">Set:</label>
+    <select id="setFilter">
+      <option value="all">All sets</option>
+      <option value="1">Set 1</option>
+      <option value="2">Set 2</option>
+      <option value="3">Set 3</option>
+      <option value="4">Set 4</option>
+      <option value="5">Set 5</option>
+    </select>
+
+    <label class="traj-toggle">
+      <input type="checkbox" id="trajectoryToggle" />
+      Show all trajectories
+    </label>
+	<button id="heatmapReset" type="button">Reset View</button>
+  </div>
+
+  <div class="stats-grid">
+    <article class="stat-card">
+      <h4>Total Landings</h4>
+      <p id="statTotal">0</p>
+    </article>
+    <article class="stat-card">
+      <h4>Left Side (%)</h4>
+      <p id="statLeft">0%</p>
+    </article>
+    <article class="stat-card">
+      <h4>Right Side (%)</h4>
+      <p id="statRight">0%</p>
+    </article>
+    <article class="stat-card">
+      <h4>Longest Rally</h4>
+      <p id="statLongest">--</p>
+    </article>
+  </div>
 </div>
-    <div class="court-wrap">
-<svg id="heatmap" role="img" aria-label="Heatmap court">
-  <g id="heatmapCourt"></g>
-  <g id="heatmapPoints"></g>
-</svg> 
-</div> 
-        <div class="stats-grid">
-          <article class="stat-card">
-            <h4>Total Landings</h4>
-            <p id="statTotal">0</p>
-          </article>
-          <article class="stat-card">
-            <h4>Left Side (%)</h4>
-            <p id="statLeft">0%</p>
-          </article>
-          <article class="stat-card">
-            <h4>Right Side (%)</h4>
-            <p id="statRight">0%</p>
-          </article>
-          <article class="stat-card">
-            <h4>Longest Rally</h4>
-            <p id="statLongest">--</p>
-          </article>
-        </div>
-      </div>
+                  </div>
     </div>
   </section>
 </main>

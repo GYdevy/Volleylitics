@@ -1,29 +1,8 @@
-import { renderCourtBackground, renderCourtRallies } from "./court.js";
+import { renderCourtBackground, renderCourtRallies, enableHeatmapZoom } from "./court.js";
 
-const data = [
-	{
-		season: "2025-2026",
-		matches: [
-			{
-				id: "s1m1",
-				label: "אליצור אשקלון - גבעתיים",
-				videoId: "dkr3LRiW5L0",
-				photo: "./media/season-2025/final-banner.jpg",
-				longestRally: "00:29",
-				ralliesFile: "./data/matches/match17/rally_results.json",
-				detailsFile: "./data/matches/match17/match_details.json"
-			},
-			{
-				id: "s1m2",
-				label: "Week 8: Falcons vs Storm",
-				videoId: "dkr3LRiW5L0",
-				photo: "./media/season-2025/week8.jpg",
-				longestRally: "00:24",
-				ralliesFile: "./data/matches/match18/rally_results.json"
-			}
-		]
-	}
-];
+let data = [];
+let currentSeason = null;
+let currentMatch = null;
 let currentRallies = [];
 let activeSetFilter = "all";
 let showAllTrajectories = false;
@@ -53,12 +32,29 @@ const statRightEl = document.getElementById("statRight");
 const statLongestEl = document.getElementById("statLongest");
 const heatmapSvgEl = document.getElementById("heatmap");
 const matchDetailsEl = document.getElementById("matchDetails");
-let currentSeason = data[0];
-let currentMatch = currentSeason.matches[0];
+const heatmapResetEl = document.getElementById("heatmapReset");
+let resetHeatmapView = null;
 
 let ytPlayer = null;
 let ytApiReady = false;
 let rallyStopTimeout = null;
+
+
+async function loadMatchIndex() {
+	const response = await fetch("./data/matches/index.json");
+	if (!response.ok) {
+		throw new Error("Failed to load match index");
+	}
+
+	data = await response.json();
+
+	if (!data.length) {
+		throw new Error("No seasons found in match index");
+	}
+
+	currentSeason = data[0];
+	currentMatch = currentSeason.matches[0];
+}
 
 function loadYouTubeAPI() {
 	if (window.YT && window.YT.Player) {
@@ -80,15 +76,14 @@ window.onYouTubeIframeAPIReady = function() {
 function createOrLoadPlayer() {
 	if (!ytApiReady || !currentMatch.videoId) return;
 
-	if (!document.getElementById("ytPlayer")) {
-		matchVideoEl.innerHTML = '<div id="ytPlayer"></div>';
+	resetRallyPlaybackTimer();
+
+	if (ytPlayer && typeof ytPlayer.destroy === "function") {
+		ytPlayer.destroy();
+		ytPlayer = null;
 	}
 
-	if (ytPlayer) {
-		ytPlayer.loadVideoById(currentMatch.videoId);
-		ytPlayer.pauseVideo();
-		return;
-	}
+	matchVideoEl.innerHTML = '<div id="ytPlayer"></div>';
 
 	ytPlayer = new YT.Player("ytPlayer", {
 		width: "960",
@@ -214,13 +209,13 @@ function renderMatchDetails(details) {
 			<table class="common-table table result-by-set" id="match-table">
 				<thead>
 					<tr>
-						<th>קבוצה/מערכה</th>
+						<th>Team/Set</th>
 						<th class="td_ltr_center">1</th>
 						<th class="td_ltr_center">2</th>
 						<th class="td_ltr_center">3</th>
 						<th class="td_ltr_center">4</th>
 						<th class="td_ltr_center">5</th>
-						<th class="td_ltr_center">סה"כ</th>
+						<th class="td_ltr_center">Total</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -332,8 +327,25 @@ trajectoryToggleEl.addEventListener("change", () => {
 	showAllTrajectories = trajectoryToggleEl.checked;
 	refreshHeatmap();
 });
-renderCourtBackground(heatmapSvgEl);
-renderSeasons();
-renderMatches();
-loadYouTubeAPI();
-renderMatch();
+heatmapResetEl.addEventListener("click", () => {
+	if (resetHeatmapView) {
+		resetHeatmapView();
+	}
+});
+async function init() {
+	try {
+		await loadMatchIndex();
+		renderCourtBackground(heatmapSvgEl);
+		renderSeasons();
+		renderMatches();
+		loadYouTubeAPI();
+		await renderMatch();
+
+		enableHeatmapZoom(heatmapSvgEl);
+		resetHeatmapView = enableHeatmapZoom(heatmapSvgEl);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+init();

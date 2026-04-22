@@ -14,9 +14,12 @@ MATCH_ID = "match17"
 CLIPS_DIR = f"/workspace/rally_segmentator/output/{MATCH_ID}/rally_clips"
 RALLIES_JSON = f"/workspace/rally_segmentator/output/{MATCH_ID}/rallies_with_clips_with_sets.json"
 
-OUTPUT_JSON = "/workspace/heatmaps/landings.json"
-OUTPUT_IMG = "/workspace/heatmaps/all_landings.png"
+OUTPUT_JSON = f"/workspace/heatmaps/{MATCH_ID}/landings.json"
+OUTPUT_IMG = f"/workspace/heatmaps/{MATCH_ID}/all_landings.png"
 
+
+output_dir = os.path.dirname(OUTPUT_JSON)
+os.makedirs(output_dir, exist_ok=True)
 # =========================
 # LOAD CLIPS
 # =========================
@@ -63,6 +66,77 @@ class Ball:
         return max(self.positions, key=lambda p: p[2])  # max y
 
 
+def get_net_point(ball_positions):
+    if len(ball_positions) < 5:
+        return None
+
+    net_y = 9
+
+    # take last N points
+    N = 15
+    pts = ball_positions[-N:]
+
+    # convert to court space
+    court_pts = []
+    for (_, x, y) in pts:
+        pt = np.array([[[x, y]]], dtype=np.float32)
+        mapped = cv2.perspectiveTransform(pt, H)
+        cx, cy = mapped[0][0]
+        court_pts.append((cx, cy))
+
+    # compute average direction
+    dx = 0
+    dy = 0
+
+    for i in range(1, len(court_pts)):
+        dx += court_pts[i][0] - court_pts[i-1][0]
+        dy += court_pts[i][1] - court_pts[i-1][1]
+
+    dx /= (len(court_pts) - 1)
+    dy /= (len(court_pts) - 1)
+
+    # landing point
+    lx, ly = court_pts[-1]
+
+    if abs(dy) < 1e-6:
+        nx = lx
+    else:
+        t = (net_y - ly) / dy
+        nx = lx + t * dx
+
+    # 🔥 clamp to extended court bounds
+    nx = max(-1, min(10, nx))
+    ny = net_y
+
+    return float(nx), float(ny)
+
+def get_attack_point(ball_positions):
+    if len(ball_positions) < 5:
+        return None
+
+    NET_Y_IMG = 530
+
+    # go forward to detect crossing
+    for i in range(1, len(ball_positions)):
+        _, x1, y1 = ball_positions[i - 1]
+        _, x2, y2 = ball_positions[i]
+
+        # detect crossing (one side → other)
+        if (y1 > NET_Y_IMG and y2 <= NET_Y_IMG):
+            # 🔥 TAKE THE POINT BEFORE CROSSING
+            hx, hy = x1, y1
+
+            pt = np.array([[[hx, hy]]], dtype=np.float32)
+            mapped = cv2.perspectiveTransform(pt, H)
+
+            ax, ay = mapped[0][0]
+
+            ay = 9
+            ax = max(-1, min(10, ax))
+
+            return float(ax), float(ay)
+
+    return None
 # =========================
 # LOAD MODEL
 # =========================
@@ -77,6 +151,13 @@ img_pts = np.array([
     [1426, 779],
     [516, 780]
 ], dtype=np.float32)
+
+
+net_line = np.array([
+    [471, 530],
+    [1441, 530]
+], dtype=np.float32)
+
 
 court_pts = np.array([
     [0, 0],
@@ -98,7 +179,7 @@ def process_clip(video_path):
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
     # last few seconds
-    start_frame = max(0, total_frames - int(3 * fps))
+    start_frame = max(0, total_frames - int(2 * fps))
     cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
 
     ball = Ball()
@@ -142,7 +223,8 @@ def process_clip(video_path):
 
     court_x = max(-EXT, min(9 + EXT, court_x))
     court_y = max(0, min(9, court_y))
-    return float(court_x), float(court_y)
+    return float(court_x), float(court_y),ball.positions
+
 
 
 # =========================
@@ -150,28 +232,35 @@ def process_clip(video_path):
 # =========================
 results = []
 
-for clip in clips:
+for r in rallies:
+    clip = r["clip_path"].split("/")[-1]          
+    rid = r["id"]             
+
     path = os.path.join(CLIPS_DIR, clip)
 
     print(f"\n▶ Processing {clip}")
 
-    landing = process_clip(path)
+    data = process_clip(path)
 
-    if landing:
-        x, y = landing
+    if data:
+        x, y, positions = data
+        #net_pt = get_net_point(positions)
+        attack_pt = get_attack_point(positions)
         set_id = clip_to_set.get(clip)
 
         print(f"✔ Landing: ({x:.2f}, {y:.2f}) | set={set_id}")
 
         results.append({
-            "clip": clip,
-            "x": x,
-            "y": y,
-            "set": set_id
-        })
+        "id": rid,
+        "clip": clip,
+        "x": x,
+        "y": y,
+        "set": set_id,
+        "attack_point": attack_pt
+
+    })
     else:
         print("No landing")
-
 
 # =========================
 # SAVE JSON
@@ -198,7 +287,7 @@ offset = int(FREE * SCALE)
 for r in results:
     x, y = r["x"], r["y"]
     set_id = r.get("set")
-
+    rid = r["id"]
     px = offset + int(x * SCALE)
     py = offset + int((COURT_H - y) * SCALE)
 
@@ -208,9 +297,36 @@ for r in results:
 
     # inner colored dot
     cv2.circle(court_img, (px, py), 9, color, -1, lineType=cv2.LINE_AA)
+    cv2.putText(court_img, str(rid), (px + 10, py - 10),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                (255,255,255), 3, cv2.LINE_AA)
+
+    cv2.putText(court_img, str(rid), (px + 10, py - 10),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                (0,0,0), 1, cv2.LINE_AA)
 
 
-# =========================
+    attack_pt = r.get("attack_point")
+
+    if attack_pt:
+        ax, ay = attack_pt
+        lx, ly = r["x"], r["y"]
+
+        px1 = offset + int(ax * SCALE)
+        py1 = offset + int((COURT_H - ay) * SCALE)
+
+        px2 = offset + int(lx * SCALE)
+        py2 = offset + int((COURT_H - ly) * SCALE)
+
+        cv2.line(
+            court_img,
+            (px1, py1),
+            (px2, py2),
+            (0, 255, 255),
+            2,
+            cv2.LINE_AA
+        )
+    # =========================
 # DRAW LEGEND
 # =========================
 legend_x = 50

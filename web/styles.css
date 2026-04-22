@@ -184,7 +184,7 @@ button.item.active {
 .heatmap-panel {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.0rem;
   width: 640px;
 }
 
@@ -238,6 +238,8 @@ video {
   width: 100%;
   display: flex;
   justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 #heatmap {
@@ -245,6 +247,9 @@ video {
   max-width: 600px;
   height: auto;
   display: block;
+  border-radius: 8px;
+  touch-action: none;
+  user-select: none;
 }
 
 .court-bg {
@@ -383,4 +388,133 @@ video {
 .td_ltr_center {
   text-align: center;
 }
+.top-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
 
+.how-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.pipeline-band {
+  position: sticky;
+  top: 1rem;
+  z-index: 10;
+  background: #162447;
+  border: 1px solid #2b3d6b;
+  border-radius: 16px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.pipeline-flow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: max-content;
+}
+
+.pipeline-node {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  padding: 0;
+  border: 1px solid #2b3d6b;
+  border-radius: 16px;
+  background: #1b2a52;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.2s ease;
+  flex: 0 0 auto;
+}
+
+.pipeline-node:hover {
+  border-color: #58a6ff;
+  transform: translateY(-2px);
+}
+
+.pipeline-node.active {
+  border-color: #58a6ff;
+  background: #223764;
+  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.15);
+}
+
+.pipeline-card-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.pipeline-card-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.65rem 0.75rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.12));
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.pipeline-arrow {
+  color: #7fa6ff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.how-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.how-step-section {
+  background: color-mix(in srgb, var(--panel) 92%, black);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.25rem;
+  scroll-margin-top: 6rem;
+}
+
+.top-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top:0.5rem;
+}
+
+.how-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+@media (max-width: 1000px) {
+  .pipeline-band {
+    top: 0;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .pipeline-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pipeline-node {
+    min-width: 100px;
+    padding: 0.7rem;
+  }
+
+  .pipeline-title {
+    font-size: 0.8rem;
+  }
+}

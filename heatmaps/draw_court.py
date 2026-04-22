@@ -66,9 +66,9 @@ def draw_court(court_x, court_y, scale=250):
 
     # dashed extensions
     def draw_fixed_dashes(y, x_start, direction):
-        DASH = int(0.3 * scale)
-        GAP = int(0.4 * scale)
-        COUNT = 3
+        DASH = int(0.2 * scale)
+        GAP = int(0.2 * scale)
+        COUNT = 5
 
         x = x_start
         for _ in range(COUNT):
@@ -94,7 +94,5 @@ def draw_court(court_x, court_y, scale=250):
     px = offset + int(court_x * scale)
     py = offset + int((COURT_H - court_y) * scale)
 
-    #cv2.circle(court_img, (px, py), int(0.25 * scale), (255,255,255), -1, lineType=cv2.LINE_AA)
-    cv2.circle(court_img, (px, py), int(0.15 * scale), (0,0,255), -1, lineType=cv2.LINE_AA)
-
+    
     return court_img

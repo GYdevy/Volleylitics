@@ -6,7 +6,7 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 
 export const COURT = {
 	svgWidth: 600,
-	svgHeight: 700,
+	svgHeight: 765,
 
 	outerColor: "#508250",
 	courtColor: "#DC8C3C",
@@ -178,6 +178,102 @@ export function drawAttackLine(pointsEl, rally) {
 	return line;
 }
 
+export function enableHeatmapZoom(svgEl) {
+	if (!svgEl) return;
+
+	if (!svgEl.hasAttribute("viewBox")) {
+		svgEl.setAttribute("viewBox", "0 0 700 760");
+	}
+
+	const initial = svgEl.getAttribute("viewBox").split(/\s+/).map(Number);
+
+	const defaultViewBox = {
+		x: initial[0],
+		y: initial[1],
+		width: initial[2],
+		height: initial[3]
+	};
+
+	let viewBox = { ...defaultViewBox };
+	let isPanning = false;
+	let panStart = null;
+	let panStartViewBox = null;
+
+	function applyViewBox() {
+		svgEl.setAttribute(
+			"viewBox",
+			`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`
+		);
+	}
+
+	svgEl.addEventListener("wheel", (e) => {
+		e.preventDefault();
+
+		const rect = svgEl.getBoundingClientRect();
+		const mx = (e.clientX - rect.left) / rect.width;
+		const my = (e.clientY - rect.top) / rect.height;
+
+		const scale = e.deltaY > 0 ? 1.1 : 0.9;
+
+		const newWidth = viewBox.width * scale;
+		const newHeight = viewBox.height * scale;
+
+		viewBox.x += (viewBox.width - newWidth) * mx;
+		viewBox.y += (viewBox.height - newHeight) * my;
+		viewBox.width = newWidth;
+		viewBox.height = newHeight;
+
+		applyViewBox();
+	}, { passive: false });
+
+	svgEl.addEventListener("mousedown", (e) => {
+		isPanning = true;
+		panStart = { x: e.clientX, y: e.clientY };
+		panStartViewBox = { ...viewBox };
+		svgEl.style.cursor = "grabbing";
+		e.preventDefault();
+	});
+
+	window.addEventListener("mousemove", (e) => {
+		if (!isPanning) return;
+
+		const rect = svgEl.getBoundingClientRect();
+
+		const dxPx = e.clientX - panStart.x;
+		const dyPx = e.clientY - panStart.y;
+
+		const dx = (dxPx / rect.width) * panStartViewBox.width;
+		const dy = (dyPx / rect.height) * panStartViewBox.height;
+
+		viewBox.x = panStartViewBox.x - dx;
+		viewBox.y = panStartViewBox.y - dy;
+
+		applyViewBox();
+	});
+
+	window.addEventListener("mouseup", () => {
+		isPanning = false;
+		svgEl.style.cursor = "grab";
+	});
+
+	svgEl.addEventListener("mouseleave", () => {
+		isPanning = false;
+		svgEl.style.cursor = "grab";
+	});
+
+	svgEl.addEventListener("dblclick", () => {
+		viewBox = { ...defaultViewBox };
+		applyViewBox();
+	});
+
+	svgEl.style.cursor = "grab";
+	applyViewBox();
+
+	return function resetHeatmapZoom() {
+		viewBox = { ...defaultViewBox };
+		applyViewBox();
+	};
+}
 export function drawLandingPoint(pointsEl, rally, onClick) {
 	if (!rally.landing_point) return null;
 

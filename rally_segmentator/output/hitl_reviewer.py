@@ -1,15 +1,12 @@
 import cv2
 import json
-from config import MATCH_ID,OUTPUT_DIR
+from config import OUTPUT_DIR
+import argparse
 from pathlib import Path
 
 RALLY_BASE = Path(__file__).resolve().parent.parent
 
-VIDEO_PATH = f"/mnt/hdd/videos/{MATCH_ID}.mp4"
-HITL_JSON = RALLY_BASE / "output" / MATCH_ID / "hitl.json"
-MATCH_DIR = OUTPUT_DIR / MATCH_ID
-RALLIES_JSON = RALLY_BASE / "output" / MATCH_ID/ "rallies.json"
-FINAL_OUTPUT_JSON = RALLY_BASE / "output" / MATCH_ID/ "rallies_with_hitl.json"
+
 
 PADDING = 0.0  # seconds
 
@@ -17,16 +14,16 @@ PADDING = 0.0  # seconds
 # =========================
 # LOAD HITL
 # =========================
-def load_hitl():
-    with open(HITL_JSON, "r") as f:
+def load_hitl(hitl_json):
+    with open(hitl_json, "r") as f:
         return json.load(f)
 
 
 # =========================
 # PLAY CLIP + DECIDE
 # =========================
-def play_clip(start, end, h, i, decisions):
-    cap = cv2.VideoCapture(VIDEO_PATH)
+def play_clip(start, end, h, i, decisions, video_path):
+    cap = cv2.VideoCapture(video_path)
 
     if not cap.isOpened():
         print("❌ Failed to open video")
@@ -150,8 +147,8 @@ def play_clip(start, end, h, i, decisions):
 # =========================
 # REVIEW LOOP
 # =========================
-def review():
-    hitls = load_hitl()
+def review(video_path, hitl_json):
+    hitls = load_hitl(hitl_json)
     decisions = []
 
     for i, h in enumerate(hitls):
@@ -162,40 +159,48 @@ def review():
         print(f"HITL {i}")
         print(f"{h['start']:.2f} → {h['end']:.2f}")
         print(f"dur={h['duration']:.2f} | ratio={h['ratio']:.2f} | yellow={h['yellow']:.2f} | score={h['score']:.2f}")
+        
+        result = play_clip(start, end, h, i, decisions,video_path)
 
-        result = play_clip(start, end, h, i, decisions)
 
         if result == "quit":
             break
 
     cv2.destroyAllWindows()
-    return decisions
+    return decisions, hitls
 
 def overlaps(a, b):
     return not (a["end"] < b["start"] or b["end"] < a["start"])
-
 
 def merge_intervals(r1, r2):
     return {
         "start": min(r1["start"], r2["start"]),
         "end": max(r1["end"], r2["end"]),
         "duration": max(r1["end"], r2["end"]) - min(r1["start"], r2["start"]),
-        "label": "MERGED_HITL"
+        "label": "MERGED_HITL",
+        "set": r1.get("set") or r2.get("set")
     }
 
 
 def add_hitl_to_rallies(rallies, hitl_decisions):
-    hitl_rallies = [
-        {
-            "start": h["start"],
-            "end": h["end"],
-            "duration": h["end"] - h["start"],
-            "label": "HITL"
-        }
-        for h in hitl_decisions
-        if h["decision"] == "rally"
-    ]
+   
 
+
+    hitl_rallies = []
+
+    for d in hitl_decisions:
+        if d["decision"] != "rally":
+            continue
+
+        original = hitls[d["index"]]
+
+        hitl_rallies.append({
+            "start": d["start"],
+            "end": d["end"],
+            "duration": d["end"] - d["start"],
+            "label": "HITL",
+            "set": original.get("set")   # ✅ THIS FIXES IT
+        })
     all_rallies = rallies.copy()
 
     for h in hitl_rallies:
@@ -236,27 +241,32 @@ def add_hitl_to_rallies(rallies, hitl_decisions):
 # MAIN
 # =========================
 if __name__ == "__main__":
-    decisions = review()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--match-id", required=True)
+    args = parser.parse_args()
 
-    # optional: keep for debugging
-    # with open(OUTPUT_JSON, "w") as f:
-    #     json.dump(decisions, f, indent=2)
+    match_id = args.match_id
 
-    # load original rallies
-    with open(RALLIES_JSON, "r") as f:
+    video_path = f"/mnt/hdd/videos/{match_id}.mp4"
+    hitl_json = RALLY_BASE / "output" / match_id / "hitl.json"
+    match_dir = OUTPUT_DIR / match_id
+    rallies_json = RALLY_BASE / "output" / match_id / "rallies.json"
+    final_output_json = RALLY_BASE / "output" / match_id / "rallies_with_hitl.json"
+
+    decisions, hitls = review(video_path, hitl_json)
+
+    with open(rallies_json, "r") as f:
         rallies = json.load(f)
 
     print("Original rallies:", len(rallies))
 
-    # merge HITL decisions into rallies
     merged = add_hitl_to_rallies(rallies, decisions)
 
     print("After HITL merge:", len(merged))
 
-    # save final result
-    MATCH_DIR.mkdir(parents=True, exist_ok=True)
+    match_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(FINAL_OUTPUT_JSON, "w") as f:
+    with open(final_output_json, "w") as f:
         json.dump(merged, f, indent=2)
 
-    print("✅ FINAL saved to:", FINAL_OUTPUT_JSON)
+    print("✅ FINAL saved to:", final_output_json)

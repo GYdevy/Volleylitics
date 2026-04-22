@@ -4,6 +4,8 @@
     "end": 340.63673469387754,
     "duration": 8.463673469387743,
     "label": "CNN",
+    "id": 0,
+    "clip_path": "rally_clips/rally_000.mp4",
     "set": 1
   },
   {
@@ -11,6 +13,8 @@
     "end": 366.1148299319728,
     "duration": 15.023310657596369,
     "label": "CNN",
+    "id": 1,
+    "clip_path": "rally_clips/rally_001.mp4",
     "set": 1
   },
   {
@@ -18,6 +22,8 @@
     "end": 388.2144217687075,
     "duration": 11.633197278911553,
     "label": "CNN",
+    "id": 2,
+    "clip_path": "rally_clips/rally_002.mp4",
     "set": 1
   },
   {
@@ -25,6 +31,8 @@
     "end": 431.1771428571429,
     "duration": 8.701678004535154,
     "label": "CNN",
+    "id": 3,
+    "clip_path": "rally_clips/rally_003.mp4",
     "set": 1
   },
   {
@@ -32,6 +40,8 @@
     "end": 456.48108843537415,
     "duration": 10.733424036281178,
     "label": "CNN",
+    "id": 4,
+    "clip_path": "rally_clips/rally_004.mp4",
     "set": 1
   },
   {
@@ -39,6 +49,8 @@
     "end": 481.41931972789115,
     "duration": 9.932335600907038,
     "label": "CNN",
+    "id": 5,
+    "clip_path": "rally_clips/rally_005.mp4",
     "set": 1
   },
   {
@@ -46,6 +58,8 @@
     "end": 518.2171428571429,
     "duration": 27.04544217687078,
     "label": "CNN",
+    "id": 6,
+    "clip_path": "rally_clips/rally_006.mp4",
     "set": 1
   },
   {
@@ -53,6 +67,8 @@
     "end": 549.122902494331,
     "duration": 5.149070294784565,
     "label": "YELLOW_STRONG",
+    "id": 7,
+    "clip_path": "rally_clips/rally_007.mp4",
     "set": 1
   },
   {
@@ -60,6 +76,8 @@
     "end": 576.9868480725623,
     "duration": 16.422312925170104,
     "label": "CNN",
+    "id": 8,
+    "clip_path": "rally_clips/rally_008.mp4",
     "set": 1
   },
   {
@@ -67,6 +85,8 @@
     "end": 597.6061678004535,
     "duration": 8.115374149659829,
     "label": "CNN",
+    "id": 9,
+    "clip_path": "rally_clips/rally_009.mp4",
     "set": 1
   },
   {
@@ -74,6 +94,8 @@
     "end": 616.3330612244898,
     "duration": 9.142857142857224,
     "label": "CNN",
+    "id": 10,
+    "clip_path": "rally_clips/rally_010.mp4",
     "set": 1
   },
   {
@@ -81,6 +103,8 @@
     "end": 641.5034467120181,
     "duration": 9.95555555555552,
     "label": "CNN",
+    "id": 11,
+    "clip_path": "rally_clips/rally_011.mp4",
     "set": 1
   },
   {
@@ -88,6 +112,8 @@
     "end": 686.0045351473923,
     "duration": 28.10775510204087,
     "label": "MERGED_HITL",
+    "id": 12,
+    "clip_path": "rally_clips/rally_012.mp4",
     "set": 1
   },
   {
@@ -95,6 +121,8 @@
     "end": 713.0615873015873,
     "duration": 8.34181405895697,
     "label": "HITL",
+    "id": 13,
+    "clip_path": "rally_clips/rally_013.mp4",
     "set": 1
   },
   {
@@ -102,6 +130,8 @@
     "end": 728.7931065759637,
     "duration": 8.277959183673488,
     "label": "CNN",
+    "id": 14,
+    "clip_path": "rally_clips/rally_014.mp4",
     "set": 1
   },
   {
@@ -109,6 +139,8 @@
     "end": 754.4221315192743,
     "duration": 13.73460317460308,
     "label": "CNN",
+    "id": 15,
+    "clip_path": "rally_clips/rally_015.mp4",
     "set": 1
   },
   {
@@ -116,6 +148,8 @@
     "end": 798.3833106575963,
     "duration": 13.090249433106578,
     "label": "CNN",
+    "id": 16,
+    "clip_path": "rally_clips/rally_016.mp4",
     "set": 1
   },
   {
@@ -123,6 +157,8 @@
     "end": 826.3459410430839,
     "duration": 14.727256235827667,
     "label": "CNN",
+    "id": 17,
+    "clip_path": "rally_clips/rally_017.mp4",
     "set": 1
   },
   {
@@ -130,6 +166,8 @@
     "end": 852.4103401360544,
     "duration": 10.832108843537412,
     "label": "CNN",
+    "id": 18,
+    "clip_path": "rally_clips/rally_018.mp4",
     "set": 1
   },
   {
@@ -137,6 +175,8 @@
     "end": 888.1748752834467,
     "duration": 5.6018140589568475,
     "label": "CNN",
+    "id": 19,
+    "clip_path": "rally_clips/rally_019.mp4",
     "set": 1
   },
   {
@@ -144,6 +184,8 @@
     "end": 909.7578231292517,
     "duration": 9.851065759637208,
     "label": "CNN",
+    "id": 20,
+    "clip_path": "rally_clips/rally_020.mp4",
     "set": 1
   },
   {
@@ -151,6 +193,8 @@
     "end": 932.4321088435374,
     "duration": 9.479546485260812,
     "label": "CNN",
+    "id": 21,
+    "clip_path": "rally_clips/rally_021.mp4",
     "set": 1
   },
   {
@@ -158,6 +202,8 @@
     "end": 1008.3555555555556,
     "duration": 14.93043083900227,
     "label": "CNN",
+    "id": 22,
+    "clip_path": "rally_clips/rally_022.mp4",
     "set": 1
   },
   {
@@ -165,6 +211,8 @@
     "end": 1036.265941043084,
     "duration": 17.734240362811875,
     "label": "CNN",
+    "id": 23,
+    "clip_path": "rally_clips/rally_023.mp4",
     "set": 1
   },
   {
@@ -172,6 +220,8 @@
     "end": 1063.5145578231293,
     "duration": 14.79696145124717,
     "label": "CNN",
+    "id": 24,
+    "clip_path": "rally_clips/rally_024.mp4",
     "set": 1
   },
   {
@@ -179,6 +229,8 @@
     "end": 1086.7461224489796,
     "duration": 10.907573696145164,
     "label": "CNN",
+    "id": 25,
+    "clip_path": "rally_clips/rally_025.mp4",
     "set": 1
   },
   {
@@ -186,6 +238,8 @@
     "end": 1149.4748299319729,
     "duration": 45.18603174603186,
     "label": "CNN",
+    "id": 26,
+    "clip_path": "rally_clips/rally_026.mp4",
     "set": 1
   },
   {
@@ -193,6 +247,8 @@
     "end": 1168.370068027211,
     "duration": 5.195464852607756,
     "label": "YELLOW_STRONG",
+    "id": 27,
+    "clip_path": "rally_clips/rally_027.mp4",
     "set": 1
   },
   {
@@ -200,6 +256,8 @@
     "end": 1204.9647165532879,
     "duration": 11.157188208616617,
     "label": "CNN",
+    "id": 28,
+    "clip_path": "rally_clips/rally_028.mp4",
     "set": 1
   },
   {
@@ -207,6 +265,8 @@
     "end": 1232.2481179138322,
     "duration": 12.596780045351352,
     "label": "CNN",
+    "id": 29,
+    "clip_path": "rally_clips/rally_029.mp4",
     "set": 1
   },
   {
@@ -214,6 +274,8 @@
     "end": 1263.6183219954648,
     "duration": 17.589160997732506,
     "label": "CNN",
+    "id": 30,
+    "clip_path": "rally_clips/rally_030.mp4",
     "set": 1
   },
   {
@@ -221,6 +283,8 @@
     "end": 1289.4331065759636,
     "duration": 14.30929705215408,
     "label": "MERGED_HITL",
+    "id": 31,
+    "clip_path": "rally_clips/rally_031.mp4",
     "set": 1
   },
   {
@@ -228,6 +292,8 @@
     "end": 1306.4301133786848,
     "duration": 4.080907029478567,
     "label": "CNN",
+    "id": 32,
+    "clip_path": "rally_clips/rally_032.mp4",
     "set": 1
   },
   {
@@ -235,6 +301,8 @@
     "end": 1332.2855328798187,
     "duration": 16.10884353741494,
     "label": "CNN",
+    "id": 33,
+    "clip_path": "rally_clips/rally_033.mp4",
     "set": 1
   },
   {
@@ -242,6 +310,8 @@
     "end": 1364.4683900226757,
     "duration": 15.139410430839007,
     "label": "CNN",
+    "id": 34,
+    "clip_path": "rally_clips/rally_034.mp4",
     "set": 1
   },
   {
@@ -249,6 +319,8 @@
     "end": 1434.2965986394559,
     "duration": 9.804625850340244,
     "label": "CNN",
+    "id": 35,
+    "clip_path": "rally_clips/rally_035.mp4",
     "set": 1
   },
   {
@@ -256,6 +328,8 @@
     "end": 1455.4964172335601,
     "duration": 10.536054421768767,
     "label": "CNN",
+    "id": 36,
+    "clip_path": "rally_clips/rally_036.mp4",
     "set": 1
   },
   {
@@ -263,6 +337,8 @@
     "end": 1475.0824489795918,
     "duration": 9.769795918367436,
     "label": "CNN",
+    "id": 37,
+    "clip_path": "rally_clips/rally_037.mp4",
     "set": 1
   },
   {
@@ -270,6 +346,8 @@
     "end": 1498.168888888889,
     "duration": 9.769795918367436,
     "label": "WEAK_RALLY",
+    "id": 38,
+    "clip_path": "rally_clips/rally_038.mp4",
     "set": 1
   },
   {
@@ -277,6 +355,8 @@
     "end": 1528.5986394557824,
     "duration": 8.916462585034196,
     "label": "CNN",
+    "id": 39,
+    "clip_path": "rally_clips/rally_039.mp4",
     "set": 1
   },
   {
@@ -284,6 +364,8 @@
     "end": 1562.528798185941,
     "duration": 11.639002267573687,
     "label": "CNN",
+    "id": 40,
+    "clip_path": "rally_clips/rally_040.mp4",
     "set": 1
   },
   {
@@ -291,6 +373,8 @@
     "end": 1582.3586394557824,
     "duration": 7.099501133787044,
     "label": "CNN",
+    "id": 41,
+    "clip_path": "rally_clips/rally_041.mp4",
     "set": 1
   },
   {
@@ -298,6 +382,8 @@
     "end": 1623.8468934240364,
     "duration": 22.511746031746043,
     "label": "CNN",
+    "id": 42,
+    "clip_path": "rally_clips/rally_042.mp4",
     "set": 1
   },
   {
@@ -305,6 +391,8 @@
     "end": 1669.2360997732426,
     "duration": 11.720272108843574,
     "label": "CNN",
+    "id": 43,
+    "clip_path": "rally_clips/rally_043.mp4",
     "set": 1
   },
   {
@@ -312,6 +400,8 @@
     "end": 1691.4808163265307,
     "duration": 10.135510204081584,
     "label": "HITL",
+    "id": 44,
+    "clip_path": "rally_clips/rally_044.mp4",
     "set": 1
   },
   {
@@ -319,6 +409,8 @@
     "end": 1726.7403174603176,
     "duration": 10.97142857142876,
     "label": "CNN",
+    "id": 45,
+    "clip_path": "rally_clips/rally_045.mp4",
     "set": 1
   },
   {
@@ -326,6 +418,8 @@
     "end": 1936.8751020408163,
     "duration": 12.335600907029402,
     "label": "CNN",
+    "id": 46,
+    "clip_path": "rally_clips/rally_046.mp4",
     "set": 2
   },
   {
@@ -333,6 +427,8 @@
     "end": 1995.1804081632654,
     "duration": 26.987392290249545,
     "label": "CNN",
+    "id": 47,
+    "clip_path": "rally_clips/rally_047.mp4",
     "set": 2
   },
   {
@@ -340,6 +436,8 @@
     "end": 2021.6337414965985,
     "duration": 12.788390022675685,
     "label": "CNN",
+    "id": 48,
+    "clip_path": "rally_clips/rally_048.mp4",
     "set": 2
   },
   {
@@ -347,6 +445,8 @@
     "end": 2038.4043537414966,
     "duration": 4.156371882086205,
     "label": "FRAGMENT",
+    "id": 49,
+    "clip_path": "rally_clips/rally_049.mp4",
     "set": 2
   },
   {
@@ -354,6 +454,8 @@
     "end": 2061.86231292517,
     "duration": 18.52371882086163,
     "label": "CNN",
+    "id": 50,
+    "clip_path": "rally_clips/rally_050.mp4",
     "set": 2
   },
   {
@@ -361,6 +463,8 @@
     "end": 2087.764172335601,
     "duration": 12.318185941043339,
     "label": "WEAK_RALLY_3",
+    "id": 51,
+    "clip_path": "rally_clips/rally_051.mp4",
     "set": 2
   },
   {
@@ -368,6 +472,8 @@
     "end": 2124.1672562358276,
     "duration": 10.895963718820894,
     "label": "CNN",
+    "id": 52,
+    "clip_path": "rally_clips/rally_052.mp4",
     "set": 2
   },
   {
@@ -375,6 +481,8 @@
     "end": 2155.827664399093,
     "duration": 18.715283446711965,
     "label": "CNN",
+    "id": 53,
+    "clip_path": "rally_clips/rally_053.mp4",
     "set": 2
   },
   {
@@ -382,6 +490,8 @@
     "end": 2178.594829931973,
     "duration": 12.428480725623558,
     "label": "CNN",
+    "id": 54,
+    "clip_path": "rally_clips/rally_054.mp4",
     "set": 2
   },
   {
@@ -389,6 +499,8 @@
     "end": 2200.090702947846,
     "duration": 7.262040816326589,
     "label": "CNN",
+    "id": 55,
+    "clip_path": "rally_clips/rally_055.mp4",
     "set": 2
   },
   {
@@ -396,6 +508,8 @@
     "end": 2227.287074829932,
     "duration": 11.923446712018176,
     "label": "CNN",
+    "id": 56,
+    "clip_path": "rally_clips/rally_056.mp4",
     "set": 2
   },
   {
@@ -403,6 +517,8 @@
     "end": 2251.9408163265307,
     "duration": 10.774013605442178,
     "label": "CNN",
+    "id": 57,
+    "clip_path": "rally_clips/rally_057.mp4",
     "set": 2
   },
   {
@@ -410,6 +526,8 @@
     "end": 2277.366712018141,
     "duration": 8.556553287981842,
     "label": "CNN",
+    "id": 58,
+    "clip_path": "rally_clips/rally_058.mp4",
     "set": 2
   },
   {
@@ -417,6 +535,8 @@
     "end": 2306.2291156462584,
     "duration": 17.176961451246825,
     "label": "CNN",
+    "id": 59,
+    "clip_path": "rally_clips/rally_059.mp4",
     "set": 2
   },
   {
@@ -424,6 +544,8 @@
     "end": 2336.972335600907,
     "duration": 17.1827664399093,
     "label": "CNN",
+    "id": 60,
+    "clip_path": "rally_clips/rally_060.mp4",
     "set": 2
   },
   {
@@ -431,6 +553,8 @@
     "end": 2364.4589569161,
     "duration": 11.609977324263127,
     "label": "CNN",
+    "id": 61,
+    "clip_path": "rally_clips/rally_061.mp4",
     "set": 2
   },
   {
@@ -438,6 +562,8 @@
     "end": 2400.5137414965984,
     "duration": 23.812063492063317,
     "label": "CNN",
+    "id": 62,
+    "clip_path": "rally_clips/rally_062.mp4",
     "set": 2
   },
   {
@@ -445,6 +571,8 @@
     "end": 2424.6218594104307,
     "duration": 10.739229024943143,
     "label": "WEAK_RALLY",
+    "id": 63,
+    "clip_path": "rally_clips/rally_063.mp4",
     "set": 2
   },
   {
@@ -452,6 +580,8 @@
     "end": 2446.913015873016,
     "duration": 10.46639455782315,
     "label": "CNN",
+    "id": 64,
+    "clip_path": "rally_clips/rally_064.mp4",
     "set": 2
   },
   {
@@ -459,6 +589,8 @@
     "end": 2466.6673922902496,
     "duration": 9.200907029478458,
     "label": "CNN",
+    "id": 65,
+    "clip_path": "rally_clips/rally_065.mp4",
     "set": 2
   },
   {
@@ -466,6 +598,8 @@
     "end": 2493.2832653061223,
     "duration": 14.477641723355646,
     "label": "CNN",
+    "id": 66,
+    "clip_path": "rally_clips/rally_066.mp4",
     "set": 2
   },
   {
@@ -473,6 +607,8 @@
     "end": 2530.2726530612244,
     "duration": 12.225306122448728,
     "label": "CNN",
+    "id": 67,
+    "clip_path": "rally_clips/rally_067.mp4",
     "set": 2
   },
   {
@@ -480,6 +616,8 @@
     "end": 2549.9515192743766,
     "duration": 8.138548752834595,
     "label": "MERGED_HITL",
+    "id": 68,
+    "clip_path": "rally_clips/rally_068.mp4",
     "set": 2
   },
   {
@@ -487,6 +625,8 @@
     "end": 2578.1638095238095,
     "duration": 11.900226757369637,
     "label": "CNN",
+    "id": 69,
+    "clip_path": "rally_clips/rally_069.mp4",
     "set": 2
   },
   {
@@ -494,6 +634,8 @@
     "end": 2603.3284353741496,
     "duration": 9.589841269841145,
     "label": "CNN",
+    "id": 70,
+    "clip_path": "rally_clips/rally_070.mp4",
     "set": 2
   },
   {
@@ -501,6 +643,8 @@
     "end": 2630.6409070294785,
     "duration": 6.095238095238074,
     "label": "HITL",
+    "id": 71,
+    "clip_path": "rally_clips/rally_071.mp4",
     "set": 2
   },
   {
@@ -508,6 +652,8 @@
     "end": 2651.091882086168,
     "duration": 7.343310657596703,
     "label": "CNN",
+    "id": 72,
+    "clip_path": "rally_clips/rally_072.mp4",
     "set": 2
   },
   {
@@ -515,6 +661,8 @@
     "end": 2669.7781405895694,
     "duration": 7.552290249433099,
     "label": "CNN",
+    "id": 73,
+    "clip_path": "rally_clips/rally_073.mp4",
     "set": 2
   },
   {
@@ -522,6 +670,8 @@
     "end": 2709.5016326530613,
     "duration": 24.259002267573578,
     "label": "CNN",
+    "id": 74,
+    "clip_path": "rally_clips/rally_074.mp4",
     "set": 2
   },
   {
@@ -529,6 +679,8 @@
     "end": 2744.2619501133786,
     "duration": 14.698231292516994,
     "label": "WEAK_RALLY",
+    "id": 75,
+    "clip_path": "rally_clips/rally_075.mp4",
     "set": 2
   },
   {
@@ -536,6 +688,8 @@
     "end": 2766.204761904762,
     "duration": 7.708979591836851,
     "label": "CNN",
+    "id": 76,
+    "clip_path": "rally_clips/rally_076.mp4",
     "set": 2
   },
   {
@@ -543,6 +697,8 @@
     "end": 2835.7427664399092,
     "duration": 5.857278911564663,
     "label": "WEAK_RALLY_3",
+    "id": 77,
+    "clip_path": "rally_clips/rally_077.mp4",
     "set": 2
   },
   {
@@ -550,6 +706,8 @@
     "end": 2860.6867573696145,
     "duration": 14.355691609977384,
     "label": "CNN",
+    "id": 78,
+    "clip_path": "rally_clips/rally_078.mp4",
     "set": 2
   },
   {
@@ -557,6 +715,8 @@
     "end": 2877.138140589569,
     "duration": 3.999637188208453,
     "label": "YELLOW_STRONG",
+    "id": 79,
+    "clip_path": "rally_clips/rally_079.mp4",
     "set": 2
   },
   {
@@ -564,6 +724,8 @@
     "end": 2907.9509750566895,
     "duration": 19.806575963718842,
     "label": "CNN",
+    "id": 80,
+    "clip_path": "rally_clips/rally_080.mp4",
     "set": 2
   },
   {
@@ -571,6 +733,8 @@
     "end": 2936.633469387755,
     "duration": 11.255873015873021,
     "label": "CNN",
+    "id": 81,
+    "clip_path": "rally_clips/rally_081.mp4",
     "set": 2
   },
   {
@@ -578,6 +742,8 @@
     "end": 2957.5256235827665,
     "duration": 6.762811791383228,
     "label": "CNN",
+    "id": 82,
+    "clip_path": "rally_clips/rally_082.mp4",
     "set": 2
   },
   {
@@ -585,6 +751,8 @@
     "end": 2987.8566893424036,
     "duration": 18.297324263038718,
     "label": "CNN",
+    "id": 83,
+    "clip_path": "rally_clips/rally_083.mp4",
     "set": 2
   },
   {
@@ -592,6 +760,8 @@
     "end": 3021.4095238095238,
     "duration": 9.601451247165642,
     "label": "CNN",
+    "id": 84,
+    "clip_path": "rally_clips/rally_084.mp4",
     "set": 2
   },
   {
@@ -599,6 +769,8 @@
     "end": 3042.197188208617,
     "duration": 6.6699319727890725,
     "label": "CNN",
+    "id": 85,
+    "clip_path": "rally_clips/rally_085.mp4",
     "set": 2
   },
   {
@@ -606,6 +778,8 @@
     "end": 3073.3757823129254,
     "duration": 16.259773242630672,
     "label": "CNN",
+    "id": 86,
+    "clip_path": "rally_clips/rally_086.mp4",
     "set": 2
   },
   {
@@ -613,6 +787,8 @@
     "end": 3143.976054421769,
     "duration": 10.791473922902696,
     "label": "CNN",
+    "id": 87,
+    "clip_path": "rally_clips/rally_087.mp4",
     "set": 2
   },
   {
@@ -620,6 +796,8 @@
     "end": 3181.772335600907,
     "duration": 15.522539682539445,
     "label": "CNN",
+    "id": 88,
+    "clip_path": "rally_clips/rally_088.mp4",
     "set": 2
   },
   {
@@ -627,6 +805,8 @@
     "end": 3216.7996371882086,
     "duration": 12.794195011337706,
     "label": "WEAK_RALLY",
+    "id": 89,
+    "clip_path": "rally_clips/rally_089.mp4",
     "set": 2
   },
   {
@@ -634,6 +814,8 @@
     "end": 3256.4651247165534,
     "duration": 23.84108843537433,
     "label": "CNN",
+    "id": 90,
+    "clip_path": "rally_clips/rally_090.mp4",
     "set": 2
   },
   {
@@ -641,6 +823,8 @@
     "end": 3280.468752834467,
     "duration": 6.6292970521540155,
     "label": "YELLOW_STRONG",
+    "id": 91,
+    "clip_path": "rally_clips/rally_091.mp4",
     "set": 2
   },
   {
@@ -648,6 +832,8 @@
     "end": 3304.379501133787,
     "duration": 12.271746031746261,
     "label": "CNN",
+    "id": 92,
+    "clip_path": "rally_clips/rally_092.mp4",
     "set": 2
   },
   {
@@ -655,6 +841,8 @@
     "end": 3495.032743764172,
     "duration": 9.404081632652833,
     "label": "CNN",
+    "id": 93,
+    "clip_path": "rally_clips/rally_093.mp4",
     "set": 3
   },
   {
@@ -662,6 +850,8 @@
     "end": 3515.721723356009,
     "duration": 7.500045351474,
     "label": "WEAK_RALLY_2",
+    "id": 94,
+    "clip_path": "rally_clips/rally_094.mp4",
     "set": 3
   },
   {
@@ -669,6 +859,8 @@
     "end": 3533.7926530612244,
     "duration": 7.563900226757141,
     "label": "WEAK_RALLY_3",
+    "id": 95,
+    "clip_path": "rally_clips/rally_095.mp4",
     "set": 3
   },
   {
@@ -676,6 +868,8 @@
     "end": 3556.333424036281,
     "duration": 13.032199546485117,
     "label": "CNN",
+    "id": 96,
+    "clip_path": "rally_clips/rally_096.mp4",
     "set": 3
   },
   {
@@ -683,6 +877,8 @@
     "end": 3578.996099773243,
     "duration": 8.597188208616899,
     "label": "WEAK_RALLY_2",
+    "id": 97,
+    "clip_path": "rally_clips/rally_097.mp4",
     "set": 3
   },
   {
@@ -690,6 +886,8 @@
     "end": 3597.287619047619,
     "duration": 7.23882086167805,
     "label": "CNN",
+    "id": 98,
+    "clip_path": "rally_clips/rally_098.mp4",
     "set": 3
   },
   {
@@ -697,6 +895,8 @@
     "end": 3616.21768707483,
     "duration": 7.070476190476256,
     "label": "CNN",
+    "id": 99,
+    "clip_path": "rally_clips/rally_099.mp4",
     "set": 3
   },
   {
@@ -704,6 +904,8 @@
     "end": 3680.322176870748,
     "duration": 12.75356009070265,
     "label": "CNN",
+    "id": 100,
+    "clip_path": "rally_clips/rally_100.mp4",
     "set": 3
   },
   {
@@ -711,6 +913,8 @@
     "end": 3704.1168253968253,
     "duration": 7.825124716553091,
     "label": "CNN",
+    "id": 101,
+    "clip_path": "rally_clips/rally_101.mp4",
     "set": 3
   },
   {
@@ -718,6 +922,8 @@
     "end": 3735.243174603175,
     "duration": 12.190476190476602,
     "label": "CNN",
+    "id": 102,
+    "clip_path": "rally_clips/rally_102.mp4",
     "set": 3
   },
   {
@@ -725,6 +931,8 @@
     "end": 3756.129523809524,
     "duration": 9.32861678004565,
     "label": "CNN",
+    "id": 103,
+    "clip_path": "rally_clips/rally_103.mp4",
     "set": 3
   },
   {
@@ -732,6 +940,8 @@
     "end": 3780.8645804988664,
     "duration": 11.749297052154361,
     "label": "CNN",
+    "id": 104,
+    "clip_path": "rally_clips/rally_104.mp4",
     "set": 3
   },
   {
@@ -739,6 +949,8 @@
     "end": 3823.6531519274376,
     "duration": 28.03809523809514,
     "label": "CNN",
+    "id": 105,
+    "clip_path": "rally_clips/rally_105.mp4",
     "set": 3
   },
   {
@@ -746,6 +958,8 @@
     "end": 3859.4525170068027,
     "duration": 7.929614512471744,
     "label": "CNN",
+    "id": 106,
+    "clip_path": "rally_clips/rally_106.mp4",
     "set": 3
   },
   {
@@ -753,6 +967,8 @@
     "end": 3883.4039002267573,
     "duration": 14.576326530612278,
     "label": "CNN",
+    "id": 107,
+    "clip_path": "rally_clips/rally_107.mp4",
     "set": 3
   },
   {
@@ -760,6 +976,8 @@
     "end": 3907.233378684807,
     "duration": 10.599909297051909,
     "label": "CNN",
+    "id": 108,
+    "clip_path": "rally_clips/rally_108.mp4",
     "set": 3
   },
   {
@@ -767,6 +985,8 @@
     "end": 3958.688798185941,
     "duration": 9.909115646258215,
     "label": "HITL",
+    "id": 109,
+    "clip_path": "rally_clips/rally_109.mp4",
     "set": 3
   },
   {
@@ -774,6 +994,8 @@
     "end": 4037.9152834467122,
     "duration": 13.746213151927805,
     "label": "CNN",
+    "id": 110,
+    "clip_path": "rally_clips/rally_110.mp4",
     "set": 3
   },
   {
@@ -781,6 +1003,8 @@
     "end": 4071.6887074829933,
     "duration": 5.6946938775513445,
     "label": "HITL",
+    "id": 111,
+    "clip_path": "rally_clips/rally_111.mp4",
     "set": 3
   },
   {
@@ -788,6 +1012,8 @@
     "end": 4089.242993197279,
     "duration": 7.366530612244787,
     "label": "WEAK_RALLY_3",
+    "id": 112,
+    "clip_path": "rally_clips/rally_112.mp4",
     "set": 3
   },
   {
@@ -795,6 +1021,8 @@
     "end": 4110.320907029479,
     "duration": 10.263219954648775,
     "label": "CNN",
+    "id": 113,
+    "clip_path": "rally_clips/rally_113.mp4",
     "set": 3
   },
   {
@@ -802,6 +1030,8 @@
     "end": 4136.478185941043,
     "duration": 8.103764172336014,
     "label": "WEAK_RALLY_3",
+    "id": 114,
+    "clip_path": "rally_clips/rally_114.mp4",
     "set": 3
   }
 ]

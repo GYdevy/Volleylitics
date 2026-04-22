@@ -2,22 +2,19 @@ import os
 import cv2
 import numpy as np
 from ultralytics import YOLO
-from draw_court import draw_court
+from heatmaps.draw_court import draw_court
 import json
-MATCH_ID = "match17"
-CLIPS_DIR = f"/workspace/rally_segmentator/output/{MATCH_ID}/rally_clips"
+import argparse
+
+
 MODEL_PATH = "/workspace/model/best.pt"
-RALLIES_JSON = f"/workspace/rally_segmentator/output/{MATCH_ID}/rallies_with_clips_with_sets.json"
 
 
 
 
-OUTPUT_DIR = f"/workspace/heatmaps/{MATCH_ID}"
-DEBUG_DIR = os.path.join(OUTPUT_DIR, "debug_clips")
-OUTPUT_JSON = os.path.join(OUTPUT_DIR, "rally_results.json")
-NET_Y_IMG = 530 #Net stuff should be manually detected per match
-NET_LEFT_X = 471
-NET_RIGHT_X = 1441
+
+
+
 
 COURT_W = 9
 COURT_H = 18
@@ -33,13 +30,17 @@ SET_COLORS = {
     None: (180, 180, 180)
 }
 
-#Should be added manually per match
-img_pts = np.array([
-    [1, 1040],     # bottom-left corner (image)
-    [1919, 1034],  # bottom-right
-    [1426, 779],   # top-right (near net)
-    [516, 780]     # top-left
-], dtype=np.float32)
+def load_calibration(path):
+    with open(path, "r") as f:
+        data = json.load(f)
+
+    img_pts = np.array(data["img_pts"], dtype=np.float32)
+    net_left_x = int(data["net_left_x"])
+    net_right_x = int(data["net_right_x"])
+    net_y_img = int(data["net_y_img"])
+
+    return img_pts, net_left_x, net_right_x, net_y_img
+
 
 court_pts = np.array([
     [0, 0],   # bottom-left (court)
@@ -47,8 +48,6 @@ court_pts = np.array([
     [9, 9],   # top-right (net)
     [0, 9]    # top-left
 ], dtype=np.float32)
-
-H, _ = cv2.findHomography(img_pts, court_pts)
 
 def load_rally_metadata(rallies_json_path):
     with open(rallies_json_path, "r") as f:
@@ -60,14 +59,16 @@ def load_rally_metadata(rallies_json_path):
         clip_name = os.path.basename(r["clip_path"])
         clip_to_meta[clip_name] = {
             "id": r.get("id"),
+            "start":r.get("start"),
+            "end":r.get("end"),
             "set": r.get("set")
         }
 
     return clip_to_meta
 
-def ensure_dirs():
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    os.makedirs(DEBUG_DIR, exist_ok=True)
+def ensure_dirs(output_dir,debug_dir):
+    os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(debug_dir, exist_ok=True)
 
 
 def img_to_court(pt, H):
@@ -311,13 +312,15 @@ def save_court_map(court_img, output_path):
     cv2.imwrite(output_path, court_img)
 
 
-def process_single_clip(video_path, model,clip_meta):
+def process_single_clip(video_path, model,clip_meta,H,debug_dir):
     clip_name = os.path.basename(video_path)
 
     cap, fps, total_frames, start_frame = open_video(video_path)
     meta = clip_meta.get(clip_name, {})
     rally_id = meta.get("id")
     set_id = meta.get("set")
+    start = meta.get("start")
+    end = meta.get("end")
     positions, frames = track_ball(cap, model, start_frame)
     cap.release()
 
@@ -345,9 +348,9 @@ def process_single_clip(video_path, model,clip_meta):
         return None
 
     debug_output_path = os.path.join(
-        DEBUG_DIR,
-        os.path.splitext(clip_name)[0] + "_debug.mp4"
-    )
+    debug_dir,
+    os.path.splitext(clip_name)[0] + "_debug.mp4"
+) 
 
     #write_debug_video(
         #frames=frames,
@@ -360,6 +363,8 @@ def process_single_clip(video_path, model,clip_meta):
     return {
     "clip_name": clip_name,
     "rally_id": rally_id,
+    "start": start,
+    "end": end,
     "set_id": set_id,
     "positions": [[int(f), int(x), int(y)] for f, x, y in positions],
     "attack_point": [float(ax), float(ay)],
@@ -380,13 +385,29 @@ def draw_clip_on_court(court_img, clip_result, offset):
     draw_projected_trajectory(court_img, positions, offset, color)
     draw_attack_to_landing(court_img, ax, ay, lx, ly, offset, color, rally_id)
 
-
 def main():
-    ensure_dirs()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--match-id", required=True)
+    parser.add_argument("--calibration", required=True)
+    args = parser.parse_args()
+
+    match_id = args.match_id
+    calibration_path = args.calibration
+
+    clips_dir = f"/workspace/rally_segmentator/output/{match_id}/rally_clips"
+    rallies_json = f"/workspace/rally_segmentator/output/{match_id}/rallies_with_clips.json"
+    output_dir = f"/workspace/heatmaps/{match_id}"
+    debug_dir = os.path.join(output_dir, "debug_clips")
+    output_json = os.path.join(output_dir, "rally_results.json")
+    print("=== generate_heatmap started ===")
+    print("match_id:", match_id)
+    print("clips_dir:", clips_dir)
+    print("rallies_json:", rallies_json)
+    ensure_dirs(output_dir, debug_dir)
 
     model = YOLO(MODEL_PATH)
-    clip_paths = get_clip_paths(CLIPS_DIR)
-    clip_meta = load_rally_metadata(RALLIES_JSON)
+    clip_paths = get_clip_paths(clips_dir)
+    clip_meta = load_rally_metadata(rallies_json)
 
     if not clip_paths:
         print("No clips found.")
@@ -394,12 +415,18 @@ def main():
 
     court_img, offset, _, _ = create_court_image()
 
+    global NET_LEFT_X, NET_RIGHT_X, NET_Y_IMG
+    img_pts, NET_LEFT_X, NET_RIGHT_X, NET_Y_IMG = load_calibration(calibration_path)
+
+    H, _ = cv2.findHomography(img_pts, court_pts)
+
     processed = 0
     all_results = []
+
     for video_path in clip_paths:
         print(f"\nProcessing {os.path.basename(video_path)}")
 
-        clip_result = process_single_clip(video_path, model,clip_meta)
+        clip_result = process_single_clip(video_path, model, clip_meta, H, debug_dir)
         if clip_result is None:
             continue
 
@@ -407,15 +434,18 @@ def main():
         all_results.append(clip_result)
         processed += 1
 
-    output_court_path = os.path.join(OUTPUT_DIR, "court_map_all.png")
+    output_court_path = os.path.join(output_dir, "court_map_all.png")
     save_court_map(court_img, output_court_path)
-    with open(OUTPUT_JSON, "w") as f:
+
+    with open(output_json, "w") as f:
         json.dump(all_results, f, indent=2)
 
     print(f"\nProcessed {processed} clips.")
     print(f"Saved combined court map to {output_court_path}")
-    print(f"Saved debug clips to {DEBUG_DIR}")
-    print(f"Saved results to {OUTPUT_DIR}/{OUTPUT_JSON}")
+    print(f"Saved debug clips to {debug_dir}")
+    print(f"Saved results to {output_json}")
+
+
 
 if __name__ == "__main__":
     main()

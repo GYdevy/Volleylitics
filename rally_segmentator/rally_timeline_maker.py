@@ -8,13 +8,13 @@ import torch.nn.functional as F
 from torchvision import transforms
 from pathlib import Path
 import os
+import argparse
 from config import (
     WHISTLE_MODEL,
     RALLY_MODEL,
     VIDEO_DIR,
     MODEL_DIR,
     OUTPUT_DIR,
-    MATCH_ID,
     RALLY_BASE,
     SEGMENTS,
 )
@@ -40,7 +40,9 @@ from rally_segmentator.models_dir.rse import build_model
 # =============================
 
 
-VIDEO_PATH = f"/videos/{MATCH_ID}.mp4"
+SEGMENTS_ENV = os.environ.get("SEGMENTS_JSON")
+if SEGMENTS_ENV:
+    SEGMENTS = json.loads(SEGMENTS_ENV)
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -341,6 +343,11 @@ def build_timeline(model):
 # =============================
 # ANALYSIS
 # =============================
+def get_set_for_time(t, segments):
+    for i, (start, end) in enumerate(segments):
+        if start <= t <= end:
+            return i + 1
+    return None
 
 def analyze_intervals(cnn_centers, timeline_t, timeline_p,cap,fps):
     rallies = []
@@ -350,7 +357,7 @@ def analyze_intervals(cnn_centers, timeline_t, timeline_p,cap,fps):
 
         w0 = cnn_centers[i]
         w1 = cnn_centers[i + 1]
-
+        set_id = get_set_for_time(w0, SEGMENTS)
         if not in_segments(w0):
             continue
 
@@ -410,7 +417,8 @@ def analyze_intervals(cnn_centers, timeline_t, timeline_p,cap,fps):
             "ratio": float(inplay_ratio),
             "yellow": float(yellow_score),
             "score": float(score),
-            "index": i
+            "index": i,
+            "set": set_id
         })
 
     # REJECT
@@ -430,7 +438,8 @@ def analyze_intervals(cnn_centers, timeline_t, timeline_p,cap,fps):
                 "start": float(w0),
                 "end": float(w1),
                 "duration": float(duration),
-                "label": reason
+                "label": reason,
+                "set": set_id
             })
 
             if duration > MAX_RALLY_DURATION:
@@ -445,8 +454,8 @@ def analyze_intervals(cnn_centers, timeline_t, timeline_p,cap,fps):
 # =============================
 # SAVE
 # =============================
-def save_results(rallies, hitl):
-    match_output_dir = RALLY_BASE / "output" / MATCH_ID
+def save_results(rallies, hitl, match_id):
+    match_output_dir = RALLY_BASE / "output" / match_id
     match_output_dir.mkdir(parents=True, exist_ok=True)
 
     rallies_path = match_output_dir / "rallies.json"
@@ -467,8 +476,18 @@ def save_results(rallies, hitl):
 # =============================
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--match-id", required=True)
+    args = parser.parse_args()
+
+    match_id = args.match_id
+
+    global VIDEO_PATH
+    VIDEO_PATH = f"/videos/{match_id}.mp4"
+
     print("Running in:", os.getcwd())
-    print(f"Analyzing {MATCH_ID}")
+    print(f"Analyzing {match_id}")
+
     whistle_model, rally_model = load_models()
 
     print("Loading audio...")
@@ -476,23 +495,25 @@ def main():
 
     print("DSP detection...")
     accepted = detect_whistles_dsp(y)
-    print("Accepted candidates:",len(accepted))
+    print("Accepted candidates:", len(accepted))
 
     print("CNN filtering...")
     cnn_centers = filter_whistles_cnn(accepted, y, whistle_model)
-    print("Total whistles: ",len(cnn_centers))
+    print("Total whistles:", len(cnn_centers))
+
     print("Applying NMS for whistles...")
-    cnn_centers = window_nms(cnn_centers,window=1.5)
-    print("Total whistles after NMS: ",len(cnn_centers))
+    cnn_centers = window_nms(cnn_centers, window=1.5)
+    print("Total whistles after NMS:", len(cnn_centers))
+
     print("Building timeline...")
-    timeline_t, timeline_p,cap,fps = build_timeline(rally_model)
+    timeline_t, timeline_p, cap, fps = build_timeline(rally_model)
 
     print("Analyzing...")
-    rallies, hitl = analyze_intervals(cnn_centers, timeline_t, timeline_p,cap,fps)
+    rallies, hitl = analyze_intervals(cnn_centers, timeline_t, timeline_p, cap, fps)
 
-    save_results(rallies, hitl)
-    print("Rallies Count: ", len(rallies))
-    print("HITL Count:",len(hitl))
+    save_results(rallies, hitl, match_id)
+    print("Rallies Count:", len(rallies))
+    print("HITL Count:", len(hitl))
    
     
 
