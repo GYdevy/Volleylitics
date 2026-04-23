@@ -1,0 +1,34 @@
+[
+  {
+    "season": "2025-2026",
+    "matches": [
+      {
+        "id": "match17",
+        "label": "אליצור אשקלון - גבעתיים",
+        "videoId": "dkr3LRiW5L0",
+        "photo": "./media/season-2025/final-banner.jpg",
+        "longestRally": "00:29",
+        "ralliesFile": "./data/matches/match17/rally_results.json",
+        "detailsFile": "./data/matches/match17/match_details.json"
+      },
+      {
+        "id": "match18",
+        "label": "מכבי SVA רחובות - אליצור נתן אשקלון",
+        "videoId": "vdpLvj2JQoI",
+        "photo": "./media/season-2025/week8.jpg",
+        "longestRally": "00:24",
+        "ralliesFile": "./data/matches/match18/rally_results.json",
+        "detailsFile": "./data/matches/match18/match_details.json"
+      },
+				{
+        "id": "match14",
+        "label": "אליצור נתן אשקלון - אסא באר שבע",
+        "videoId": "l5dV5h_Lp28",
+        "photo": "./media/season-2025/week8.jpg",
+        "longestRally": "00:24",
+        "ralliesFile": "./data/matches/match14/rally_results.json",
+        "detailsFile": "./data/matches/match14/match_details.json"
+      }
+    ]
+  }
+]
