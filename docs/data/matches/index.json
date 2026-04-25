@@ -37,6 +37,33 @@
         "longestRally": "00:24",
         "ralliesFile": "./data/matches/match19/rally_results.json",
         "detailsFile": "./data/matches/match19/match_details.json"
+      },
+      {
+        "id": "match9",
+        "label": "Elitzur Natan Ashkelon - ASA Beer Sheva",
+        "videoId": "704LAW-9Zro",
+        "photo": "./media/season-2025/week8.jpg",
+        "longestRally": "00:39",
+        "ralliesFile": "./data/matches/match9/rally_results.json",
+        "detailsFile": "./data/matches/match9/match_details.json"
+      },
+      {
+        "id": "match11",
+        "label": "Elitzur Natan Ashkelon - Bnei Herzeliya",
+        "videoId": "XSwplH3FsU",
+        "photo": "./media/season-2025/week8.jpg",
+        "longestRally": "00:28",
+        "ralliesFile": "./data/matches/match11/rally_results.json",
+        "detailsFile": "./data/matches/match11/match_details.json"
+      },
+      {
+        "id": "match10",
+        "label": "Elitzur Natan Ashkelon - Hapoel Drom HaSharon Gantz",
+        "videoId": "2i-IDoeF370",
+        "photo": "./media/season-2025/week8.jpg",
+        "longestRally": "00:33",
+        "ralliesFile": "./data/matches/match10/rally_results.json",
+        "detailsFile": "./data/matches/match10/match_details.json"
       }
     ]
   }
