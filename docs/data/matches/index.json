@@ -64,6 +64,15 @@
         "longestRally": "00:33",
         "ralliesFile": "./data/matches/match10/rally_results.json",
         "detailsFile": "./data/matches/match10/match_details.json"
+      },
+      {
+        "id": "match15",
+        "label": "Elitzur Natan Ashkelon - Maccabi Ashdod",
+        "videoId": "tpHA4RTXfjY",
+        "photo": "./media/season-2025/week8.jpg",
+        "longestRally": "00:23",
+        "ralliesFile": "./data/matches/match15/rally_results.json",
+        "detailsFile": "./data/matches/match15/match_details.json"
       }
     ]
   }
