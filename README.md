@@ -113,14 +113,14 @@ Normalize the court into a tactical view.
 
 ---
 
-## 7. Web Dashboard (Planned)
+## 7. Web Dashboard
 
 Present match analytics through a web interface.
 
-- [ ] Upload match recordings
-- [ ] Automatic processing pipeline
-- [ ] Rally timeline visualization
-- [ ] Heatmaps and match analytics
+- [x] Upload match recordings
+- [x] Automatic processing pipeline
+- [x] Rally timeline visualization
+- [x] Heatmaps and match analytics
 
 ---
 
