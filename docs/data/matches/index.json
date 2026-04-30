@@ -73,6 +73,15 @@
         "longestRally": "00:23",
         "ralliesFile": "./data/matches/match15/rally_results.json",
         "detailsFile": "./data/matches/match15/match_details.json"
+      },
+      {
+        "id": "match20",
+        "label": "Elitzur Natan Ashkelon - SVA Rehovot",
+        "videoId": "N08GNXI2Jw4",
+        "photo": "./media/season-2025/week8.jpg",
+        "longestRally": "02:27",
+        "ralliesFile": "./data/matches/match20/rally_results.json",
+        "detailsFile": "./data/matches/match20/match_details.json"
       }
     ]
   }
