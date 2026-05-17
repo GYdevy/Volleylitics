@@ -68,7 +68,7 @@ Example output
     "duration": 11.058503401360554
   },
 ```
-
+Future notice - should use a light model to detect ball movement above net instead of yellow change.
 ---
 
 ## 3. Ball Tracking (Planned)
