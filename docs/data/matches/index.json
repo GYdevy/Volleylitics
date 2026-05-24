@@ -82,6 +82,15 @@
         "longestRally": "02:27",
         "ralliesFile": "./data/matches/match20/rally_results.json",
         "detailsFile": "./data/matches/match20/match_details.json"
+      },
+      {
+        "id": "match21",
+        "label": "Elitzur Natan Asheklzon - Hapoel Kfar Saba",
+        "videoId": "KG2lK31wiOg",
+        "photo": "./media/season-2025/week8.jpg",
+        "longestRally": "01:14",
+        "ralliesFile": "./data/matches/match21/rally_results.json",
+        "detailsFile": "./data/matches/match21/match_details.json"
       }
     ]
   }
