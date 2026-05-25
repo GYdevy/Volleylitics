@@ -1,5 +1,9 @@
 # Volleylitics
 
+**Live Project Page:** [gydevy.github.io/Volleylitics](https://gydevy.github.io/Volleylitics/)
+
+
+
 Volleylitics is a computer vision and audio analytics system that converts raw volleyball match recordings into structured gameplay data.
 
 The system processes a full match video and reconstructs the structure of the game by detecting whistles, identifying rallies, and analyzing gameplay events. The long-term goal is to extract tactical insights such as ball landing heatmaps, serve patterns, and offensive tendencies from standard match recordings.
