@@ -1,17 +1,18 @@
 {
   "teams": [
     {
-      "name": "קבוצה/מערכה",
+      "name": "Hapoel Kfar-Saba",
       "sets": [
-        1,
-        2,
-        3,
-        4
+        25,
+        25,
+        25,
+        0,
+	0
       ],
-      "total": 5
+      "total": 75
     },
     {
-      "name": "אליצור נתן אשקלון",
+      "name": "Elitzur Natan Ashkelon",
       "sets": [
         22,
         16,

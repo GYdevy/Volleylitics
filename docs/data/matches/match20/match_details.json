@@ -1,0 +1,25 @@
+{
+  "teams": [
+    {
+      "name": "SVA Rehovot",
+      "sets": [
+        25,
+        25,
+        17,
+        25
+      ],
+      "total": 92
+    },
+    {
+      "name": "E.Ashkelon",
+      "sets": [
+        19,
+        23,
+        25,
+        20,
+        0
+      ],
+      "total": 87
+    }
+  ]
+}

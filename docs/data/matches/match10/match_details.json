@@ -1,25 +1,14 @@
 {
   "teams": [
     {
-      "name": "קבוצה/מערכה",
-      "sets": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "total": 5
+      "name": "Elitzur Natan Ashkelon",
+      "sets": [25, 25, 25, 0, 0],
+      "total": 75
     },
     {
-      "name": "אליצור נתן אשקלון",
-      "sets": [
-        25,
-        25,
-        25,
-        0,
-        0
-      ],
-      "total": 75
+      "name": "Hapoel Drom Hasharon Gantz",
+      "sets": [21, 17, 18, 0, 0],
+      "total":56 
     }
   ]
 }

@@ -1,17 +1,18 @@
 {
   "teams": [
     {
-      "name": "קבוצה/מערכה",
+      "name": "Elitzur Natan Ashkelon",
       "sets": [
-        1,
-        2,
-        3,
-        4
+        25,
+        22,
+        12,
+        29,
+	0
       ],
-      "total": 5
+      "total": 88
     },
     {
-      "name": "אסא בן גוריון",
+      "name": "ASA Beer Sheva",
       "sets": [
         17,
         25,

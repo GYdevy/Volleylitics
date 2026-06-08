@@ -9,7 +9,12 @@
         "photo": "./media/season-2025/final-banner.jpg",
         "longestRally": "00:29",
         "ralliesFile": "./data/matches/match17/rally_results.json",
-        "detailsFile": "./data/matches/match17/match_details.json"
+        "detailsFile": "./data/matches/match17/match_details.json",
+        "date": "2026-03-15",
+        "venue": "home",
+        "competition": "league",
+        "result": "win",
+        "setScore": "3-0"
       },
       {
         "id": "match18",
@@ -18,7 +23,12 @@
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "00:24",
         "ralliesFile": "./data/matches/match18/rally_results.json",
-        "detailsFile": "./data/matches/match18/match_details.json"
+        "detailsFile": "./data/matches/match18/match_details.json",
+        "date": "2026-02-08",
+        "venue": "away",
+        "competition": "league",
+        "result": "win",
+        "setScore": "3-0"
       },
       {
         "id": "match14",
@@ -27,7 +37,12 @@
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "00:24",
         "ralliesFile": "./data/matches/match14/rally_results.json",
-        "detailsFile": "./data/matches/match14/match_details.json"
+        "detailsFile": "./data/matches/match14/match_details.json",
+        "date": "2026-01-18",
+        "venue": "home",
+        "competition": "cup",
+        "result": "win",
+        "setScore": "3-1"
       },
       {
         "id": "match19",
@@ -36,7 +51,12 @@
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "00:24",
         "ralliesFile": "./data/matches/match19/rally_results.json",
-        "detailsFile": "./data/matches/match19/match_details.json"
+        "detailsFile": "./data/matches/match19/match_details.json",
+        "date": "2026-04-23",
+        "venue": "away",
+        "competition": "league",
+        "result": "win",
+        "setScore": "3-1"
       },
       {
         "id": "match9",
@@ -45,7 +65,12 @@
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "00:39",
         "ralliesFile": "./data/matches/match9/rally_results.json",
-        "detailsFile": "./data/matches/match9/match_details.json"
+        "detailsFile": "./data/matches/match9/match_details.json",
+        "date": "2025-12-11",
+        "venue": "away",
+        "competition": "league",
+        "result": "loss",
+        "setScore": "3-1"
       },
       {
         "id": "match11",
@@ -54,7 +79,12 @@
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "00:28",
         "ralliesFile": "./data/matches/match11/rally_results.json",
-        "detailsFile": "./data/matches/match11/match_details.json"
+        "detailsFile": "./data/matches/match11/match_details.json",
+        "date": "2025-12-18",
+        "venue": "home",
+        "competition": "league",
+        "result": "win",
+        "setScore": "3-1"
       },
       {
         "id": "match10",
@@ -63,7 +93,12 @@
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "00:33",
         "ralliesFile": "./data/matches/match10/rally_results.json",
-        "detailsFile": "./data/matches/match10/match_details.json"
+        "detailsFile": "./data/matches/match10/match_details.json",
+        "date": "2025-11-06",
+        "venue": "home",
+        "competition": "league",
+        "result": "win",
+        "setScore": "3-0"
       },
       {
         "id": "match15",
@@ -72,7 +107,12 @@
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "00:23",
         "ralliesFile": "./data/matches/match15/rally_results.json",
-        "detailsFile": "./data/matches/match15/match_details.json"
+        "detailsFile": "./data/matches/match15/match_details.json",
+        "date": "2026-01-13",
+        "venue": "home",
+        "competition": "cup",
+        "result": "win",
+        "setScore": "3-0"
       },
       {
         "id": "match20",
@@ -81,16 +121,26 @@
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "02:27",
         "ralliesFile": "./data/matches/match20/rally_results.json",
-        "detailsFile": "./data/matches/match20/match_details.json"
+        "detailsFile": "./data/matches/match20/match_details.json",
+        "date": "2026-04-30",
+        "venue": "home",
+        "competition": "league",
+        "result": "loss",
+        "setScore": "3-1"
       },
       {
         "id": "match21",
-        "label": "Elitzur Natan Asheklzon - Hapoel Kfar Saba",
+        "label": "Elitzur Natan Ashkelon - Hapoel Kfar Saba",
         "videoId": "KG2lK31wiOg",
         "photo": "./media/season-2025/week8.jpg",
         "longestRally": "01:14",
         "ralliesFile": "./data/matches/match21/rally_results.json",
-        "detailsFile": "./data/matches/match21/match_details.json"
+        "detailsFile": "./data/matches/match21/match_details.json",
+        "date": "2025-11-27",
+        "venue": "home",
+        "competition": "league",
+        "result": "loss",
+        "setScore": "3-0"
       }
     ]
   }
