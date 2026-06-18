@@ -130,29 +130,29 @@ The main false positive was shoe squeaks.
 
 Raw whistle example:
 
-<audio controls src="/data/blog/images/match15_179.wav"></audio>
+<audio controls src="../data/blog/images/match15_179.wav"></audio>
 
 Band-filtered whistle:
 
-<audio controls src="/data/blog/images/input_3700_4300.wav"></audio>
+<audio controls src="../data/blog/images/input_3700_4300.wav"></audio>
 
 Shoe squeak:
 
-<audio controls src="/data/blog/images/Shoe_squeak.wav"></audio>
+<audio controls src="../data/blog/images/Shoe_squeak.wav"></audio>
 
 Band-filtered shoe squeak:
 
-<audio controls src="/data/blog/images/shoe_squeak_band.wav"></audio>
+<audio controls src="../data/blog/images/shoe_squeak_band.wav"></audio>
 
 The bandpass filter did not solve the problem because shoe squeaks can live in the same 3700–4300 Hz range.
 
 Shoe squeak spectrogram:
 
-![Shoe Squeak Spectrogram](/data/blog/images/squeak.png)
+![Shoe Squeak Spectrogram](../data/blog/images/squeak.png)
 
 Whistle spectrogram:
 
-![Whistle Spectrogram](/data/blog/images/whistle.png)
+![Whistle Spectrogram](../data/blog/images/whistle.png)
 
 The issue was not just “find high energy in whistle frequencies”. The detector had to separate very similar acoustic events.
 
@@ -338,11 +338,11 @@ The model predicts whether a sampled frame is “in play” or “not in play”
 
 In-play example:
 
-![In play frame](/data/blog/images/inplay.png)
+![In play frame](../data/blog/images/inplay.png)
 
 Not-in-play example:
 
-![Not in play frame](/data/blog/images/notinplay.png)
+![Not in play frame](../data/blog/images/notinplay.png)
 
 The model reached around **92% F1**, which was useful because a rally contains many frames. Even if single-frame classification is imperfect, the timeline can be smoothed and aggregated.
 
@@ -468,7 +468,7 @@ The biggest weakness is error propagation.
 
 If whistle detection produces a false whistle near the end of a real rally, the rally can get cut too early. Then a short-rally filter may discard the ending segment, which is exactly the part needed for ground-contact detection.
 
-![Probability Graph](/data/blog/images/graph.png)
+![Probability Graph](../data/blog/images/graph.png)
 
 The key lesson is:
 
@@ -535,7 +535,7 @@ The usable assumption is:
 
 The court half is 9×9 meters. I manually selected the four corners of the near half and mapped them to real court coordinates.
 
-![Court Coordinates](/data/blog/images/court.png)
+![Court Coordinates](../data/blog/images/court.png)
 
 ```python
 # The 4 corners
@@ -577,11 +577,11 @@ This is a heuristic, but it fits the camera setup: in the near side view, larger
 
 Input frame:
 
-![Match Frame](/data/blog/images/raw.png)
+![Match Frame](../data/blog/images/raw.png)
 
 Projected output:
 
-![Transformed Frame](/data/blog/images/image.png)
+![Transformed Frame](../data/blog/images/image.png)
 
 Example saved result:
 
@@ -644,7 +644,7 @@ net_line = np.array([
 
 Since the ball must cross the net before landing, the estimated net-crossing point can be connected to the ground-contact point.
 
-![Ball trajectory and net crossing point](/data/blog/images/track.png)
+![Ball trajectory and net crossing point](../data/blog/images/track.png)
 
 This does not produce a perfect physical trajectory, but it gives a useful top-down approximation of attack direction.
 

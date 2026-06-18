@@ -137,25 +137,25 @@ score = band_energy + sharpness - 1.2 * flatness
 
 Early on, I discovered that whistles have a frequency of 3700-4300 Hz. giving me this result:
 Raw:
-<audio controls src="/data/blog/images/match15_179.wav"></audio>
+<audio controls src="../data/blog/images/match15_179.wav"></audio>
 Band filtered:
-<audio controls src="/data/blog/images/input_3700_4300.wav"></audio>
+<audio controls src="../data/blog/images/input_3700_4300.wav"></audio>
 I thought I've discovered something and that from here it's gonna be easy. Just take a full match, extract audio, run it through this band-pass filter, take the peaks, and that's it. Well, almost but not at all lol.
 This approach would've worked perfectly if a match recording was human cheering, ball hit sounds and ref whistles. A massive obstacle was this:
 
-<audio controls src="/data/blog/images/Shoe_squeak.wav"></audio>
+<audio controls src="../data/blog/images/Shoe_squeak.wav"></audio>
 You might think this is a whistle, and a very clear one. 
 This is actually a shoe squeak coming from a player dragging his foot on the court.
 How do I counter it? 
-<audio controls src="/data/blog/images/shoe_squeak_band.wav"></audio>
+<audio controls src="../data/blog/images/shoe_squeak_band.wav"></audio>
 Obviously the bandpass filtering doesn't help here, as shoe squeaks happen to be at the exact same frequency range as the whistles.
 
 Shoe Squeak:
 
-![Shoe Squeak Spectrogram](/data/blog/images/squeak.png)
+![Shoe Squeak Spectrogram](../data/blog/images/squeak.png)
 Whistle:
 
-![Whistle Spectrogram](/data/blog/images/whistle.png)
+![Whistle Spectrogram](../data/blog/images/whistle.png)
 
 To my non-DSP eyes and ears it sounded impossibly similar. 
 <a id="classifiers"></a>
@@ -165,7 +165,7 @@ Looking at the spectrogram and reading a little bit about DSP, I decided to use 
 Another issue I suspected I would have and eventually did have was that every ref has his own whistling style, every court has its own acoustics, and the camera distance from the ref also changes.
 The next step was making a Reddit post in r/DSP where i explained my methods, surprisingly they approved, and suggested I try tsfresh to find even more features.
 Some of the features:
-![Handcrafted Features](/data/blog/images/features.png)
+![Handcrafted Features](../data/blog/images/features.png)
 
 <a id="what-is-tsfresh"></a>
 
@@ -229,9 +229,9 @@ I liked the task and I also liked the fact that the grade was given by novelty a
 but I was actually rewarded by the professor for the attempt and the architecture i made there. In the end i made a version that used some CNN model that I transfer-learned to the dataset given in the course and got a better result. This rant is to say that at that point I really understood how powerful CNNs are.
 So after exhausting different ideas like the ones mentioned above. I've decided to try and just dump a bunch of frames like:
 In play:
-![In play frame](/data/blog/images/inplay.png)
+![In play frame](../data/blog/images/inplay.png)
 Not In play:
-![Not in play frame](/data/blog/images/notinplay.png)
+![Not in play frame](../data/blog/images/notinplay.png)
 Which worked surprisingly well. about 92% F1, which to me sounded promising because if a point is 15 seconds recorded in 60fps, it gives us 900 frames and with 92% accuracy it's 828 frames accurately labelled by the CNN. Hell yeah I'm taking that.
 So with some hysteresis I've gotten a very good result.
 <a id="a-problem-appeared"></a>
@@ -453,7 +453,7 @@ So I considered this a success.
 ### The Biggest Weakness
 Since the whistle detection isn't perfect. At first I thought that missing and hallucinating a whistle wouldn't be a big problem because I added logic for the rally segmentation that sees if 2 rally intervals are adjacent we can just combine them.
 The issue that I didn't take into account is what happens if I detect a real rally but a false whistle got detected near the end of the rally.
-![Probability Graph](/data/blog/images/graph.png)
+![Probability Graph](../data/blog/images/graph.png)
 If we imagine a case like the one above, where the blue is the probability that the current frames are rally frames. We get this bug where the rally gets cut short and the ending portion is lost. I added logic that takes short rallies and throws them because a volleyball rally is at the very least 5 seconds.
 The straightforward fix here is to improve the whistle detection even more.
 An additional idea that Is planned to be implemented is to actually use the ball detection model instead of the yellow motion cue and that should allow giving additional weight to rallies and then shorter portions can be evaluated before getting thrown.
@@ -487,7 +487,7 @@ Even reliably testing the solutions isn't easy.
 As said above, while the ball is in the air, there is no way to determine its location in space.
 **But**, there's a single moment when the ball is close enough to a reference point with known coordinates that I can use.
 That moment is the ground contact.
-![Court Coordinates](/data/blog/images/court.png)
+![Court Coordinates](../data/blog/images/court.png)
 
 The volleyball court is 18x9 meters, that means that one half is 9x9 meters.
 Before entering this stage in the pipeline, I manually input the 4 court corners representing the close half. With these 4 points we can calculate the homography matrix H:
@@ -528,9 +528,9 @@ mapped = cv2.perspectiveTransform(pt, H)
 and we get the approximate location of the ground contact.
 
 Example:
-![Match Frame](/data/blog/images/raw.png)
+![Match Frame](../data/blog/images/raw.png)
 
-![Transformed Frame](/data/blog/images/image.png)
+![Transformed Frame](../data/blog/images/image.png)
 
 After that we just save all the coordinates to a file.
 
@@ -947,7 +947,7 @@ net_line = np.array([
 
 ```
 As a proxy for timing the net crossing point.
-![Ball trajectory and net crossing point](/data/blog/images/track.png)
+![Ball trajectory and net crossing point](../data/blog/images/track.png)
 Because before the ball falls, it needs to first cross the net.
 From here it's pretty simple, draw a trajectory from ground contact to net crossing point and transforming with the homography matrix and we get the simple ball trajectory!
 <a id="testing"></a>
