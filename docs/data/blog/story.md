@@ -2,7 +2,6 @@
 This write-up sums up the thoughts, process, issues, and solutions.
 
 ## Table of Contents
-## Table of Contents
 
 - [How did I even get the idea?](#how-did-i-even-get-the-idea)
 - [The Problem](#the-problem)
