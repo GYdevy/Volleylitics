@@ -98,19 +98,12 @@ Detect where the ball contacts the court floor.
 ## 5. Player Detection and Multi Camera Support
 
 - [ ] Detect players during rallies.
-
 - [ ] Add orthogonal camera support.
-
 - [ ] Calibrate cameras to court coordinates.
-
 - [ ] Track players across frames.
-
 - [ ] Identify jerseys using OCR.
-
 - [ ] Store player identity memory.
-
 - [ ] Detect and report actions.
-
 - [ ] Fuse detections across cameras.
 
 ## 6. Tactical Analytics (Planned)
