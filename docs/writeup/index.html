@@ -208,9 +208,7 @@ html {
     });
 
     async function loadMarkdown() {
-      const file = mode === "story"
-        ? "../data/blog/story.md"
-        : "../data/blog/technical.md";
+        const file = "../data/blog/technical.md";
 
       const response = await fetch(file);
 
@@ -231,7 +229,7 @@ html {
         hljs.highlightElement(block);
       });
 
-      technicalBtn.classList.toggle("active", mode === "technical");
+      technicalBtn.classList.add("active");
       
 
       
@@ -242,7 +240,7 @@ html {
       }
     }
 
-    technicalBtn.onclick = () => loadMarkdown("technical");
+    technicalBtn.onclick = () => loadMarkdown();
 
     
 
