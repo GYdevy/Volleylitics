@@ -179,7 +179,7 @@ html {
   <script>
     const content = document.getElementById("content");
     const technicalBtn = document.getElementById("technicalBtn");
-    const storyBtn = document.getElementById("storyBtn");
+    
 
     function slugify(text) {
       return text
@@ -207,7 +207,7 @@ html {
       breaks: false
     });
 
-    async function loadMarkdown(mode) {
+    async function loadMarkdown() {
       const file = mode === "story"
         ? "../data/blog/story.md"
         : "../data/blog/technical.md";
@@ -232,11 +232,9 @@ html {
       });
 
       technicalBtn.classList.toggle("active", mode === "technical");
-      storyBtn.classList.toggle("active", mode === "story");
+      
 
-      const url = new URL(window.location.href);
-      url.searchParams.set("view", mode);
-      history.replaceState(null, "", url);
+      
 
       if (window.location.hash) {
         const target = document.querySelector(window.location.hash);
@@ -245,12 +243,10 @@ html {
     }
 
     technicalBtn.onclick = () => loadMarkdown("technical");
-    storyBtn.onclick = () => loadMarkdown("story");
 
-    const params = new URLSearchParams(window.location.search);
-    const initialView = params.get("view") === "story" ? "story" : "technical";
+    
 
-    loadMarkdown(initialView);
+    loadMarkdown();
     document.addEventListener("click", function (e) {
   let el = e.target;
 
