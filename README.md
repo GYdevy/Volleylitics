@@ -95,7 +95,25 @@ Detect where the ball contacts the court floor.
 
 ---
 
-## 5. Tactical Analytics (Planned)
+## 5. Player Detection and Multi Camera Support
+
+- [ ] Detect players during rallies.
+
+- [ ] Add orthogonal camera support.
+
+- [ ] Calibrate cameras to court coordinates.
+
+- [ ] Track players across frames.
+
+- [ ] Identify jerseys using OCR.
+
+- [ ] Store player identity memory.
+
+- [ ] Detect and report actions.
+
+- [ ] Fuse detections across cameras.
+
+## 6. Tactical Analytics (Planned)
 
 Extract gameplay insights from rally and ball data.
 
@@ -107,17 +125,17 @@ Extract gameplay insights from rally and ball data.
 
 ---
 
-## 6. Top-Down Tactical View (Planned)
+## 7. Top-Down Tactical View (Planned)
 - Requires player detection,jersey number OCR, would increase compute time substantialy.
 Normalize the court into a tactical view.
 
-- [ ] Estimate court geometry
+- [x] Estimate court geometry
 - [ ] Transform ball positions to court space
 - [ ] Generate rally visualizations
 
 ---
 
-## 7. Web Dashboard
+## 8. Web Dashboard
 
 Present match analytics through a web interface.
 
