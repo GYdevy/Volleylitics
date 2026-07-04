@@ -1,60 +1,60 @@
 # Environment variables / secrets
 .env
-.idea/
 .env.*
 *.env
 ngrok_recovery_codes.txt
+
+# IDE/editor
+.idea/
+
 # Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-__init__.py
+
 # Virtual environments
 .venv/
 venv/
 env/
 
-matches/
-
-# Plots / generated outputs
-plots/
-*.png
-*.jpg
-*.jpeg
-*.pdf
+# Local config
+*.local
 
 # Logs
 *.log
 
-# Local config
-*.local
+# Model artifacts
+model/
+*.pt
+*.pth
+*.onnx
+*.engine
+*.weights
+*.pkl
 
-# Ignore Volleybot folder
-Volleybot/
+# Generated outputs
+plots/
+debug_*/
+heatmaps/match*/
+rally_segmentator/output/
 
-# Ignore match videos
-vidoes/
+# Media / videos
+videos/
 *.mp4
 *.wav
 
-#Ignore rally segmentator stuff
+# Rally segmentator generated dirs
 rally_segmentator/runs/
 rally_segmentator/models_dir/
 rally_segmentator/anchored_matches/
 
-#Ignore archive
+# Other local/archived folders
+matches/
+Volleybot/
 archive/
 
-
-
+# Vision generated/data folders
 Vision/data/
 Vision/dataset/
-Vision/runs
-
-*.pt
-*.pkl
-
-*.txt
-
-
+Vision/runs/
