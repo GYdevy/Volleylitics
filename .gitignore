@@ -38,7 +38,7 @@ plots/
 debug_*/
 heatmaps/match*/
 rally_segmentator/output/
-
+heatmaps/calibration/
 # Media / videos
 videos/
 *.mp4
