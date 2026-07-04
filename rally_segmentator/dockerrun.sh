@@ -51,7 +51,7 @@ read -p "Review HITLs now? [y/n]: " answer
 
 if [[ "$answer" =~ ^[Yy]$ ]]; then
     echo "Launching HITL reviewer locally..."
-    .venv/bin/python -m rally_segmentator.output.hitl_reviewer --match-id "$MATCH_ID"
+    $(pwd)/.venv/bin/python -m rally_segmentator.output.hitl_reviewer --match-id "$MATCH_ID"
 else
     echo "Skipping HITL review"
 fi
