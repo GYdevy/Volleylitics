@@ -7,7 +7,7 @@ import json
 import argparse
 
 
-MODEL_PATH = "/workspace/model/best.pt"
+MODEL_PATH = "/workspace/model/temp_best_ball.pt"
 
 
 

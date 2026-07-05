@@ -2,7 +2,7 @@
 set -e
 
 MATCH_ID="${1:-match17}"
-VIDEO_PATH="/mnt/hdd/videos/${MATCH_ID}.mp4"
+VIDEO_PATH="/run/media/gyank/HDD/videos/${MATCH_ID}.mp4"
 CALIB_DIR="$HOME/projects/Volleylitics/heatmaps/calibration"
 CALIB_PATH="${CALIB_DIR}/${MATCH_ID}.json"
 
@@ -23,7 +23,6 @@ docker run --rm \
   --device /dev/kfd \
   --device /dev/dri \
   --group-add video \
-  --group-add render \
   -v "$HOME/projects/Volleylitics/heatmaps/calibration:/workspace/heatmaps/calibration" \
   -v "$HOME/projects/Volleylitics:/workspace" \
   volleylitics \

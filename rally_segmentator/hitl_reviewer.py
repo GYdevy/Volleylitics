@@ -1,12 +1,13 @@
 import cv2
 import json
-from config import OUTPUT_DIR
 import argparse
 from pathlib import Path
 
-RALLY_BASE = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+RALLY_DIR = Path(__file__).resolve().parent
 
-
+RALLY_OUTPUT_DIR = RALLY_DIR / "output"
+VIDEO_DIR = PROJECT_ROOT / "videos"
 
 PADDING = 0.0  # seconds
 
@@ -182,7 +183,7 @@ def merge_intervals(r1, r2):
     }
 
 
-def add_hitl_to_rallies(rallies, hitl_decisions):
+def add_hitl_to_rallies(rallies, hitl_decisions,hitls):
    
 
 
@@ -247,20 +248,20 @@ if __name__ == "__main__":
 
     match_id = args.match_id
 
-    video_path = f"/run/media/gyank/HDD/videos/{match_id}.mp4"
-    hitl_json = RALLY_BASE / "output" / match_id / "hitl.json"
-    match_dir = OUTPUT_DIR / match_id
-    rallies_json = RALLY_BASE / "output" / match_id / "rallies.json"
-    final_output_json = RALLY_BASE / "output" / match_id / "rallies_with_hitl.json"
+    video_path = VIDEO_DIR / f"{match_id}.mp4"
 
-    decisions, hitls = review(video_path, hitl_json)
+    match_dir = RALLY_OUTPUT_DIR / match_id
+    hitl_json = match_dir / "hitl.json"
+    rallies_json = match_dir / "rallies.json"
+    final_output_json = match_dir / "rallies_with_hitl.json"
+    decisions, hitls = review(str(video_path), hitl_json)
 
     with open(rallies_json, "r") as f:
         rallies = json.load(f)
 
     print("Original rallies:", len(rallies))
 
-    merged = add_hitl_to_rallies(rallies, decisions)
+    merged = add_hitl_to_rallies(rallies, decisions, hitls)
 
     print("After HITL merge:", len(merged))
 

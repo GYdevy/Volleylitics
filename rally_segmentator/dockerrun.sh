@@ -40,8 +40,8 @@ docker run -it \
     --shm-size=8G \
     -e SEGMENTS_JSON="$SEGMENTS_JSON" \
     -v ~/projects/Volleylitics:/workspace \
-    -v /mnt/hdd/videos:/videos \
-    -v /mnt/hdd/datasets:/datasets \
+    -v "/run/media/gyank/HDD/videos:/videos:ro" \
+    -v "/run/media/gyank/HDD/datasets:/datasets:ro" \
     volleylitics \
     python -m rally_segmentator.rally_timeline_maker --match-id "$MATCH_ID"
 
@@ -51,7 +51,7 @@ read -p "Review HITLs now? [y/n]: " answer
 
 if [[ "$answer" =~ ^[Yy]$ ]]; then
     echo "Launching HITL reviewer locally..."
-    $(pwd)/.venv/bin/python -m rally_segmentator.output.hitl_reviewer --match-id "$MATCH_ID"
+    $(pwd)/.venv/bin/python -m rally_segmentator.hitl_reviewer --match-id "$MATCH_ID"
 else
     echo "Skipping HITL review"
 fi
