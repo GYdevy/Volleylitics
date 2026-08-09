@@ -160,6 +160,278 @@
 html {
   scroll-behavior: smooth;
 }
+#volleylitics-pipeline {
+  --vp-accent: var(--primary, #7c6cff);
+  --vp-line: var(--border, #30343b);
+  --vp-bg: var(--background, #111318);
+  --vp-text: var(--foreground, #eceef2);
+  --vp-muted: var(--muted-foreground, #969ba6);
+  --vp-hover: var(--accent, #20232b);
+
+  width: 100%;
+  margin: 32px 0;
+  color: var(--vp-text);
+  font-family: inherit;
+}
+
+#volleylitics-pipeline *,
+#volleylitics-pipeline *::before,
+#volleylitics-pipeline *::after {
+  box-sizing: border-box;
+}
+
+#volleylitics-pipeline .vp-viewport {
+  width: 100%;
+  padding: 6px 0 12px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+#volleylitics-pipeline .vp-network {
+  position: relative;
+  width: 1160px;
+  height: 340px;
+}
+
+#volleylitics-pipeline .vp-connectors {
+  position: absolute;
+  inset: 0;
+  width: 1160px;
+  height: 340px;
+  color: var(--vp-line);
+  overflow: visible;
+}
+
+#volleylitics-pipeline .vp-connectors path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+#volleylitics-pipeline .vp-connectors marker path {
+  fill: currentColor;
+  stroke: none;
+}
+
+#volleylitics-pipeline .vp-junction {
+  fill: var(--vp-accent);
+}
+
+#volleylitics-pipeline .vp-step {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  width: 100px;
+  min-width: 0;
+  padding: 0 3px;
+  border: 0;
+  background: transparent;
+  color: var(--vp-text);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+}
+
+#volleylitics-pipeline .vp-icon {
+  display: grid;
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--vp-line);
+  border-radius: 50%;
+  background: var(--vp-bg);
+  color: var(--vp-muted);
+  place-items: center;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+#volleylitics-pipeline .vp-icon svg {
+  width: 21px;
+  height: 21px;
+  stroke-width: 1.7;
+}
+
+#volleylitics-pipeline .vp-step:hover .vp-icon,
+#volleylitics-pipeline .vp-step:focus-visible .vp-icon,
+#volleylitics-pipeline .vp-step.is-active .vp-icon {
+  border-color: var(--vp-accent);
+  background: var(--vp-hover);
+  color: var(--vp-accent);
+  transform: scale(1.13);
+}
+
+#volleylitics-pipeline .vp-step:focus-visible {
+  outline: none;
+}
+
+#volleylitics-pipeline .vp-stage-number {
+  margin-top: 8px;
+  color: var(--vp-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+#volleylitics-pipeline .vp-label {
+  margin-top: 7px;
+  color: var(--vp-text);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+#volleylitics-pipeline .vp-label small {
+  color: var(--vp-muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+#volleylitics-pipeline .vp-lane-name {
+  position: absolute;
+  left: 152px;
+  color: var(--vp-muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#volleylitics-pipeline .vp-lane-name span {
+  margin-right: 7px;
+  color: var(--vp-accent);
+}
+
+#volleylitics-pipeline .vp-audio-name {
+  top: 18px;
+}
+
+#volleylitics-pipeline .vp-video-name {
+  top: 198px;
+}
+
+#volleylitics-pipeline .vp-p-source {
+  left: 10px;
+  top: 145px;
+}
+
+#volleylitics-pipeline .vp-p-audio {
+  left: 130px;
+  top: 55px;
+}
+
+#volleylitics-pipeline .vp-p-stft {
+  left: 230px;
+  top: 55px;
+}
+
+#volleylitics-pipeline .vp-p-candidates {
+  left: 330px;
+  top: 55px;
+}
+
+#volleylitics-pipeline .vp-p-whistle-cnn {
+  left: 430px;
+  top: 55px;
+}
+
+#volleylitics-pipeline .vp-p-frames {
+  left: 130px;
+  top: 235px;
+}
+
+#volleylitics-pipeline .vp-p-frame-cnn {
+  left: 230px;
+  top: 235px;
+}
+
+#volleylitics-pipeline .vp-p-probabilities {
+  left: 330px;
+  top: 235px;
+}
+
+#volleylitics-pipeline .vp-p-cascade {
+  left: 430px;
+  top: 235px;
+}
+
+#volleylitics-pipeline .vp-p-rallies {
+  left: 550px;
+  top: 145px;
+}
+
+#volleylitics-pipeline .vp-p-yolo {
+  left: 650px;
+  top: 145px;
+}
+
+#volleylitics-pipeline .vp-p-track {
+  left: 750px;
+  top: 145px;
+}
+
+#volleylitics-pipeline .vp-p-contact {
+  left: 850px;
+  top: 145px;
+}
+
+#volleylitics-pipeline .vp-p-json {
+  left: 950px;
+  top: 145px;
+}
+
+#volleylitics-pipeline .vp-p-output {
+  left: 1050px;
+  top: 145px;
+}
+
+#volleylitics-pipeline .vp-detail {
+  display: flex;
+  min-height: 48px;
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid var(--vp-line);
+  gap: 12px;
+  align-items: baseline;
+}
+
+#volleylitics-pipeline .vp-detail strong {
+  color: var(--vp-accent);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+#volleylitics-pipeline .vp-detail span {
+  color: var(--vp-muted);
+}
+
+@media (max-width: 720px) {
+  #volleylitics-pipeline .vp-detail {
+    display: block;
+  }
+
+  #volleylitics-pipeline .vp-detail strong,
+  #volleylitics-pipeline .vp-detail span {
+    display: block;
+  }
+
+  #volleylitics-pipeline .vp-detail span {
+    margin-top: 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #volleylitics-pipeline .vp-icon {
+    transition: none;
+  }
+}
+
 </style>
 </head>
 
@@ -171,7 +443,7 @@ html {
   </div>
 
   <main id="content" class="markdown-body"></main>
-
+  <script src="https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -220,15 +492,42 @@ html {
       const markdown = await response.text();
       const unsafeHtml = marked.parse(markdown);
 
-      content.innerHTML = DOMPurify.sanitize(unsafeHtml, {
-        ADD_TAGS: ["audio", "source"],
-        ADD_ATTR: ["controls", "src", "type"]
-      });
+     content.innerHTML = DOMPurify.sanitize(unsafeHtml, {
+  ADD_TAGS: [
+    "audio",
+    "source",
+    "svg",
+    "path",
+    "circle",
+    "defs",
+    "marker"
+  ],
+  ADD_ATTR: [
+    "controls",
+    "src",
+    "type",
+    "viewBox",
+    "d",
+    "cx",
+    "cy",
+    "r",
+    "markerWidth",
+    "markerHeight",
+    "refX",
+    "refY",
+    "orient",
+    "marker-end",
+    "data-title",
+    "data-description",
+    "data-lucide"
+  ]
+});
 
-      document.querySelectorAll("pre code").forEach((block) => {
-        hljs.highlightElement(block);
-      });
+initializeVolleyliticsPipeline();
 
+document.querySelectorAll("pre code").forEach((block) => {
+  hljs.highlightElement(block);
+}); 
       technicalBtn.classList.add("active");
       
 
@@ -243,6 +542,42 @@ html {
     technicalBtn.onclick = () => loadMarkdown();
 
     
+
+	function initializeVolleyliticsPipeline() {
+  const root = document.getElementById("volleylitics-pipeline");
+  if (!root) return;
+
+  window.lucide?.createIcons();
+
+  const steps = [...root.querySelectorAll(".vp-step")];
+  const title = root.querySelector(".vp-detail strong");
+  const description = root.querySelector(".vp-detail span");
+
+  if (!steps.length || !title || !description) return;
+
+  let selected = root.querySelector(".vp-step.is-active") || steps[0];
+
+  function showStep(step) {
+    title.textContent = step.dataset.title;
+    description.textContent = step.dataset.description;
+  }
+
+  steps.forEach((step) => {
+    step.addEventListener("mouseenter", () => showStep(step));
+    step.addEventListener("mouseleave", () => showStep(selected));
+    step.addEventListener("focus", () => showStep(step));
+    step.addEventListener("blur", () => showStep(selected));
+
+    step.addEventListener("click", () => {
+      steps.forEach((item) => item.classList.remove("is-active"));
+      step.classList.add("is-active");
+      selected = step;
+      showStep(step);
+    });
+  });
+
+  showStep(selected);
+}
 
     loadMarkdown();
     document.addEventListener("click", function (e) {

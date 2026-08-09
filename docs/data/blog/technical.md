@@ -66,42 +66,95 @@ The problem was compute cost. Running ball detection on a 25-second rally took a
 
 That forced a pipeline change: instead of detecting the ball everywhere, first detect useful time windows.
 
-```text
-Raw Match Video
-       │
-       ├──────────────────────────────┐
-       │                              │
-       ▼                              ▼
-Audio Track                    Video Frames
-       │                              │
-       ▼                              ▼
-STFT + DSP Features           Rally Frame Classifier
-       │                              │
-       ▼                              ▼
-Whistle Candidates            In-play Probabilities
-       │                              │
-       ▼                              ▼
-Whistle CNN Classifier         Rally Decision Cascade
-       │                              │
-       └──────────────┬───────────────┘
-                      ▼
-               Rally Intervals
-                      │
-                      ▼
-             Ball Detection (YOLO)
-                      │
-                      ▼
-              Ball Position Track
-                      │
-                      ▼
-      Ground Contact Estimation + Homography
-                      │
-                      ▼
-       Court Coordinates + Trajectory JSON
-                      │
-                      ▼
-                 Website / Heatmaps
-```
+<section id="volleylitics-pipeline" aria-label="Interactive Volleylitics processing pipeline">
+  <div class="vp-viewport">
+    <div class="vp-network">
+      <svg class="vp-connectors" viewBox="0 0 1160 340" aria-hidden="true">
+        <defs>
+          <marker id="vp-arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z"></path>
+          </marker>
+        </defs>
+
+        <path d="M85 170 H125"></path>
+        <path d="M125 170 V80 H155" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M125 170 V260 H155" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M205 80 H255" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M305 80 H355" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M405 80 H455" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M205 260 H255" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M305 260 H355" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M405 260 H455" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M505 80 H540 V170"></path>
+        <path d="M505 260 H540 V170"></path>
+        <path d="M540 170 H575" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M625 170 H675" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M725 170 H775" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M825 170 H875" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M925 170 H975" marker-end="url(#vp-arrowhead)"></path>
+        <path d="M1025 170 H1075" marker-end="url(#vp-arrowhead)"></path>
+
+        <circle class="vp-junction" cx="125" cy="170" r="3"></circle>
+        <circle class="vp-junction" cx="540" cy="170" r="3"></circle>
+      </svg>
+
+      <div class="vp-lane-name vp-audio-name"><span>01</span> Audio analysis</div>
+      <div class="vp-lane-name vp-video-name"><span>02</span> Visual analysis</div>
+
+      <button class="vp-step vp-p-source is-active" type="button" data-title="Raw Match Video" data-description="The synchronized match recording that supplies both the audio signal and the video frames.">
+        <span class="vp-icon"><i data-lucide="video" aria-hidden="true"></i></span>
+        <span class="vp-stage-number">INPUT</span><span class="vp-label">Raw Match Video</span>
+      </button>
+      <button class="vp-step vp-p-audio" type="button" data-title="Audio Track" data-description="Extracts the synchronized audio waveform from the original recording.">
+        <span class="vp-icon"><i data-lucide="audio-lines" aria-hidden="true"></i></span><span class="vp-label">Audio Track</span>
+      </button>
+      <button class="vp-step vp-p-stft" type="button" data-title="STFT + DSP Features" data-description="Transforms the signal into frequency-domain features focused on whistle-like energy.">
+        <span class="vp-icon"><i data-lucide="chart-no-axes-column-increasing" aria-hidden="true"></i></span><span class="vp-label">STFT + DSP<br>Features</span>
+      </button>
+      <button class="vp-step vp-p-candidates" type="button" data-title="Whistle Candidates" data-description="A high-recall DSP stage proposes short regions that may contain a whistle.">
+        <span class="vp-icon"><i data-lucide="bell-ring" aria-hidden="true"></i></span><span class="vp-label">Whistle<br>Candidates</span>
+      </button>
+      <button class="vp-step vp-p-whistle-cnn" type="button" data-title="Whistle CNN Classifier" data-description="The CNN rejects false candidates and keeps genuine whistle events.">
+        <span class="vp-icon"><i data-lucide="cpu" aria-hidden="true"></i></span><span class="vp-label">Whistle CNN<br>Classifier</span>
+      </button>
+      <button class="vp-step vp-p-frames" type="button" data-title="Video Frames" data-description="Samples the visual stream for frame-level and temporal rally analysis.">
+        <span class="vp-icon"><i data-lucide="images" aria-hidden="true"></i></span><span class="vp-label">Video Frames</span>
+      </button>
+      <button class="vp-step vp-p-frame-cnn" type="button" data-title="Rally Frame Classifier" data-description="Estimates whether the current visual context belongs to active play.">
+        <span class="vp-icon"><i data-lucide="scan-search" aria-hidden="true"></i></span><span class="vp-label">Rally Frame<br>Classifier</span>
+      </button>
+      <button class="vp-step vp-p-probabilities" type="button" data-title="In-play Probabilities" data-description="Produces a continuous probability trace over the duration of the match.">
+        <span class="vp-icon"><i data-lucide="activity" aria-hidden="true"></i></span><span class="vp-label">In-play<br>Probabilities</span>
+      </button>
+      <button class="vp-step vp-p-cascade" type="button" data-title="Rally Decision Cascade" data-description="Applies thresholds, minimum duration, gap merging, and edge rules to stabilize intervals.">
+        <span class="vp-icon"><i data-lucide="list-checks" aria-hidden="true"></i></span><span class="vp-label">Rally Decision<br>Cascade</span>
+      </button>
+      <button class="vp-step vp-p-rallies" type="button" data-title="Rally Intervals" data-description="Combines the audio and visual evidence into the final rally time windows.">
+        <span class="vp-icon"><i data-lucide="timer" aria-hidden="true"></i></span><span class="vp-stage-number">03</span><span class="vp-label">Rally Intervals</span>
+      </button>
+      <button class="vp-step vp-p-yolo" type="button" data-title="Ball Detection (YOLO)" data-description="Runs object detection only inside rally clips to locate the volleyball efficiently.">
+        <span class="vp-icon"><i data-lucide="focus" aria-hidden="true"></i></span><span class="vp-stage-number">04</span><span class="vp-label">Ball Detection<br><small>(YOLO)</small></span>
+      </button>
+      <button class="vp-step vp-p-track" type="button" data-title="Ball Position Track" data-description="Links detections through time and forms a continuous ball trajectory.">
+        <span class="vp-icon"><i data-lucide="route" aria-hidden="true"></i></span><span class="vp-stage-number">05</span><span class="vp-label">Ball Position<br>Track</span>
+      </button>
+      <button class="vp-step vp-p-contact" type="button" data-title="Ground Contact Estimation + Homography" data-description="Estimates the landing moment and projects the image location onto the court plane.">
+        <span class="vp-icon"><i data-lucide="map-pin" aria-hidden="true"></i></span><span class="vp-stage-number">06</span><span class="vp-label">Ground Contact<br>+ Homography</span>
+      </button>
+      <button class="vp-step vp-p-json" type="button" data-title="Court Coordinates + Trajectory JSON" data-description="Converts the track into court-space coordinates and exports structured trajectory data.">
+        <span class="vp-icon"><i data-lucide="braces" aria-hidden="true"></i></span><span class="vp-stage-number">07</span><span class="vp-label">Court Coordinates<br>+ Trajectory JSON</span>
+      </button>
+      <button class="vp-step vp-p-output" type="button" data-title="Website / Heatmaps" data-description="Turns the processed rallies and court positions into interactive match visualizations.">
+        <span class="vp-icon"><i data-lucide="chart-no-axes-combined" aria-hidden="true"></i></span><span class="vp-stage-number">OUTPUT</span><span class="vp-label">Website<br>/ Heatmaps</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="vp-detail" aria-live="polite">
+    <strong>Raw Match Video</strong>
+    <span>The synchronized match recording that supplies both the audio signal and the video frames.</span>
+  </div>
+</section>
 
 This changed the project from “detect the ball in a whole match” to a staged system:
 
