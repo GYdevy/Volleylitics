@@ -75,7 +75,6 @@ That forced a pipeline change: instead of detecting the ball everywhere, first d
             <path d="M0,0 L6,3 L0,6 Z"></path>
           </marker>
         </defs>
-
         <path d="M85 170 H125"></path>
         <path d="M125 170 V80 H155" marker-end="url(#vp-arrowhead)"></path>
         <path d="M125 170 V260 H155" marker-end="url(#vp-arrowhead)"></path>
@@ -93,14 +92,11 @@ That forced a pipeline change: instead of detecting the ball everywhere, first d
         <path d="M825 170 H875" marker-end="url(#vp-arrowhead)"></path>
         <path d="M925 170 H975" marker-end="url(#vp-arrowhead)"></path>
         <path d="M1025 170 H1075" marker-end="url(#vp-arrowhead)"></path>
-
         <circle class="vp-junction" cx="125" cy="170" r="3"></circle>
         <circle class="vp-junction" cx="540" cy="170" r="3"></circle>
       </svg>
-
       <div class="vp-lane-name vp-audio-name"><span>01</span> Audio analysis</div>
       <div class="vp-lane-name vp-video-name"><span>02</span> Visual analysis</div>
-
       <button class="vp-step vp-p-source is-active" type="button" data-title="Raw Match Video" data-description="The synchronized match recording that supplies both the audio signal and the video frames.">
         <span class="vp-icon"><i data-lucide="video" aria-hidden="true"></i></span>
         <span class="vp-stage-number">INPUT</span><span class="vp-label">Raw Match Video</span>
@@ -149,7 +145,6 @@ That forced a pipeline change: instead of detecting the ball everywhere, first d
       </button>
     </div>
   </div>
-
   <div class="vp-detail" aria-live="polite">
     <strong>Raw Match Video</strong>
     <span>The synchronized match recording that supplies both the audio signal and the video frames.</span>
