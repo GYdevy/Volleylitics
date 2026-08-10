@@ -3,33 +3,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 
 OUTPUT_DIR = BASE_DIR / "output"
-WHISTLE_MODEL = "best_resnet_whistle_mix.pth"
-RALLY_MODEL = "rally_model_best.pth"
-
 VIDEO_DIR = "/mnt/hdd/videos"
 
-MODEL_DIR = BASE_DIR / "rally_segmentator" / "models_dir"
+# =====================
+# MODEL CONFIG
+# =====================
 
-MATCH_ID = "match18"
+MODELS_DIR = BASE_DIR / "models"
 
-RALLY_BASE = BASE_DIR / "rally_segmentator"
-
-RALLIES_DIR = RALLY_BASE / "output" / MATCH_ID 
-
-
-if MATCH_ID == "match18":
-    SEGMENTS = [
-        (4*60 + 40, 24*60 + 2),
-        (26*60 + 25, 50*60 + 32),
-        (53*60 + 18, 1*3600 + 13*60 + 19)
-    ]
-
-elif MATCH_ID == "match17":
-    SEGMENTS = [
-        (5*60 + 30, 28*60 +50),
-        (32*60 + 1,55*60 + 5),
-        (58*60 +5,1*3600 + 9*60 + 5)
-    ]
+WHISTLE_MODEL = MODELS_DIR / "whistle_detector.pth"
+RALLY_MODEL = MODELS_DIR / "rally_segmenter.pth"
+BALL_MODEL = MODELS_DIR / "ball_detector.pt"
 
 
 # =========================

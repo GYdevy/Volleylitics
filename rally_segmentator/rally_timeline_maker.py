@@ -13,7 +13,6 @@ from config import (
     WHISTLE_MODEL,
     RALLY_MODEL,
     VIDEO_DIR,
-    MODEL_DIR,
     OUTPUT_DIR,
     RALLY_BASE,
     SEGMENTS,
@@ -67,12 +66,14 @@ def load_models():
     print("Loading models...")
 
     whistle_model = ResNetWhistle().to(DEVICE)
-    checkpoint = torch.load(MODEL_DIR / WHISTLE_MODEL, map_location=DEVICE)
+    checkpoint = torch.load(WHISTLE_MODEL, map_location=DEVICE)
     whistle_model.load_state_dict(checkpoint["model_state"])
     whistle_model.eval()
 
     rally_model = build_model().to(DEVICE)
-    rally_model.load_state_dict(torch.load(MODEL_DIR / RALLY_MODEL, map_location=DEVICE))
+    rally_model.load_state_dict(
+        torch.load(RALLY_MODEL, map_location=DEVICE)
+    )
     rally_model.eval()
 
     return whistle_model, rally_model

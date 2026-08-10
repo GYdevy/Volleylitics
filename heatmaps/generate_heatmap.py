@@ -6,8 +6,9 @@ from heatmaps.draw_court import draw_court
 import json
 import argparse
 
+from config import BALL_MODEL
 
-MODEL_PATH = "/workspace/model/temp_best_ball.pt"
+
 
 
 
@@ -405,7 +406,7 @@ def main():
     print("rallies_json:", rallies_json)
     ensure_dirs(output_dir, debug_dir)
 
-    model = YOLO(MODEL_PATH)
+    model = YOLO(str(BALL_MODEL))
     clip_paths = get_clip_paths(clips_dir)
     clip_meta = load_rally_metadata(rallies_json)
 
