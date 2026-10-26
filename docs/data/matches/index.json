@@ -1,5 +1,24 @@
 [
   {
+    "season": "2026-2027",
+    "matches": [
+      {
+        "id": "match23",
+        "label": "Elitzur Natan Ashkelon - Ironi Givatayim",
+        "videoId": "hWjn3UOphG0",
+        "photo": "./placeholder.svg",
+        "longestRally": "00:31",
+        "ralliesFile": "./data/matches/match23/rally_results.json",
+        "detailsFile": "./data/matches/match23/match_details.json",
+        "date": "2026-10-22",
+        "venue": "home",
+        "competition": "league",
+        "result": "win",
+        "setScore": "3-0"
+      }
+    ]
+  },
+  {
     "season": "2025-2026",
     "matches": [
       {
