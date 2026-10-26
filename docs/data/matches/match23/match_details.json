@@ -1,0 +1,22 @@
+{
+  "teams": [
+    {
+      "name": "Elitzur Natan Ashkelon",
+      "sets": [
+        25,
+        25,
+        25
+      ],
+      "total": 75
+    },
+    {
+      "name": "Ironi Givatayim",
+      "sets": [
+        16,
+        18,
+        23
+      ],
+      "total": 57
+    }
+  ]
+}
