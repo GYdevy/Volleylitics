@@ -1,0 +1,26 @@
+{
+  "teams": [
+    {
+      "name": "Elitzur Natan Ashkelon",
+      "sets": [
+        25,
+        22,
+        25,
+        21,
+        15
+      ],
+      "total": 108
+    },
+    {
+      "name": "SVA Rehovot",
+      "sets": [
+        17,
+        25,
+        8,
+        25,
+        13
+      ],
+      "total": 88
+    }
+  ]
+}
