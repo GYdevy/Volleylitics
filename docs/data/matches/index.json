@@ -3,6 +3,20 @@
     "season": "2026-2027",
     "matches": [
       {
+        "id": "match25",
+        "label": "Elitzur Natan Ashkelon - Beer Sheva",
+        "videoId": "ogx8D_O14I4",
+        "photo": "./placeholder.svg",
+        "longestRally": "00:29",
+        "ralliesFile": "./data/matches/match25/rally_results.json",
+        "detailsFile": "./data/matches/match25/match_details.json",
+        "date": "2026-11-12",
+        "venue": "away",
+        "competition": "league",
+        "result": "loss",
+        "setScore": "3-2"
+      },
+      {
         "id": "match24",
         "label": "Elitzur Natan Ashkelon - SVA Rehovot",
         "videoId": "sTsS8zwE2lI",

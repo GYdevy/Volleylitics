@@ -1,0 +1,26 @@
+{
+  "teams": [
+    {
+      "name": "Elitzur Natan Ashkelon",
+      "sets": [
+        25,
+        19,
+        25,
+        23,
+        13
+      ],
+      "total": 105
+    },
+    {
+      "name": "Beer Sheva",
+      "sets": [
+        16,
+        25,
+        18,
+        25,
+        15
+      ],
+      "total": 99
+    }
+  ]
+}
