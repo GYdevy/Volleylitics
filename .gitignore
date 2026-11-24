@@ -15,6 +15,7 @@ __pycache__/
 
 # Virtual environments
 .venv/
+.venv-windows/
 venv/
 env/
 
@@ -34,6 +35,7 @@ model/
 *.pkl
 
 # Generated outputs
+output/
 plots/
 debug_*/
 heatmaps/match*/
@@ -51,6 +53,9 @@ rally_segmentator/anchored_matches/
 
 # Other local/archived folders
 matches/
+# The static site match data is intentionally versioned for GitHub Pages.
+!docs/data/matches/
+!docs/data/matches/**
 Volleybot/
 archive/
 

@@ -1,5 +1,209 @@
 [
   {
+    "clip_name": "rally_000.mp4",
+    "rally_id": 0,
+    "start": 446.0959637188209,
+    "end": 450.1884807256236,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_001.mp4",
+    "rally_id": 1,
+    "start": 462.35573696145127,
+    "end": 471.4057142857143,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_002.mp4",
+    "rally_id": 2,
+    "start": 486.5509297052154,
+    "end": 504.94113378684807,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_003.mp4",
+    "rally_id": 3,
+    "start": 519.2214058956916,
+    "end": 529.2234013605442,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_004.mp4",
+    "rally_id": 4,
+    "start": 539.3066666666666,
+    "end": 549.5756916099773,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_005.mp4",
+    "rally_id": 5,
+    "start": 565.7716099773243,
+    "end": 580.0867120181406,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_006.mp4",
+    "rally_id": 6,
+    "start": 591.1278004535147,
+    "end": 608.4150566893424,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_007.mp4",
+    "rally_id": 7,
+    "start": 624.4658503401361,
+    "end": 635.7913378684807,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_008.mp4",
+    "rally_id": 8,
+    "start": 646.6815419501133,
+    "end": 658.9242630385487,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_009.mp4",
+    "rally_id": 9,
+    "start": 675.4510657596372,
+    "end": 690.8458956916099,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_010.mp4",
+    "rally_id": 10,
+    "start": 709.7063038548753,
+    "end": 713.9033106575964,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_011.mp4",
+    "rally_id": 11,
+    "start": 744.3214512471656,
+    "end": 751.6879818594105,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_012.mp4",
+    "rally_id": 12,
+    "start": 767.9245351473922,
+    "end": 775.6103401360544,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_013.mp4",
+    "rally_id": 13,
+    "start": 787.2783673469388,
+    "end": 797.0133333333333,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_014.mp4",
+    "rally_id": 14,
+    "start": 811.386485260771,
+    "end": 815.2468027210884,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_015.mp4",
+    "rally_id": 15,
+    "start": 849.8387301587302,
+    "end": 869.4479818594104,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_016.mp4",
+    "rally_id": 16,
+    "start": 948.1868480725624,
+    "end": 970.6115192743764,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
     "clip_name": "rally_017.mp4",
     "rally_id": 17,
     "start": 984.1661678004535,
@@ -320,7 +524,20 @@
       -1.2995585203170776,
       8.339975357055664
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_017_debug.mp4"
+  },
+  {
+    "clip_name": "rally_018.mp4",
+    "rally_id": 18,
+    "start": 1010.3756916099774,
+    "end": 1020.9349659863946,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_019.mp4",
@@ -613,7 +830,104 @@
       -0.08050885051488876,
       1.2793985605239868
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_019_debug.mp4"
+  },
+  {
+    "clip_name": "rally_020.mp4",
+    "rally_id": 20,
+    "start": 1057.4657596371883,
+    "end": 1067.073015873016,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_021.mp4",
+    "rally_id": 21,
+    "start": 1078.7468480725624,
+    "end": 1090.20589569161,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_022.mp4",
+    "rally_id": 22,
+    "start": 1103.4180498866212,
+    "end": 1114.610068027211,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_023.mp4",
+    "rally_id": 23,
+    "start": 1131.1542857142856,
+    "end": 1142.857142857143,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_024.mp4",
+    "rally_id": 24,
+    "start": 1162.8204988662133,
+    "end": 1169.4962358276643,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_025.mp4",
+    "rally_id": 25,
+    "start": 1189.3260770975057,
+    "end": 1201.0579591836736,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_026.mp4",
+    "rally_id": 26,
+    "start": 1214.9783219954647,
+    "end": 1225.8800907029479,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_027.mp4",
+    "rally_id": 27,
+    "start": 1240.2416326530613,
+    "end": 1254.7599092970522,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_028.mp4",
@@ -951,7 +1265,32 @@
       6.930777549743652,
       6.009878635406494
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_028_debug.mp4"
+  },
+  {
+    "clip_name": "rally_029.mp4",
+    "rally_id": 29,
+    "start": 1352.7945124716553,
+    "end": 1363.8820861678005,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_030.mp4",
+    "rally_id": 30,
+    "start": 1379.8225850340136,
+    "end": 1387.3574603174602,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_031.mp4",
@@ -1229,7 +1568,56 @@
       -4.141381740570068,
       8.414196014404297
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_031_debug.mp4"
+  },
+  {
+    "clip_name": "rally_032.mp4",
+    "rally_id": 32,
+    "start": 1463.5653514739229,
+    "end": 1471.1002267573697,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_033.mp4",
+    "rally_id": 33,
+    "start": 1481.9613151927438,
+    "end": 1488.5268027210884,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_034.mp4",
+    "rally_id": 34,
+    "start": 1517.104716553288,
+    "end": 1527.7220861678004,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_035.mp4",
+    "rally_id": 35,
+    "start": 1542.9950113378684,
+    "end": 1560.2184126984127,
+    "set_id": 1,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_036.mp4",
@@ -1587,7 +1975,92 @@
       4.914566993713379,
       3.832172393798828
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_036_debug.mp4"
+  },
+  {
+    "clip_name": "rally_037.mp4",
+    "rally_id": 37,
+    "start": 1765.604716553288,
+    "end": 1785.7364172335601,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_038.mp4",
+    "rally_id": 38,
+    "start": 1798.7395918367347,
+    "end": 1814.0299319727892,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_039.mp4",
+    "rally_id": 39,
+    "start": 1833.2502494331065,
+    "end": 1841.0463492063493,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_040.mp4",
+    "rally_id": 40,
+    "start": 1852.9059410430839,
+    "end": 1865.8046258503402,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_041.mp4",
+    "rally_id": 41,
+    "start": 1879.7365986394557,
+    "end": 1893.3609070294785,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_042.mp4",
+    "rally_id": 42,
+    "start": 1908.0649433106576,
+    "end": 1915.721723356009,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_043.mp4",
+    "rally_id": 43,
+    "start": 1926.0604081632653,
+    "end": 1941.4029931972789,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_044.mp4",
@@ -2045,6 +2518,7 @@
       0.7406347393989563,
       6.558904647827148
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_044_debug.mp4"
   },
   {
@@ -2318,7 +2792,104 @@
       7.0804338455200195,
       3.1359755992889404
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_045_debug.mp4"
+  },
+  {
+    "clip_name": "rally_046.mp4",
+    "rally_id": 46,
+    "start": 2007.9804081632653,
+    "end": 2017.6515192743764,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_047.mp4",
+    "rally_id": 47,
+    "start": 2051.006984126984,
+    "end": 2072.706031746032,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_048.mp4",
+    "rally_id": 48,
+    "start": 2114.1013605442176,
+    "end": 2121.224126984127,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_049.mp4",
+    "rally_id": 49,
+    "start": 2131.818231292517,
+    "end": 2148.844263038549,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_050.mp4",
+    "rally_id": 50,
+    "start": 2163.025850340136,
+    "end": 2169.283628117914,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_051.mp4",
+    "rally_id": 51,
+    "start": 2226.5962811791383,
+    "end": 2232.9875736961453,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_052.mp4",
+    "rally_id": 52,
+    "start": 2252.2543310657597,
+    "end": 2258.8662131519272,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_053.mp4",
+    "rally_id": 53,
+    "start": 2278.916598639456,
+    "end": 2293.30716553288,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_054.mp4",
@@ -2726,6 +3297,7 @@
       5.199477672576904,
       7.22058629989624
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_054_debug.mp4"
   },
   {
@@ -3099,7 +3671,44 @@
       6.967978000640869,
       1.1361790895462036
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_055_debug.mp4"
+  },
+  {
+    "clip_name": "rally_056.mp4",
+    "rally_id": 56,
+    "start": 2357.7832199546483,
+    "end": 2363.373424036281,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_057.mp4",
+    "rally_id": 57,
+    "start": 2377.01514739229,
+    "end": 2386.140589569161,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_058.mp4",
+    "rally_id": 58,
+    "start": 2443.0701133786847,
+    "end": 2448.9795918367345,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_059.mp4",
@@ -3387,7 +3996,140 @@
       4.966738700866699,
       6.7084479331970215
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_059_debug.mp4"
+  },
+  {
+    "clip_name": "rally_060.mp4",
+    "rally_id": 60,
+    "start": 2481.1101587301587,
+    "end": 2498.2813605442175,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_061.mp4",
+    "rally_id": 61,
+    "start": 2536.9773696145126,
+    "end": 2545.917097505669,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_062.mp4",
+    "rally_id": 62,
+    "start": 2560.2380045351474,
+    "end": 2568.7307029478457,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_063.mp4",
+    "rally_id": 63,
+    "start": 2593.1755102040815,
+    "end": 2603.432925170068,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_064.mp4",
+    "rally_id": 64,
+    "start": 2614.0502494331067,
+    "end": 2633.9845804988663,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_065.mp4",
+    "rally_id": 65,
+    "start": 2655.515283446712,
+    "end": 2661.7150113378684,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_066.mp4",
+    "rally_id": 66,
+    "start": 2671.902766439909,
+    "end": 2683.0715646258504,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_067.mp4",
+    "rally_id": 67,
+    "start": 2694.826666666667,
+    "end": 2702.2628571428572,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_068.mp4",
+    "rally_id": 68,
+    "start": 2711.7307936507937,
+    "end": 2716.9030385487526,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_069.mp4",
+    "rally_id": 69,
+    "start": 2768.0798185941044,
+    "end": 2774.1866666666665,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_070.mp4",
+    "rally_id": 70,
+    "start": 2787.927074829932,
+    "end": 2797.772335600907,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_071.mp4",
@@ -3585,7 +4327,140 @@
       8.562747955322266,
       0.311165452003479
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_071_debug.mp4"
+  },
+  {
+    "clip_name": "rally_072.mp4",
+    "rally_id": 72,
+    "start": 2863.4673922902493,
+    "end": 2873.591292517007,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_073.mp4",
+    "rally_id": 73,
+    "start": 2890.5185941043082,
+    "end": 2901.408798185941,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_074.mp4",
+    "rally_id": 74,
+    "start": 2913.9011337868483,
+    "end": 2925.418231292517,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_075.mp4",
+    "rally_id": 75,
+    "start": 2944.940408163265,
+    "end": 2966.1692517006804,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_076.mp4",
+    "rally_id": 76,
+    "start": 2974.0988662131517,
+    "end": 2986.7653514739227,
+    "set_id": 2,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_077.mp4",
+    "rally_id": 77,
+    "start": 3171.2014512471656,
+    "end": 3177.853968253968,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_078.mp4",
+    "rally_id": 78,
+    "start": 3215.267120181406,
+    "end": 3221.1243537414966,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_079.mp4",
+    "rally_id": 79,
+    "start": 3232.6820861678007,
+    "end": 3245.656235827664,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_080.mp4",
+    "rally_id": 80,
+    "start": 3257.9279818594105,
+    "end": 3265.973696145125,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_081.mp4",
+    "rally_id": 81,
+    "start": 3275.9698866213153,
+    "end": 3283.8762811791385,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_082.mp4",
+    "rally_id": 82,
+    "start": 3298.1449433106577,
+    "end": 3306.428662131519,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_083.mp4",
@@ -3903,7 +4778,80 @@
       5.903844833374023,
       1.9237266778945923
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_083_debug.mp4"
+  },
+  {
+    "clip_name": "rally_084.mp4",
+    "rally_id": 84,
+    "start": 3351.7656235827662,
+    "end": 3358.685170068027,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_085.mp4",
+    "rally_id": 85,
+    "start": 3370.463492063492,
+    "end": 3380.877641723356,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_086.mp4",
+    "rally_id": 86,
+    "start": 3403.0643083900227,
+    "end": 3416.142947845805,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_087.mp4",
+    "rally_id": 87,
+    "start": 3429.9820408163264,
+    "end": 3437.6736507936507,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_088.mp4",
+    "rally_id": 88,
+    "start": 3448.9469387755103,
+    "end": 3462.873106575964,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_089.mp4",
+    "rally_id": 89,
+    "start": 3478.68589569161,
+    "end": 3484.415419501134,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_090.mp4",
@@ -4121,7 +5069,56 @@
       9.380815505981445,
       1.7414005994796753
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_090_debug.mp4"
+  },
+  {
+    "clip_name": "rally_091.mp4",
+    "rally_id": 91,
+    "start": 3521.0332879818593,
+    "end": 3531.92925170068,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_092.mp4",
+    "rally_id": 92,
+    "start": 3546.47074829932,
+    "end": 3559.5377777777776,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_093.mp4",
+    "rally_id": 93,
+    "start": 3572.6744671201814,
+    "end": 3582.8273922902495,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_094.mp4",
+    "rally_id": 94,
+    "start": 3639.878820861678,
+    "end": 3649.1726077097505,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_095.mp4",
@@ -4419,7 +5416,92 @@
       0.813861072063446,
       7.894418239593506
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_095_debug.mp4"
+  },
+  {
+    "clip_name": "rally_096.mp4",
+    "rally_id": 96,
+    "start": 3693.638820861678,
+    "end": 3712.6385487528346,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_097.mp4",
+    "rally_id": 97,
+    "start": 3734.860045351474,
+    "end": 3740.6302040816327,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_098.mp4",
+    "rally_id": 98,
+    "start": 3754.8234013605443,
+    "end": 3767.6930612244896,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_099.mp4",
+    "rally_id": 99,
+    "start": 3781.781768707483,
+    "end": 3788.4633106575966,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_100.mp4",
+    "rally_id": 100,
+    "start": 3797.838367346939,
+    "end": 3805.535782312925,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_101.mp4",
+    "rally_id": 101,
+    "start": 3815.3055782312927,
+    "end": 3822.910113378685,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_102.mp4",
+    "rally_id": 102,
+    "start": 3837.027845804989,
+    "end": 3845.20126984127,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_103.mp4",
@@ -4672,7 +5754,32 @@
       0.5492241382598877,
       8.494047164916992
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_103_debug.mp4"
+  },
+  {
+    "clip_name": "rally_104.mp4",
+    "rally_id": 104,
+    "start": 3880.600090702948,
+    "end": 3886.3121995464853,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_105.mp4",
+    "rally_id": 105,
+    "start": 3909.7643537414965,
+    "end": 3927.5450340136053,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_106.mp4",
@@ -4950,7 +6057,32 @@
       3.365534782409668,
       5.122726917266846
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_106_debug.mp4"
+  },
+  {
+    "clip_name": "rally_107.mp4",
+    "rally_id": 107,
+    "start": 3959.600181405896,
+    "end": 3966.6184126984126,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_108.mp4",
+    "rally_id": 108,
+    "start": 3981.386303854875,
+    "end": 3989.4726530612243,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_109.mp4",
@@ -5068,7 +6200,104 @@
       9.111623764038086,
       6.702144145965576
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_109_debug.mp4"
+  },
+  {
+    "clip_name": "rally_110.mp4",
+    "rally_id": 110,
+    "start": 4078.9275283446714,
+    "end": 4095.912925170068,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_111.mp4",
+    "rally_id": 111,
+    "start": 4115.783401360544,
+    "end": 4127.869387755102,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_112.mp4",
+    "rally_id": 112,
+    "start": 4141.104761904762,
+    "end": 4151.391201814059,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_113.mp4",
+    "rally_id": 113,
+    "start": 4173.171519274377,
+    "end": 4183.074829931973,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_114.mp4",
+    "rally_id": 114,
+    "start": 4196.327619047619,
+    "end": 4202.864036281179,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_115.mp4",
+    "rally_id": 115,
+    "start": 4248.444807256235,
+    "end": 4256.449886621315,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_116.mp4",
+    "rally_id": 116,
+    "start": 4311.9397732426305,
+    "end": 4319.642993197279,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_117.mp4",
+    "rally_id": 117,
+    "start": 4382.302040816327,
+    "end": 4391.084988662132,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   },
   {
     "clip_name": "rally_118.mp4",
@@ -5486,6 +6715,43 @@
       1.6291764974594116,
       0.6277245283126831
     ],
+    "tracking_status": "not_tracked",
     "debug_output_path": "D:\\VB\\Volleylitics\\output\\20261022_202342\\heatmap\\debug_clips\\rally_118_debug.mp4"
+  },
+  {
+    "clip_name": "rally_119.mp4",
+    "rally_id": 119,
+    "start": 4498.651428571428,
+    "end": 4513.071020408163,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_120.mp4",
+    "rally_id": 120,
+    "start": 4526.4399092970525,
+    "end": 4538.595555555556,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
+  },
+  {
+    "clip_name": "rally_121.mp4",
+    "rally_id": 121,
+    "start": 4554.147120181406,
+    "end": 4570.755192743764,
+    "set_id": 3,
+    "positions": [],
+    "attack_point": null,
+    "landing_point": null,
+    "tracking_status": "not_tracked",
+    "debug_output_path": null
   }
 ]

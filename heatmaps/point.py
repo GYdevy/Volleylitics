@@ -2,6 +2,7 @@ import cv2
 import json
 import numpy as np
 import argparse
+from pathlib import Path
 
 POINT_LABELS = [
     "Click BOTTOM-LEFT court corner",
@@ -108,7 +109,9 @@ def main():
         "net_y_img": net_y,
     }
 
-    with open(args.out, "w") as f:
+    output_path = Path(args.out)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
     print(f"Saved calibration to {args.out}")

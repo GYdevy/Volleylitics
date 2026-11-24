@@ -1,9 +1,11 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
 OUTPUT_DIR = BASE_DIR / "output"
-VIDEO_DIR = "/mnt/hdd/videos"
+VIDEO_DIR = BASE_DIR / "videos"
+RALLY_BASE = BASE_DIR / "rally_segmentator"
 
 # =====================
 # MODEL CONFIG
@@ -11,9 +13,24 @@ VIDEO_DIR = "/mnt/hdd/videos"
 
 MODELS_DIR = BASE_DIR / "models"
 
-WHISTLE_MODEL = MODELS_DIR / "whistle_detector.pth"
-RALLY_MODEL = MODELS_DIR / "rally_segmenter.pth"
-BALL_MODEL = MODELS_DIR / "ball_detector.pt"
+WHISTLE_MODEL = Path(
+    os.environ.get(
+        "VOLLEYLITICS_WHISTLE_MODEL",
+        MODELS_DIR / "best_resnet_whistle_mix.pth",
+    )
+)
+RALLY_MODEL = Path(
+    os.environ.get(
+        "VOLLEYLITICS_RALLY_MODEL",
+        MODELS_DIR / "rally_model_best.pth",
+    )
+)
+BALL_MODEL = Path(
+    os.environ.get(
+        "VOLLEYLITICS_BALL_MODEL",
+        MODELS_DIR / "temp_best_ball.pt",
+    )
+)
 
 
 # =========================

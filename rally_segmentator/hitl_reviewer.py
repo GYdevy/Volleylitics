@@ -148,18 +148,38 @@ def play_clip(start, end, h, i, decisions, video_path):
 # =========================
 # REVIEW LOOP
 # =========================
-def review(video_path, hitl_json):
+def review(video_path, hitl_json, previous_decisions=None):
     hitls = load_hitl(hitl_json)
-    decisions = []
+    decisions_by_index = {
+        int(decision["index"]): decision
+        for decision in (previous_decisions or [])
+        if "index" in decision
+        and "decision" in decision
+        and 0 <= int(decision["index"]) < len(hitls)
+    }
+    decisions = list(decisions_by_index.values())
 
     for i, h in enumerate(hitls):
+        if i in decisions_by_index:
+            continue
         start = max(0, h["start"] - PADDING)
         end = h["end"] + PADDING
 
         print("\n==========================")
         print(f"HITL {i}")
         print(f"{h['start']:.2f} → {h['end']:.2f}")
-        print(f"dur={h['duration']:.2f} | ratio={h['ratio']:.2f} | yellow={h['yellow']:.2f} | score={h['score']:.2f}")
+        if "ball_ratio" in h:
+            visual_summary = (
+                f"ball_ratio={h['ball_ratio']:.2f} | "
+                f"ball_hits={h.get('ball_hits', 0)} | "
+                f"ball_conf={h.get('ball_confidence', 0.0):.2f}"
+            )
+        else:
+            visual_summary = f"yellow={h.get('yellow', 0.0):.2f}"
+        print(
+            f"dur={h['duration']:.2f} | ratio={h['ratio']:.2f} | "
+            f"{visual_summary} | score={h['score']:.2f}"
+        )
         
         result = play_clip(start, end, h, i, decisions,video_path)
 
@@ -168,7 +188,7 @@ def review(video_path, hitl_json):
             break
 
     cv2.destroyAllWindows()
-    return decisions, hitls
+    return sorted(decisions, key=lambda item: item["index"]), hitls
 
 def overlaps(a, b):
     return not (a["end"] < b["start"] or b["end"] < a["start"])
@@ -244,17 +264,35 @@ def add_hitl_to_rallies(rallies, hitl_decisions,hitls):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--match-id", required=True)
+    parser.add_argument("--video", help="Original full-match video")
+    parser.add_argument("--match-dir", help="Analyzed match output directory")
+    parser.add_argument("--reset-decisions", action="store_true")
     args = parser.parse_args()
 
     match_id = args.match_id
 
-    video_path = VIDEO_DIR / f"{match_id}.mp4"
+    video_path = Path(args.video).expanduser().resolve() if args.video else VIDEO_DIR / f"{match_id}.mp4"
 
-    match_dir = RALLY_OUTPUT_DIR / match_id
+    match_dir = Path(args.match_dir).expanduser().resolve() if args.match_dir else RALLY_OUTPUT_DIR / match_id
     hitl_json = match_dir / "hitl.json"
     rallies_json = match_dir / "rallies.json"
     final_output_json = match_dir / "rallies_with_hitl.json"
-    decisions, hitls = review(str(video_path), hitl_json)
+    decisions_json = match_dir / "hitl_decisions.json"
+    if not video_path.is_file():
+        raise FileNotFoundError(f"Original video not found: {video_path}")
+    if not hitl_json.is_file():
+        raise FileNotFoundError(f"Uncertain intervals not found: {hitl_json}")
+    if not rallies_json.is_file():
+        raise FileNotFoundError(f"Rally timeline not found: {rallies_json}")
+
+    previous_decisions = []
+    if decisions_json.is_file() and not args.reset_decisions:
+        with decisions_json.open("r", encoding="utf-8") as decision_file:
+            previous_decisions = json.load(decision_file)
+
+    decisions, hitls = review(str(video_path), hitl_json, previous_decisions)
+    with decisions_json.open("w", encoding="utf-8") as decision_file:
+        json.dump(decisions, decision_file, indent=2)
 
     with open(rallies_json, "r") as f:
         rallies = json.load(f)
@@ -267,7 +305,8 @@ if __name__ == "__main__":
 
     match_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(final_output_json, "w") as f:
+    with open(final_output_json, "w", encoding="utf-8") as f:
         json.dump(merged, f, indent=2)
 
-    print("✅ FINAL saved to:", final_output_json)
+    print("Review decisions:", len(decisions), "/", len(hitls))
+    print("FINAL saved to:", final_output_json)
