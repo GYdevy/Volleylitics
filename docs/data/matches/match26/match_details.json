@@ -1,0 +1,26 @@
+{
+  "teams": [
+    {
+      "name": "Elitzuar Natan Ashkelon",
+      "sets": [
+        25,
+        27,
+        30,
+        25
+        
+      ],
+      "total": 107
+    },
+    {
+      "name": "Ramat Aviv",
+      "sets": [
+        21,
+        25,
+        32,
+        22
+        
+      ],
+      "total": 100
+    }
+  ]
+}
