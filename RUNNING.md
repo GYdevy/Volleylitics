@@ -146,3 +146,17 @@ The saved 960px ball-detector benchmark shows the main tradeoff:
 `yolo26m-960-best.pt` reached 96.18% F1 at 47.82 FPS, while the default
 `temp_best_ball.pt` reached 94.80% F1 at 196.77 FPS. These are model-only
 figures; complete match processing also includes decoding and tracking.
+
+## Safe site publishing
+
+`docs/add_match.py` prepares a new match locally. Commit its `docs/` changes to
+a feature branch and open a pull request instead of pushing directly to `main`.
+The **Site checks** GitHub Actions workflow validates the entire match catalog
+and serves the static site over HTTP as a smoke test. After the checks pass and
+the pull request is merged, GitHub Pages deploys from `main/docs`.
+
+For this workflow to prevent a broken site from being merged, enable a `main`
+branch protection rule in GitHub and require the **Validate and serve site**
+status check. A future desktop-app action can automate branch creation and pull
+request creation, but it should not bypass this review/check gate or push
+directly to `main`.
