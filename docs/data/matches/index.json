@@ -3,6 +3,20 @@
     "season": "2026-2027",
     "matches": [
       {
+        "id": "match27",
+        "label": "Elitzur Natan Ashkelon - Bnei Herzeliya",
+        "videoId": "-hMSylSN_X4",
+        "photo": "./placeholder.svg",
+        "longestRally": "01:08",
+        "ralliesFile": "./data/matches/match27/rally_results.json",
+        "detailsFile": "./data/matches/match27/match_details.json",
+        "date": "2026-11-24",
+        "venue": "away",
+        "competition": "league",
+        "result": "win",
+        "setScore": "3-2"
+      },
+      {
         "id": "match26",
         "label": "Elitzuar Natan Ashkelon - Ramat Aviv",
         "videoId": "jOnqjoCgwWU",
