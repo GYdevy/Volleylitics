@@ -5,15 +5,11 @@ from ultralytics import YOLO
 from heatmaps.draw_court import draw_court
 import json
 import argparse
+import torch
 
 from config import BALL_MODEL
 
-
-
-
-
-
-
+INFERENCE_DEVICE = "cpu"
 
 
 
@@ -84,11 +80,18 @@ def img_to_court_x(x):
     return t * 9
 
 
-def get_clip_paths(clips_dir):
+def get_clip_paths(clips_dir, clip_meta):
+    """Return only clips referenced by this run's metadata.
+
+    This avoids accidentally processing stale clips from an earlier run that
+    detected a different number of rallies.
+    """
+
     clips = []
-    for name in sorted(os.listdir(clips_dir)):
-        if name.lower().endswith(".mp4"):
-            clips.append(os.path.join(clips_dir, name))
+    for name in clip_meta:
+        path = os.path.join(clips_dir, name)
+        if os.path.isfile(path):
+            clips.append(path)
     return clips
 
 
@@ -116,7 +119,7 @@ def track_ball(cap, model, start_frame):
 
         frames.append(frame.copy())
 
-        results = model(frame, conf=0.3)[0]
+        results = model(frame, conf=0.3, device=INFERENCE_DEVICE, verbose=False)[0]
 
         if len(results.boxes) > 0:
             best = max(results.boxes, key=lambda b: float(b.conf[0]))
@@ -325,16 +328,31 @@ def process_single_clip(video_path, model,clip_meta,H,debug_dir):
     positions, frames = track_ball(cap, model, start_frame)
     cap.release()
 
+    result = {
+        "clip_name": clip_name,
+        "rally_id": rally_id,
+        "start": start,
+        "end": end,
+        "set_id": set_id,
+        "positions": [[int(f), int(x), int(y)] for f, x, y in positions],
+        "attack_point": None,
+        "landing_point": None,
+        "tracking_status": "untracked",
+        "debug_output_path": None,
+    }
+
     print(f"{clip_name}: Total points: {len(positions)}")
 
     if len(positions) == 0:
         print(f"{clip_name}: No detections found.")
-        return None
+        result["tracking_status"] = "no_ball_detected"
+        return result
 
     cross = find_crossing(positions)
     if cross is None:
         print(f"{clip_name}: skipped (no valid crossing found)")
-        return None
+        result["tracking_status"] = "no_valid_crossing"
+        return result
 
     hx, hy = cross
 
@@ -346,7 +364,9 @@ def process_single_clip(video_path, model,clip_meta,H,debug_dir):
     
     if ly > 9 or ly < 0:
         print(f"{clip_name}: skipped (landing outside court: y={ly:.2f})")
-        return None
+        result["attack_point"] = [float(ax), float(ay)]
+        result["tracking_status"] = "landing_outside_court"
+        return result
 
     debug_output_path = os.path.join(
     debug_dir,
@@ -361,20 +381,16 @@ def process_single_clip(video_path, model,clip_meta,H,debug_dir):
         #output_path=debug_output_path
     #)
 
-    return {
-    "clip_name": clip_name,
-    "rally_id": rally_id,
-    "start": start,
-    "end": end,
-    "set_id": set_id,
-    "positions": [[int(f), int(x), int(y)] for f, x, y in positions],
-    "attack_point": [float(ax), float(ay)],
-    "landing_point": [float(lx), float(ly)],
-    "debug_output_path": debug_output_path,
-} 
+    result["attack_point"] = [float(ax), float(ay)]
+    result["landing_point"] = [float(lx), float(ly)]
+    result["tracking_status"] = "tracked"
+    result["debug_output_path"] = debug_output_path
+    return result
 
 
 def draw_clip_on_court(court_img, clip_result, offset):
+    if not clip_result.get("attack_point") or not clip_result.get("landing_point"):
+        return
     positions = clip_result["positions"]
     ax, ay = clip_result["attack_point"]
     lx, ly = clip_result["landing_point"]
@@ -387,28 +403,54 @@ def draw_clip_on_court(court_img, clip_result, offset):
     draw_attack_to_landing(court_img, ax, ay, lx, ly, offset, color, rally_id)
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Track the ball and build a court heatmap")
     parser.add_argument("--match-id", required=True)
     parser.add_argument("--calibration", required=True)
+    parser.add_argument("--clips-dir", help="Directory containing rally clips")
+    parser.add_argument("--rallies-json", help="Path to rallies_with_clips.json")
+    parser.add_argument("--output-dir", help="Directory for heatmap results")
+    parser.add_argument("--ball-model", help="Override the configured ball model")
+    parser.add_argument("--device", choices=("auto", "gpu", "cpu"), default="auto")
     args = parser.parse_args()
 
     match_id = args.match_id
     calibration_path = args.calibration
 
-    clips_dir = f"/workspace/rally_segmentator/output/{match_id}/rally_clips"
-    rallies_json = f"/workspace/rally_segmentator/output/{match_id}/rallies_with_clips.json"
-    output_dir = f"/workspace/heatmaps/{match_id}"
+    global INFERENCE_DEVICE
+    if args.device == "cpu":
+        INFERENCE_DEVICE = "cpu"
+    elif torch.cuda.is_available():
+        INFERENCE_DEVICE = 0
+    elif args.device == "gpu":
+        raise RuntimeError("GPU processing was requested but no GPU backend is available")
+    else:
+        INFERENCE_DEVICE = "cpu"
+    print("inference_device:", INFERENCE_DEVICE)
+
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    match_output_dir = os.path.join(project_root, "rally_segmentator", "output", match_id)
+    clips_dir = args.clips_dir or os.path.join(match_output_dir, "rally_clips")
+    rallies_json = args.rallies_json or os.path.join(match_output_dir, "rallies_with_clips.json")
+    output_dir = args.output_dir or os.path.join(project_root, "heatmaps", match_id)
     debug_dir = os.path.join(output_dir, "debug_clips")
     output_json = os.path.join(output_dir, "rally_results.json")
     print("=== generate_heatmap started ===")
     print("match_id:", match_id)
     print("clips_dir:", clips_dir)
     print("rallies_json:", rallies_json)
+    print("output_dir:", output_dir)
+    if not os.path.isfile(calibration_path):
+        raise FileNotFoundError(f"Calibration not found: {calibration_path}")
+    if not os.path.isfile(rallies_json):
+        raise FileNotFoundError(f"Rally metadata not found: {rallies_json}")
     ensure_dirs(output_dir, debug_dir)
 
-    model = YOLO(str(BALL_MODEL))
-    clip_paths = get_clip_paths(clips_dir)
+    ball_model = args.ball_model or str(BALL_MODEL)
+    if not os.path.isfile(ball_model):
+        raise FileNotFoundError(f"Ball model not found: {ball_model}")
+    model = YOLO(ball_model)
     clip_meta = load_rally_metadata(rallies_json)
+    clip_paths = get_clip_paths(clips_dir, clip_meta)
 
     if not clip_paths:
         print("No clips found.")
@@ -428,12 +470,10 @@ def main():
         print(f"\nProcessing {os.path.basename(video_path)}")
 
         clip_result = process_single_clip(video_path, model, clip_meta, H, debug_dir)
-        if clip_result is None:
-            continue
-
         draw_clip_on_court(court_img, clip_result, offset)
         all_results.append(clip_result)
-        processed += 1
+        if clip_result.get("tracking_status") == "tracked":
+            processed += 1
 
     output_court_path = os.path.join(output_dir, "court_map_all.png")
     save_court_map(court_img, output_court_path)
@@ -441,7 +481,7 @@ def main():
     with open(output_json, "w") as f:
         json.dump(all_results, f, indent=2)
 
-    print(f"\nProcessed {processed} clips.")
+    print(f"\nTracked ball landings in {processed} of {len(all_results)} rallies.")
     print(f"Saved combined court map to {output_court_path}")
     print(f"Saved debug clips to {debug_dir}")
     print(f"Saved results to {output_json}")

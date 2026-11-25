@@ -10,8 +10,18 @@ import subprocess
 import os
 from dataclasses import dataclass
 
+# Numba otherwise tries to create caches beside the system Python packages.
+# On some Windows installations that location is protected and the first
+# librosa call can spend minutes retrying temporary files.
+_DEFAULT_NUMBA_CACHE = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "output", ".cache", "numba")
+)
+os.environ.setdefault("NUMBA_CACHE_DIR", _DEFAULT_NUMBA_CACHE)
+os.makedirs(os.environ["NUMBA_CACHE_DIR"], exist_ok=True)
+
 import numpy as np
 import librosa
+import soundfile as sf
 from scipy.ndimage import uniform_filter1d
 from tqdm import tqdm
 # ============================================================
@@ -51,24 +61,34 @@ def load_audio_from_video(video_path, target_sr):
     tmp_path = tmp.name
     tmp.close()
 
-    subprocess.run(
-        [
-            FFMPEG,
-            "-y",
-            "-i", video_path,
-            "-ac", "1",
-            "-ar", str(target_sr),
-            "-vn",
-            tmp_path
-        ],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-        check=True
-    )
+    try:
+        subprocess.run(
+            [
+                FFMPEG,
+                "-y",
+                "-i", video_path,
+                "-ac", "1",
+                "-ar", str(target_sr),
+                "-vn",
+                tmp_path
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=True
+        )
 
-    y, _ = librosa.load(tmp_path, sr=target_sr)
-    os.remove(tmp_path)
-    return y
+        # FFmpeg already produced mono audio at target_sr.  Reading it directly
+        # avoids librosa's resampler/JIT warm-up, which can make the first run
+        # on Windows appear to hang for several minutes.
+        y, sample_rate = sf.read(tmp_path, dtype="float32", always_2d=False)
+        if y.ndim > 1:
+            y = np.mean(y, axis=1)
+        if sample_rate != target_sr:
+            y = librosa.resample(y, orig_sr=sample_rate, target_sr=target_sr)
+        return np.asarray(y, dtype=np.float32)
+    finally:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
 def estimate_whistle_band(y, stage1_detections):
     peak_freqs = []
 
