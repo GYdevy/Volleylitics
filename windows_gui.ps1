@@ -588,12 +588,23 @@ try {
             if (Test-Path -LiteralPath $hitlPath) { Set-StageStatus "review" "complete" "Uncertain intervals available for review" }
             if (Test-Path -LiteralPath (Join-Path $importedDir "rally_clips")) { Set-StageStatus "clips" "complete" "Imported rally clips" }
             if (Test-Path -LiteralPath $heatmapResultsPath) { Set-StageStatus "heatmap" "complete" "Imported ball analytics" }
+            $canResumeHeatmap = (Test-Path -LiteralPath $clipsMetadataPath) -and
+                (Test-Path -LiteralPath (Join-Path $importedDir "rally_clips")) -and
+                -not (Test-Path -LiteralPath $heatmapResultsPath) -and
+                ($importedState -and $importedState.phase -in @("failed", "heatmap_failed", "tracking_ball"))
             if ($importedState -and $importedState.phase -eq "awaiting_review") {
                 Set-StageStatus "review" "waiting" "Paused before ambiguous review"
                 Set-StageStatus "clips" "pending" "Will run after review/continue"
                 Set-StageStatus "heatmap" "pending" "Will run after clip generation"
                 Set-StageStatus "complete" "paused" "Ready to resume from saved rally detection"
                 $runButton.Text = "Resume pipeline"
+            } elseif ($canResumeHeatmap) {
+                Set-StageStatus "rallies" "complete" "Reusing saved rally detection"
+                Set-StageStatus "review" "complete" "Reusing saved review decisions"
+                Set-StageStatus "clips" "complete" "Reusing existing rally clips"
+                Set-StageStatus "heatmap" "failed" "Ball tracking stopped before completion"
+                Set-StageStatus "complete" "paused" "Ready to resume only ball tracking"
+                $runButton.Text = "Resume ball tracking"
             } else {
                 Set-StageStatus "complete" "complete" "Analyzed match imported"
                 $runButton.Text = "Run full pipeline"
@@ -612,6 +623,8 @@ try {
             }
             $summaryLabel.Text = if ($importedState -and $importedState.phase -eq "awaiting_review") {
                 "Imported paused match - review ambiguous intervals or resume"
+            } elseif ($canResumeHeatmap) {
+                "Imported failed ball-tracking run - resume without repeating earlier stages"
             } else {
                 "Imported $($matchText.Text)"
             }
@@ -728,14 +741,21 @@ try {
             }
 
             $resumeAfterReview = $false
+            $resumeHeatmap = $false
             if ($script:LastOutputDir) {
                 $resumeStatePath = Join-Path $script:LastOutputDir "pipeline_state.json"
                 if (Test-Path -LiteralPath $resumeStatePath) {
                     $resumeState = Get-Content -LiteralPath $resumeStatePath -Raw -Encoding UTF8 | ConvertFrom-Json
                     $resumeAfterReview = $resumeState.phase -eq "awaiting_review"
+                    $resumeHeatmap = $resumeState.phase -in @("heatmap_failed", "tracking_ball")
+                    if ($resumeState.phase -eq "failed") {
+                        $resumeHeatmap = (Test-Path -LiteralPath (Join-Path $script:LastOutputDir "rallies_with_clips.json")) -and
+                            (Test-Path -LiteralPath (Join-Path $script:LastOutputDir "rally_clips")) -and
+                            -not (Test-Path -LiteralPath (Join-Path $script:LastOutputDir "heatmap\rally_results.json"))
+                    }
                 }
             }
-            if ($resumeAfterReview) {
+            if ($resumeAfterReview -or $resumeHeatmap) {
                 $matchDir = [System.IO.Path]::GetFullPath($script:LastOutputDir)
                 $matchId = Get-SafeMatchId (Split-Path -Leaf $matchDir)
                 $matchText.Text = $matchId
@@ -756,11 +776,15 @@ try {
             $script:LastOutputDir = $matchDir
             $script:PipelineFinished = $false
             $logBox.Clear()
-            Append-Log $(if ($resumeAfterReview) { "Resuming after ambiguity review...`r`n" } else { "Starting $([System.IO.Path]::GetFileName($videoText.Text))...`r`n" })
+            Append-Log $(if ($resumeAfterReview) { "Resuming after ambiguity review...`r`n" } elseif ($resumeHeatmap) { "Resuming ball tracking from saved clips...`r`n" } else { "Starting $([System.IO.Path]::GetFileName($videoText.Text))...`r`n" })
             Reset-Stages
             if ($resumeAfterReview) {
                 Set-StageStatus "rallies" "complete" "Reusing saved rally detection"
                 Set-StageStatus "review" "complete" "Using saved review decisions"
+            } elseif ($resumeHeatmap) {
+                Set-StageStatus "rallies" "complete" "Reusing saved rally detection"
+                Set-StageStatus "review" "complete" "Using saved review decisions"
+                Set-StageStatus "clips" "complete" "Reusing existing rally clips"
             }
 
             $arguments = New-Object System.Collections.Generic.List[string]
@@ -788,6 +812,7 @@ try {
             $arguments.Add("--review-control")
             $arguments.Add($script:ReviewControlPath)
             if ($resumeAfterReview) { $arguments.Add("--resume-after-review") }
+            if ($resumeHeatmap) { $arguments.Add("--resume-heatmap") }
             if (-not $heatmapCheck.Checked) { $arguments.Add("--skip-heatmap") }
 
             $script:PipelineProcess = Start-HiddenProcess $python $arguments.ToArray()
@@ -972,11 +997,13 @@ try {
                 $script:PipelineFinished = $true
                 $exitCode = $script:PipelineProcess.ExitCode
                 $pipelinePaused = $exitCode -eq 2
+                $heatmapFailed = $false
                 $statePath = Join-Path $script:LastOutputDir "pipeline_state.json"
                 if (Test-Path -LiteralPath $statePath) {
                     try {
                         $currentState = Get-Content -LiteralPath $statePath -Raw -Encoding UTF8 | ConvertFrom-Json
                         if ($currentState.phase -eq "awaiting_review") { $pipelinePaused = $true }
+                        if ($currentState.phase -eq "heatmap_failed") { $heatmapFailed = $true }
                     } catch {}
                 }
                 $script:PipelineProcess.Dispose()
@@ -991,12 +1018,18 @@ try {
                     (Test-Path -LiteralPath (Join-Path $script:LastOutputDir "hitl.json")) -and
                     (Test-Path -LiteralPath (Join-Path $script:LastOutputDir "rallies.json"))
                 $progress.Style = [System.Windows.Forms.ProgressBarStyle]::Blocks
-                $progress.Value = if ($pipelinePaused) { 45 } elseif ($exitCode -eq 0) { 100 } else { 0 }
+                $progress.Value = if ($pipelinePaused) { 45 } elseif ($heatmapFailed) { 80 } elseif ($exitCode -eq 0) { 100 } else { 0 }
                 if ($pipelinePaused) {
                     $runButton.Text = "Resume pipeline"
                     Set-StageStatus "review" "paused" "Review now or resume without manual decisions"
                     Set-StageStatus "complete" "paused" "Detection saved; clips have not started"
                     $summaryLabel.Text = "Pipeline paused - review ambiguous intervals or resume later"
+                }
+                elseif ($heatmapFailed) {
+                    $runButton.Text = "Resume ball tracking"
+                    Set-StageStatus "heatmap" "failed" "Progress saved; a fresh GPU worker can resume"
+                    Set-StageStatus "complete" "paused" "Earlier stages are complete"
+                    $summaryLabel.Text = "Ball tracking stopped - resume from the saved checkpoint"
                 }
                 elseif ($exitCode -eq 0) {
                     $runButton.Text = "Run full pipeline"

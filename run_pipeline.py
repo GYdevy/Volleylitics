@@ -31,6 +31,7 @@ if hasattr(sys.stderr, "reconfigure"):
 PROJECT_ROOT = Path(__file__).resolve().parent
 EVENT_PREFIX = "@@VOLLEYLITICS@@"
 EVENT_LOG_PATH: Path | None = None
+HEATMAP_RESTART_EXIT_CODE = 75
 REQUIRED_MODULES = (
     "numpy",
     "cv2",
@@ -255,6 +256,12 @@ def main() -> int:
         help="Compute device policy (default: auto)",
     )
     parser.add_argument("--skip-heatmap", action="store_true")
+    parser.add_argument(
+        "--heatmap-gpu-restarts",
+        type=int,
+        default=5,
+        help="Fresh worker processes allowed after recoverable GPU launch failures",
+    )
     parser.add_argument("--whistle-model", default=str(WHISTLE_MODEL))
     parser.add_argument("--rally-model", default=str(RALLY_MODEL))
     parser.add_argument("--ball-model", default=str(BALL_MODEL))
@@ -270,7 +277,16 @@ def main() -> int:
         action="store_true",
         help="Reuse saved rally detection and continue with clips/heatmaps",
     )
+    parser.add_argument(
+        "--resume-heatmap",
+        action="store_true",
+        help="Reuse saved rally clips and run only ball tracking/heatmap generation",
+    )
     args = parser.parse_args()
+    if args.heatmap_gpu_restarts < 0:
+        parser.error("--heatmap-gpu-restarts cannot be negative")
+    if args.resume_after_review and args.resume_heatmap:
+        parser.error("--resume-after-review and --resume-heatmap cannot be combined")
 
     global EVENT_LOG_PATH
     if args.event_log:
@@ -296,10 +312,14 @@ def main() -> int:
     if not args.resume_after_review:
         review_control.unlink(missing_ok=True)
 
-    log_mode = "a" if args.resume_after_review else "w"
+    resuming = args.resume_after_review or args.resume_heatmap
+    log_mode = "a" if resuming else "w"
     with log_path.open(log_mode, encoding="utf-8", buffering=1) as log_file:
         if args.resume_after_review:
             log_file.write("\n=== Resuming after ambiguity review ===\n")
+        elif args.resume_heatmap:
+            log_file.write("\n=== Resuming ball tracking from saved clips ===\n")
+        failure_phase = "failed"
         try:
             emit("preflight", "running", "Checking Windows runtime and project files")
             _torch_device, device_summary = preflight(
@@ -325,7 +345,26 @@ def main() -> int:
             final_rallies = match_dir / "rallies_with_hitl.json"
             hitl_path = match_dir / "hitl.json"
 
-            if args.resume_after_review:
+            if args.resume_heatmap:
+                required_resume_files = [
+                    rallies_path,
+                    final_rallies,
+                    match_dir / "rallies_with_clips.json",
+                ]
+                missing_resume_files = [
+                    str(path) for path in required_resume_files if not path.is_file()
+                ]
+                if missing_resume_files or not (match_dir / "rally_clips").is_dir():
+                    raise FileNotFoundError(
+                        "Cannot resume ball tracking; missing saved clips or metadata: "
+                        + ", ".join(missing_resume_files)
+                    )
+                rallies = json.loads(rallies_path.read_text(encoding="utf-8"))
+                reviewed_rallies = json.loads(final_rallies.read_text(encoding="utf-8"))
+                emit("rallies", "complete", f"Reusing {len(rallies)} detected rallies")
+                emit("review", "complete", "Using saved ambiguity-review decisions")
+                emit("clips", "complete", f"Reusing {len(reviewed_rallies)} rally clips")
+            elif args.resume_after_review:
                 if not rallies_path.is_file() or not hitl_path.is_file():
                     raise FileNotFoundError(
                         "Cannot resume: rallies.json and hitl.json must already exist"
@@ -367,104 +406,130 @@ def main() -> int:
                 shutil.copyfile(rallies_path, final_rallies)
                 emit("rallies", "complete", f"Detected {len(rallies)} rallies")
 
-            hitl = json.loads(hitl_path.read_text(encoding="utf-8"))
-            if (
-                not args.resume_after_review
-                and args.review_mode == "prompt"
-                and hitl
-            ):
-                save_pipeline_state(
-                    state_path,
-                    "awaiting_review",
-                    video=str(video),
-                    match_id=args.match_id,
-                    hitl_count=len(hitl),
-                )
-                emit(
-                    "review",
-                    "waiting",
-                    f"{len(hitl)} ambiguous intervals need a decision",
-                    hitl_count=len(hitl),
-                    control_file=str(review_control),
-                    output_dir=str(match_dir),
-                )
-                review_decision = wait_for_review_control(review_control)
-                if review_decision == "pause":
+            if not args.resume_heatmap:
+                hitl = json.loads(hitl_path.read_text(encoding="utf-8"))
+                if (
+                    not args.resume_after_review
+                    and args.review_mode == "prompt"
+                    and hitl
+                ):
+                    save_pipeline_state(
+                        state_path,
+                        "awaiting_review",
+                        video=str(video),
+                        match_id=args.match_id,
+                        hitl_count=len(hitl),
+                    )
                     emit(
-                        "complete",
-                        "paused",
-                        "Paused before clips; import this folder to review or resume later",
+                        "review",
+                        "waiting",
+                        f"{len(hitl)} ambiguous intervals need a decision",
+                        hitl_count=len(hitl),
+                        control_file=str(review_control),
                         output_dir=str(match_dir),
                     )
-                    return 2
-                if review_decision == "reviewed":
-                    emit("review", "complete", "Manual ambiguity decisions integrated")
-                else:
-                    emit("review", "skipped", "Continued without manual ambiguity review")
-            elif not args.resume_after_review:
-                review_message = (
-                    f"Kept {len(rallies)} automatic rallies; "
-                    f"saved {len(hitl)} uncertain intervals"
+                    review_decision = wait_for_review_control(review_control)
+                    if review_decision == "pause":
+                        emit(
+                            "complete",
+                            "paused",
+                            "Paused before clips; import this folder to review or resume later",
+                            output_dir=str(match_dir),
+                        )
+                        return 2
+                    if review_decision == "reviewed":
+                        emit("review", "complete", "Manual ambiguity decisions integrated")
+                    else:
+                        emit("review", "skipped", "Continued without manual ambiguity review")
+                elif not args.resume_after_review:
+                    review_message = (
+                        f"Kept {len(rallies)} automatic rallies; "
+                        f"saved {len(hitl)} uncertain intervals"
+                    )
+                    emit("review", "complete", review_message)
+
+                reviewed_rallies = json.loads(final_rallies.read_text(encoding="utf-8"))
+                save_pipeline_state(
+                    state_path,
+                    "creating_clips",
+                    video=str(video),
+                    rally_count=len(reviewed_rallies),
                 )
-                emit("review", "complete", review_message)
 
-            reviewed_rallies = json.loads(final_rallies.read_text(encoding="utf-8"))
-            save_pipeline_state(
-                state_path,
-                "creating_clips",
-                video=str(video),
-                rally_count=len(reviewed_rallies),
-            )
-
-            emit("clips", "running", "Creating one clip for each rally")
-            run_command(
-                [
-                    sys.executable,
-                    "-u",
-                    "-m",
-                    "rally_segmentator.split_rallies",
-                    "--match-id",
-                    args.match_id,
-                    "--video",
-                    video,
-                    "--output-dir",
-                    match_dir,
-                    "--rallies-json",
-                    final_rallies,
-                ],
-                log_file,
-            )
-            emit("clips", "complete", f"Created {len(reviewed_rallies)} rally clips")
+                emit("clips", "running", "Creating one clip for each rally")
+                run_command(
+                    [
+                        sys.executable,
+                        "-u",
+                        "-m",
+                        "rally_segmentator.split_rallies",
+                        "--match-id",
+                        args.match_id,
+                        "--video",
+                        video,
+                        "--output-dir",
+                        match_dir,
+                        "--rallies-json",
+                        final_rallies,
+                    ],
+                    log_file,
+                )
+                emit("clips", "complete", f"Created {len(reviewed_rallies)} rally clips")
 
             if args.skip_heatmap:
                 emit("heatmap", "skipped", "Heatmap generation was disabled")
             elif not reviewed_rallies:
                 emit("heatmap", "skipped", "No rallies were available for ball tracking")
             else:
-                emit("heatmap", "running", "Tracking ball landings and drawing the court map")
-                run_command(
-                    [
-                        sys.executable,
-                        "-u",
-                        "-m",
-                        "heatmaps.generate_heatmap",
-                        "--match-id",
-                        args.match_id,
-                        "--calibration",
-                        calibration,
-                        "--clips-dir",
-                        match_dir / "rally_clips",
-                        "--rallies-json",
-                        match_dir / "rallies_with_clips.json",
-                        "--output-dir",
-                        heatmap_dir,
-                        "--device",
-                        args.device,
-                        "--ball-model",
-                        ball_model,
-                    ],
-                    log_file,
+                failure_phase = "heatmap_failed"
+                save_pipeline_state(
+                    state_path,
+                    "tracking_ball",
+                    video=str(video),
+                    rally_count=len(reviewed_rallies),
                 )
+                emit("heatmap", "running", "Tracking ball landings and drawing the court map")
+                heatmap_command = [
+                    sys.executable,
+                    "-u",
+                    "-m",
+                    "heatmaps.generate_heatmap",
+                    "--match-id",
+                    args.match_id,
+                    "--calibration",
+                    calibration,
+                    "--clips-dir",
+                    match_dir / "rally_clips",
+                    "--rallies-json",
+                    match_dir / "rallies_with_clips.json",
+                    "--output-dir",
+                    heatmap_dir,
+                    "--device",
+                    args.device,
+                    "--ball-model",
+                    ball_model,
+                ]
+                for restart_number in range(args.heatmap_gpu_restarts + 1):
+                    try:
+                        run_command(heatmap_command, log_file)
+                        break
+                    except subprocess.CalledProcessError as exc:
+                        can_restart = (
+                            exc.returncode == HEATMAP_RESTART_EXIT_CODE
+                            and restart_number < args.heatmap_gpu_restarts
+                        )
+                        if not can_restart:
+                            raise
+                        completed_restarts = restart_number + 1
+                        message = (
+                            "AMD/NVIDIA worker reset detected; restarting ball tracking "
+                            f"from its checkpoint ({completed_restarts}/"
+                            f"{args.heatmap_gpu_restarts})"
+                        )
+                        print(message, flush=True)
+                        log_file.write(message + "\n")
+                        log_file.flush()
+                        emit("heatmap", "running", message)
                 emit("heatmap", "complete", "Court map and rally analytics are ready")
 
             emit(
@@ -481,7 +546,12 @@ def main() -> int:
             )
             return 0
         except Exception as exc:
-            save_pipeline_state(state_path, "failed", error=f"{type(exc).__name__}: {exc}")
+            save_pipeline_state(
+                state_path,
+                failure_phase,
+                video=str(video),
+                error=f"{type(exc).__name__}: {exc}",
+            )
             log_file.write(f"ERROR: {type(exc).__name__}: {exc}\n")
             emit("complete", "failed", f"{type(exc).__name__}: {exc}")
             return 1

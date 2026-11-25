@@ -10,6 +10,8 @@ import torch
 from config import BALL_MODEL
 
 INFERENCE_DEVICE = "cpu"
+GPU_RESTART_EXIT_CODE = 75
+CHECKPOINT_VERSION = 1
 
 
 
@@ -107,7 +109,7 @@ def open_video(video_path):
     return cap, fps, total_frames, start_frame
 
 
-def track_ball(cap, model, start_frame):
+def track_ball(cap, model, start_frame, capture_frames=False):
     positions = []
     frames = []
     frame_idx = start_frame
@@ -117,7 +119,8 @@ def track_ball(cap, model, start_frame):
         if not ret:
             break
 
-        frames.append(frame.copy())
+        if capture_frames:
+            frames.append(frame.copy())
 
         results = model(frame, conf=0.3, device=INFERENCE_DEVICE, verbose=False)[0]
 
@@ -316,30 +319,36 @@ def save_court_map(court_img, output_path):
     cv2.imwrite(output_path, court_img)
 
 
-def process_single_clip(video_path, model,clip_meta,H,debug_dir):
+def base_clip_result(video_path, clip_meta, tracking_status="untracked", error=None):
     clip_name = os.path.basename(video_path)
-
-    cap, fps, total_frames, start_frame = open_video(video_path)
     meta = clip_meta.get(clip_name, {})
-    rally_id = meta.get("id")
-    set_id = meta.get("set")
-    start = meta.get("start")
-    end = meta.get("end")
-    positions, frames = track_ball(cap, model, start_frame)
-    cap.release()
-
     result = {
         "clip_name": clip_name,
-        "rally_id": rally_id,
-        "start": start,
-        "end": end,
-        "set_id": set_id,
-        "positions": [[int(f), int(x), int(y)] for f, x, y in positions],
+        "rally_id": meta.get("id"),
+        "start": meta.get("start"),
+        "end": meta.get("end"),
+        "set_id": meta.get("set"),
+        "positions": [],
         "attack_point": None,
         "landing_point": None,
-        "tracking_status": "untracked",
+        "tracking_status": tracking_status,
         "debug_output_path": None,
     }
+    if error:
+        result["processing_error"] = error
+    return result
+
+
+def process_single_clip(video_path, model,clip_meta,H,debug_dir):
+    clip_name = os.path.basename(video_path)
+    cap, fps, total_frames, start_frame = open_video(video_path)
+    try:
+        positions, frames = track_ball(cap, model, start_frame)
+    finally:
+        cap.release()
+
+    result = base_clip_result(video_path, clip_meta)
+    result["positions"] = [[int(f), int(x), int(y)] for f, x, y in positions]
 
     print(f"{clip_name}: Total points: {len(positions)}")
 
@@ -388,6 +397,78 @@ def process_single_clip(video_path, model,clip_meta,H,debug_dir):
     return result
 
 
+def file_signature(path):
+    resolved = os.path.abspath(path)
+    stat = os.stat(resolved)
+    return {
+        "path": resolved,
+        "size": stat.st_size,
+        "mtime_ns": stat.st_mtime_ns,
+    }
+
+
+def build_checkpoint_signature(calibration_path, rallies_json, ball_model, device):
+    return {
+        "version": CHECKPOINT_VERSION,
+        "calibration": file_signature(calibration_path),
+        "rallies": file_signature(rallies_json),
+        "model": file_signature(ball_model),
+        "device": device,
+    }
+
+
+def write_json_atomic(path, value):
+    temporary_path = f"{path}.tmp"
+    with open(temporary_path, "w", encoding="utf-8", newline="\n") as output:
+        json.dump(value, output, indent=2, ensure_ascii=False)
+        output.write("\n")
+    os.replace(temporary_path, path)
+
+
+def save_checkpoint(path, signature, results):
+    write_json_atomic(path, {"signature": signature, "results": results})
+
+
+def load_checkpoint(path, signature):
+    if not os.path.isfile(path):
+        return []
+    try:
+        with open(path, "r", encoding="utf-8") as checkpoint_file:
+            checkpoint = json.load(checkpoint_file)
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"Ignoring unreadable heatmap checkpoint: {exc}")
+        return []
+    if checkpoint.get("signature") != signature:
+        print("Ignoring heatmap checkpoint because its inputs changed.")
+        return []
+    results = checkpoint.get("results")
+    if not isinstance(results, list):
+        print("Ignoring heatmap checkpoint with invalid results.")
+        return []
+    return results
+
+
+def is_accelerator_failure(exc):
+    messages = []
+    current = exc
+    visited = set()
+    while current is not None and id(current) not in visited:
+        visited.add(id(current))
+        messages.append(f"{type(current).__name__}: {current}".lower())
+        current = current.__cause__ or current.__context__
+    combined = " ".join(messages)
+    return any(
+        marker in combined
+        for marker in (
+            "hiperror",
+            "launch failure",
+            "acceleratorerror",
+            "cuda error",
+            "device-side assert",
+        )
+    )
+
+
 def draw_clip_on_court(court_img, clip_result, offset):
     if not clip_result.get("attack_point") or not clip_result.get("landing_point"):
         return
@@ -434,6 +515,7 @@ def main():
     output_dir = args.output_dir or os.path.join(project_root, "heatmaps", match_id)
     debug_dir = os.path.join(output_dir, "debug_clips")
     output_json = os.path.join(output_dir, "rally_results.json")
+    checkpoint_json = os.path.join(output_dir, "rally_results.partial.json")
     print("=== generate_heatmap started ===")
     print("match_id:", match_id)
     print("clips_dir:", clips_dir)
@@ -448,13 +530,29 @@ def main():
     ball_model = args.ball_model or str(BALL_MODEL)
     if not os.path.isfile(ball_model):
         raise FileNotFoundError(f"Ball model not found: {ball_model}")
-    model = YOLO(ball_model)
     clip_meta = load_rally_metadata(rallies_json)
     clip_paths = get_clip_paths(clips_dir, clip_meta)
 
     if not clip_paths:
         print("No clips found.")
-        return
+        return 0
+
+    checkpoint_signature = build_checkpoint_signature(
+        calibration_path,
+        rallies_json,
+        ball_model,
+        args.device,
+    )
+    all_results = load_checkpoint(checkpoint_json, checkpoint_signature)
+    completed_names = {
+        result.get("clip_name")
+        for result in all_results
+        if isinstance(result, dict) and result.get("clip_name")
+    }
+    if all_results:
+        print(f"Resuming heatmap from checkpoint: {len(all_results)} rallies already saved.")
+
+    model = YOLO(ball_model)
 
     court_img, offset, _, _ = create_court_image()
 
@@ -463,30 +561,67 @@ def main():
 
     H, _ = cv2.findHomography(img_pts, court_pts)
 
-    processed = 0
-    all_results = []
+    processed = sum(
+        result.get("tracking_status") == "tracked"
+        for result in all_results
+        if isinstance(result, dict)
+    )
+    for previous_result in all_results:
+        if isinstance(previous_result, dict):
+            draw_clip_on_court(court_img, previous_result, offset)
 
     for video_path in clip_paths:
-        print(f"\nProcessing {os.path.basename(video_path)}")
+        clip_name = os.path.basename(video_path)
+        if clip_name in completed_names:
+            continue
+        print(f"\nProcessing {clip_name}")
 
-        clip_result = process_single_clip(video_path, model, clip_meta, H, debug_dir)
+        try:
+            clip_result = process_single_clip(video_path, model, clip_meta, H, debug_dir)
+        except Exception as exc:
+            accelerator_failure = is_accelerator_failure(exc)
+            status = "accelerator_error" if accelerator_failure else "processing_error"
+            error_text = f"{type(exc).__name__}: {exc}"
+            clip_result = base_clip_result(video_path, clip_meta, status, error_text)
+            all_results.append(clip_result)
+            completed_names.add(clip_name)
+            save_checkpoint(checkpoint_json, checkpoint_signature, all_results)
+            print(f"{clip_name}: {status}: {error_text}")
+            if accelerator_failure:
+                print(
+                    "GPU worker became unusable. Progress was checkpointed; "
+                    "requesting a fresh worker process."
+                )
+                return GPU_RESTART_EXIT_CODE
+            continue
+
         draw_clip_on_court(court_img, clip_result, offset)
         all_results.append(clip_result)
+        completed_names.add(clip_name)
+        save_checkpoint(checkpoint_json, checkpoint_signature, all_results)
         if clip_result.get("tracking_status") == "tracked":
             processed += 1
 
     output_court_path = os.path.join(output_dir, "court_map_all.png")
     save_court_map(court_img, output_court_path)
 
-    with open(output_json, "w") as f:
-        json.dump(all_results, f, indent=2)
+    result_by_name = {result.get("clip_name"): result for result in all_results}
+    all_results = [
+        result_by_name[os.path.basename(path)]
+        for path in clip_paths
+        if os.path.basename(path) in result_by_name
+    ]
+    write_json_atomic(output_json, all_results)
+    if os.path.isfile(checkpoint_json):
+        os.remove(checkpoint_json)
 
     print(f"\nTracked ball landings in {processed} of {len(all_results)} rallies.")
     print(f"Saved combined court map to {output_court_path}")
     print(f"Saved debug clips to {debug_dir}")
     print(f"Saved results to {output_json}")
+    return 0
 
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -139,6 +139,13 @@ clips, ball-tracking results, court map, pipeline state, and `pipeline.log`.
 The website feed includes every rally; a rally with no reliable ball landing
 remains playable but does not add a misleading heatmap point.
 
+Ball tracking writes `heatmap/rally_results.partial.json` after every rally. If
+an AMD ROCm or NVIDIA CUDA worker reports a launch failure, the failed rally is
+recorded without a heatmap point and the pipeline starts a fresh GPU worker from
+that checkpoint. If automatic restarts are exhausted, import the output folder
+in the Windows app and choose **Resume ball tracking**; whistle detection,
+ambiguity review, and clip generation are not repeated.
+
 The first GPU batch can take 10–20 seconds while ROCm or CUDA prepares kernels.
 This one-time warm-up is expected.
 
