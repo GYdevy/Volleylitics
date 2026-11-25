@@ -100,7 +100,7 @@ $missingModels = $models | Where-Object { -not (Test-Path -LiteralPath (Join-Pat
 if ($missingModels.Count -gt 0) {
     Write-Warning "The following model files are still required:"
     $missingModels | ForEach-Object { Write-Host "  $_" -ForegroundColor Yellow }
-    Write-Host "See README.md for model placement details."
+    Write-Host "See RUNNING.md for model placement details."
 } else {
     Write-Host "All model files found." -ForegroundColor Green
 }
